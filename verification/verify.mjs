@@ -465,8 +465,43 @@ async function campaign() {
     "G.trail===1",
     "The east sign leads directly to Thistlebend Walk",
   );
+  await clickField("field-station");
+  await waitFor(
+    "ui==='The Sleeping Bough'",
+    "The trail fork opens its field notebook",
+  );
+  await shot("field-notebook");
+  await clickElement(".field-note + .actions .primary");
+  await clickField("field-chime-0");
+  await waitFor(
+    "fieldRun?.step===1",
+    "Resolve the Root chime by walking to it",
+  );
+  await clickField("field-chime-1");
+  await waitFor(
+    "fieldRun?.step===0",
+    "An out of order note resets the sequence",
+  );
+  for (const [i, step] of [
+    [0, 1],
+    [2, 2],
+    [1, 3],
+  ]) {
+    await clickField("field-chime-" + i);
+    await waitFor("fieldRun?.step===" + step, "Reach field chime " + i, 12000);
+  }
+  assert(
+    await run(
+      `ui==='Field notes recorded' && G.fieldNotes.includes(1) &&
+       G.bag['Dusk Capsule']>=2 && landmarks().some(s=>s.key==='field-sighting' && species[s.id].name==='Spinchime') &&
+       validateSave(JSON.parse(localStorage.getItem(KEY))).fieldNotes.includes(1)`,
+    ),
+    "The chime puzzle saves supplies and reveals an overworld creature",
+  );
+  await run("closeUI()");
+  await snap("field-chimes");
   console.log(
-    "PASS fresh tutorial with keyboard and pointer, full-screen encounters, guided capture and walking exit",
+    "PASS fresh tutorial, guided capture, walking exit and field notebook with real input",
   );
   await run(
     `window.autofight=()=>{let t=0;while(B&&t++<400){if(B.forced){chooseSwitch(G.party.findIndex(m=>m.hp>0));continue}let p=active(),f=enemy(),dmg=p.moves.map(id=>moves[id]).filter(v=>v.power&&v.cost<=p.en).sort((a,b)=>b.power*mul(b,p,f)-a.power*mul(a,p,f));let swaps=G.party.map((m,i)=>[m,i]).filter(([m,i])=>m.hp&&i!==B.ai).sort(([a],[b])=>match(species[b.id].el[0],f.id)-match(species[a.id].el[0],f.id));if(p.hp<maxhp(p)*.38&&G.bag['Field Tonic']>0)battleAction('item','Field Tonic');else if(swaps.length&&B.turn%5===0&&match(species[p.id].el[0],f.id)<1&&match(species[swaps[0][0].id].el[0],f.id)>1)battleAction('switch',swaps[0][1]);else if(dmg.length)battleAction('move',dmg[0].id);else battleAction('rest')}return [t,ui,G.party.map(m=>[m.lv,m.hp])]}`,
@@ -661,7 +696,7 @@ async function collectAndRecover() {
   });
   await call("Emulation.setTouchEmulationEnabled", { enabled: false });
   await ev(
-    "window.capt=async id=>{wild(id);const family=species[id].f,stage=family>=130?'shrine/'+(family-130):'arena/'+G.z;if(B?.backdrop!==stage)throw Error('Wrong arena for '+id);Math.random=()=>0;battleAction('item','Lumen Capsule');for(let n=0;n<30&&B;n++)await new Promise(r=>setTimeout(r,20));if(B||ui!=='Capture recorded'||captureStage!==stage)throw Error('Capture failed or lost its arena '+id);nameCapture()};window.naturalRand=Math.random;window.collectionAudit=[];",
+    "window.capt=async id=>{if(!B)wild(id);const family=species[id].f,stage=family>=130?'shrine/'+(family-130):'arena/'+G.z;if(B?.backdrop!==stage||enemy().id!==id)throw Error('Wrong arena or companion for '+id);Math.random=()=>0;battleAction('item','Lumen Capsule');for(let n=0;n<30&&B;n++)await new Promise(r=>setTimeout(r,20));if(B||ui!=='Capture recorded'||captureStage!==stage)throw Error('Capture failed or lost its arena '+id);nameCapture()};window.naturalRand=Math.random;window.collectionAudit=[];",
   );
   for (let z = 0; z < 10; z++) {
     let out = await ev(
@@ -670,9 +705,38 @@ async function collectAndRecover() {
     console.log("Habitat", z, out);
   }
   for (let j of [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]) {
+    const id = await ev(`(() => {
+      const f=families[${130 + j}];
+      go(f.zone);lodge();traverse();useTraversal();enterSanctuary();
+      if(!G.sanctuary||!canWalk(G.x,G.y)) throw Error("Sanctuary entrance "+f.zone);
+      const altar=landmarks().find(s=>s.key==="altar");
+      walkTo(altar.x,altar.y,altar);
+      for(let n=0;plannedWalk.length&&n<300;n++) followWalk();
+      if(!ui.includes("shrine"))throw Error("Altar unreachable "+f.zone);
+      ritual(${j});for(const i of shrineNotes[${j}][3])rite(${j},i);
+      if(!G.quests.includes(${j}))throw Error("Unsolved shrine "+f.zone);
+      closeUI();
+      return f.first;
+    })()`);
+    if (j === 3) {
+      await shot("sanctuary");
+      await clickField("guardian");
+      await waitFor(
+        "B?.backdrop==='shrine/3'",
+        "Approach the visible Vernalith",
+        12000,
+      );
+    } else
+      await ev(`(() => {
+      const spot=landmarks().find(s=>s.key==="guardian");
+      if(!spot)throw Error("Guardian missing "+G.z);
+      walkTo(spot.x,spot.y,spot);
+      for(let n=0;plannedWalk.length&&n<300;n++) followWalk();
+      if(!B)throw Error("Guardian unreachable "+G.z);
+    })()`);
     check(
       await ev(
-        `(async()=>{let f=families[130+${j}];go(f.zone);lodge();sideTrail();shrine();ritual(${j});for(let i of shrineNotes[${j}][3])rite(${j},i);if(!G.quests.includes(${j}))return false;await capt(f.first);return G.caught.includes(f.first)})()`,
+        `(async()=>{await capt(${id});return G.caught.includes(${id})})()`,
       ),
       "legendary shrine " + (j + 1),
     );
@@ -765,6 +829,49 @@ async function additionalChecks() {
     "beginGame();closeUI();window.spare=JSON.stringify(G);window.rand=Math.random;Math.random=rng(3448);",
   );
   check(
+    await ev(`(() => {
+      const snapshot=JSON.stringify(G), random=Math.random;
+      const render=battleUI, dialogue=talk, showHall=hall, hud=refresh;
+      battleUI=talk=hall=refresh=()=>{};
+      function play() {
+        for(let step=0;B&&step<80;step++){
+          if(B.forced){chooseSwitch(G.party.findIndex(m=>m.hp>0));continue}
+          const p=active(),f=enemy(),incoming=moves[B.intent?.id];
+          const best=p.moves.map(id=>moves[id]).filter(v=>v.power&&p.en>=v.cost)
+            .map(v=>[estimateDamage(v,p,f)*moveAccuracy(v,p)/100,v.id])
+            .sort((a,b)=>b[0]-a[0])[0];
+          const next=G.party.findIndex(m=>m!==p&&m.hp>maxhp(m)*.4&&incoming?.power&&match(incoming.e,m.id)<1);
+          if(p.hp<=maxhp(p)*.36&&G.bag["Field Tonic"])battleAction("item","Field Tonic");
+          else if(next>=0&&B.turn%2===1&&match(incoming.e,p.id)>=1&&p.hp<maxhp(p)*.85&&f.hp>best?.[0])
+            battleAction("switch",next);
+          else if(best)battleAction("move",best[1]);
+          else battleAction("rest");
+        }
+        if(B)throw Error("Opening battle stalled");
+      }
+      try {
+        return [0,3,6].every(starter=>{
+          let victories=0;
+          for(let seed=1;seed<=12;seed++){
+            G=fresh();G.options.fast=true;G.starter=starter;
+            G.z=G.last=1;G.visited=[0,1];G.sigils=[0];
+            grant(mon(starter));expGain(17);grant(mon(trainingSpot.id,3));
+            Math.random=rng(seed*775023);
+            gymTrainer();play();
+            if(!G.train.includes(1))continue;
+            leader();play();
+            victories+=G.badges;
+          }
+          return victories>=10;
+        });
+      } finally {
+        B=null;G=validateSave(JSON.parse(snapshot));Math.random=random;
+        battleUI=render;talk=dialogue;hall=showHall;refresh=hud;closeUI();save();
+      }
+    })()`),
+    "all three starters can earn the first badge with the guided catch and starting supplies",
+  );
+  check(
     await ev(
       `(()=>{let sig=new Set;for(let d of species){for(let back of [false,true])for(let p=0;p<3;p++){let img=sprite(d.id,back,p),data=img.getContext('2d').getImageData(0,0,img.width,img.height).data;let count=0,h=2166136261;for(let i=3;i<data.length;i+=4){let v=data[i]>0?1:0;count+=v;h=Math.imul(h^v,16777619)}if(count<125)return false;if(!back&&!p)sig.add(h)}}return sig.size===300})()`,
     ),
@@ -802,11 +909,113 @@ async function additionalChecks() {
     "evolution comparison, postponing, reveal skip, reduced motion and retained companion progression",
   );
   await ev("closeUI()");
+  const survey = await ev(`(() => {
+    go(1);closeUI();surveyUI();
+    const sign=document.querySelector('button[onclick^="trackSpecies"]');
+    sign.click();
+    return G.tracked;
+  })()`);
   check(
     await ev(
-      `(()=>{for(let i=0;i<10;i++){go(i);sideTrail();traverse();if(!$('passage'))return false;useTraversal();if(crossing.phase!==1)return false;shrine()}return true})()`,
+      `G.tracked===${survey} && !B && objective()[2]==="tracked" && validateSave(JSON.parse(localStorage.getItem(KEY))).tracked===G.tracked`,
     ),
-    "all ten equipment passages open after the campaign",
+    "habitat survey places a visible, saved trail in the world",
+  );
+  await clickField("tracked");
+  await waitFor(
+    `B && enemy().id===${survey}`,
+    "Follow the trail to its wild companion",
+    12000,
+  );
+  await ev("battleAction('flee');clearTracking();");
+  check(
+    await ev("!B&&G.tracked===null"),
+    "walking to a field sign starts the corresponding encounter",
+  );
+  check(
+    await ev(`(() => {
+      const snapshot=JSON.stringify(G);
+      try {
+        for(let i=1;i<=9;i++){
+          G.z=i-1;beginRoute(i);closeUI();
+          const chimes=fieldStations[i];
+          for(const j of chimes.order){
+            const spot=landmarks().find(s=>s.chime===j);
+            walkTo(spot.x,spot.y,spot);
+            if(!arrival && dist(spot)>13)return false;
+            for(let n=0;plannedWalk.length&&n<300;n++)followWalk();
+            if(plannedWalk.length)return false;
+            if(ui==="Field notes recorded")closeUI();
+          }
+          if(!G.fieldNotes.includes(i))return false;
+          const before=G.bag['Dusk Capsule'];
+          for(const j of chimes.order)touchChime(i,j);
+          if(G.bag['Dusk Capsule']!==before || ui)return false;
+          const sighting=landmarks().find(s=>s.key==="field-sighting");
+          if(!sighting || !canWalk(sighting.x,sighting.y))return false;
+        }
+        const old=JSON.parse(snapshot);
+        delete old.fieldNotes;
+        delete old.options.text;
+        delete old.bag["Calibration Lens"];
+        if(validateSave(old).fieldNotes.length!==0 || old.bag['Calibration Lens']!==0)return false;
+        if(G.bag['Calibration Lens']!==1 || G.fieldNotes.length!==9)return false;
+        const copy=validateSave(JSON.parse(JSON.stringify(G)));
+        if(copy.fieldNotes.length!==9)return false;
+        copy.fieldNotes.push(2);
+        try{validateSave(copy);return false}catch{}
+        equip(0,"Calibration Lens");
+        return moveAccuracy(moves[3],G.party[0])===98&&moveAccuracy(moves[1],G.party[0])===100
+          && moveAccuracy(moves[5],G.party[0])===90;
+      } finally {G=validateSave(JSON.parse(snapshot));closeUI();save();refresh()}
+    })()`),
+    "all nine field loops, renewable sightings, one-time rewards, held Lens and legacy saves",
+  );
+  check(
+    await ev(`(() => {
+      const snapshot=JSON.stringify(G), random=Math.random;
+      try {
+        G.party=[mon(0,10),mon(3,10)];G.options.fast=true;
+        G.party[1].en=1;
+        const opponent=mon(3,9);opponent.moves=[0];
+        startBattle([opponent],"rival","Relay test",()=>{});
+        const foe=enemy(), partner=G.party[1], intent=B.intent;
+        if(intent.id!==0||!$("battleHint").textContent.includes("relay"))return false;
+        switchUI();
+        if(!$("battlePanel").textContent.includes("Relay on hit")||B.intent!==intent)return false;
+        Math.random=()=>0.5;
+        chooseSwitch(1);
+        if(active()!==partner||!mod(partner).relay||B.relayTarget!==null||
+          partner.en!==5+Number(species[partner.id].trait===5))return false;
+        const hit=moves[partner.moves[0]], boosted=estimateDamage(hit,partner,foe);
+        mod(partner).relay=false;
+        if(Math.abs(boosted/estimateDamage(hit,partner,foe)-1.25)>0.001)return false;
+        mod(partner).relay=true;
+        battleAction("move",partner.moves[0]);
+        return B && !mod(partner).relay && B.log.some(line=>line.includes("Relay released"));
+      } finally {B=null;G=validateSave(JSON.parse(snapshot));Math.random=random;closeUI();save();refresh()}
+    })()`),
+    "resisted switch charges one relay, preserves the opponent commitment and boosts exactly one hit",
+  );
+  check(
+    await ev(
+      `(()=>{for(let i=0;i<10;i++){
+        go(i);sideTrail();traverse();if(!$('passage'))return false;
+        useTraversal();enterSanctuary();
+        if(!G.sanctuary || !canWalk(G.x,G.y)) return false;
+        const saved=validateSave(JSON.parse(localStorage.getItem(KEY)));
+        if(!saved.sanctuary||saved.z!==i)return false;
+        for (const key of ["altar", "retreat"]){
+          const spot=landmarks().find(s=>s.key===key);
+          walkTo(spot.x,spot.y);
+          for(let n=0;plannedWalk.length&&n<300;n++) followWalk();
+          if(dist(spot)>5)return false;
+        }
+        shrine();leaveSanctuary();
+        if(G.sanctuary||!canWalk(G.x,G.y))return false;
+      }return true})()`,
+    ),
+    "all ten equipment passages, walkable altars, saved entrances and safe exits",
   );
   await ev("closeUI();go(1);hall();meetLeader(true)");
   await new Promise((r) => setTimeout(r, 180));

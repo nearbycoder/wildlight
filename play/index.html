@@ -356,11 +356,11 @@
           .action,
           .journal-nav button,
           .whead button
-        ):is(:hover, :focus-visible):not(:disabled) {
+        ):is(:hover, :focus-visible):not(:disabled, .primary) {
         border-color: #9ab799;
         background-color: var(--panel-hi);
       }
-      button:is(.choice, .entry, .action):active:not(:disabled) {
+      button:is(.choice, .entry, .action):active:not(:disabled, .primary) {
         background-color: #355657;
       }
       .action {
@@ -1137,6 +1137,13 @@
         font-size: 11px;
         line-height: 1.2;
       }
+      .combatant-elements {
+        display: block;
+        color: #d9e5c7;
+        margin-bottom: 4px;
+        font: 650 clamp(9px, 0.85vw, 12px) / 1.2 var(--body);
+        letter-spacing: 0.02em;
+      }
       .combatant-status:empty {
         display: none;
       }
@@ -1185,6 +1192,30 @@
       }
       .battle-panel .party-card {
         padding: 0;
+      }
+      .battle-meter {
+        display: inline-flex;
+        align-items: center;
+        flex-wrap: wrap;
+        justify-content: end;
+        gap: 4px 10px;
+      }
+      .team-pips {
+        display: inline-flex;
+        gap: 3px;
+        padding-left: 6px;
+        border-left: 1px solid #9f91676b;
+      }
+      .team-pips i {
+        width: 6px;
+        height: 6px;
+        margin: 0 1px;
+        transform: rotate(45deg);
+        border: 1px solid #bba875;
+        background: #4d5345;
+      }
+      .team-pips i.live {
+        background: #dfc07c;
       }
       .battle-readout {
         display: grid;
@@ -1494,11 +1525,115 @@
         font-size: 13px;
         white-space: nowrap;
       }
+      .overlay:has(#roomBackdrop:not([hidden])) {
+        isolation: isolate;
+        background: #101f27;
+      }
+      #roomBackdrop {
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+      }
+      .overlay[data-scene="room"] #window {
+        width: min(970px, 100%, max(580px, 118dvh));
+        border-top: 3px double #b49d70;
+        background: #142a2ff5;
+        box-shadow: 0 16px 45px #0b151aaa;
+      }
       .overlay[data-scene="room"] .content {
         padding-top: 10px;
       }
       .overlay[data-scene="room"] .pixel {
         border: 1px solid var(--line);
+      }
+      .field-note {
+        padding: 14px 16px;
+        border: 1px solid #6f826b;
+        border-top: 3px double #b49d70;
+        background: linear-gradient(145deg, #263e3b, #1b3033 68%);
+      }
+      .field-note-kicker,
+      .map-field-notes {
+        color: #dfcb98;
+        font: 650 12px/1.5 var(--mono);
+      }
+      .field-note blockquote {
+        margin: 13px 0;
+        padding: 9px 12px;
+        border-left: 3px solid #bba273;
+        background: #162a30;
+        color: #fbedc7;
+        font-size: clamp(15px, 2.5vw, 19px);
+      }
+      .league-ladder {
+        display: grid;
+        gap: 6px;
+        list-style: none;
+        padding: 0;
+        margin: 12px 0;
+      }
+      .league-ladder li {
+        display: grid;
+        grid-template-columns: 48px minmax(0, 1fr) auto;
+        align-items: center;
+        gap: 9px;
+        padding: 6px 9px;
+        background: #1c3739;
+        border: 1px solid #45625a;
+      }
+      .league-ladder .next {
+        border-color: #bcb184;
+        background: #294843;
+      }
+      .league-ladder canvas {
+        width: 46px;
+        height: 46px;
+        background: #10292c;
+      }
+      .league-ladder small {
+        color: var(--muted);
+      }
+      .league-ladder .next small,
+      .league-ladder li > span:last-child {
+        color: var(--gold);
+      }
+      .chapter-art {
+        position: relative;
+        border: 1px solid #826f50;
+        overflow: hidden;
+        background: #1b3036;
+      }
+      .chapter-art h3 {
+        position: absolute;
+        inset: auto 14px 12px;
+        color: #fff4d5;
+        text-shadow:
+          0 2px 4px #071b23,
+          1px 2px #173137;
+        font-size: clamp(22px, 4vw, 36px);
+      }
+      .expedition-record {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 10px;
+        margin: 15px 0;
+      }
+      .expedition-record div {
+        border-top: 2px solid #b6a376;
+        background: #233e3e;
+        padding: 10px 8px;
+      }
+      .expedition-record dt {
+        color: var(--muted);
+        font-size: 12px;
+      }
+      .expedition-record dd {
+        margin: 3px 0 0;
+        color: var(--gold);
+        font: 700 clamp(18px, 3vw, 27px) / 1.15 var(--head);
       }
       @media (pointer: coarse), (max-width: 730px) {
         .touch {
@@ -1783,6 +1918,7 @@
       ></canvas>
     </main>
     <div class="overlay" id="overlay" hidden>
+      <canvas id="roomBackdrop" aria-hidden="true" hidden></canvas>
       <section
         id="window"
         role="dialog"
@@ -3602,7 +3738,8 @@
           "Summit permit",
           "Veil lantern",
           "Zenith seal",
-        ];
+        ],
+        needs = [1, 1, 2, 3, 4, 5, 6, 7, 8, 8];
       // Field catalogue. Each line is an authored family, body plan, field mark and observation.
       const familyText = `Spriglet Brambleap Verdantler|deer leaf|2 10|Leaf ears fold inward to catch the last rain.
 Cindillo Charback Kilnwarden|shell furnace|0 7|Hollow ceramic plates hum when its belly warms.
@@ -4016,6 +4153,7 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
             [12, e2 * 9 + 8],
             [14, e2 * 9 + 6],
           ];
+          if (f.i === 2) learn.splice(3, 0, [3, e2 * 9 + 1]);
           species.push({
             id,
             name,
@@ -4666,6 +4804,7 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
         ]) {
           fieldObject(c, "district/6", x, y + 2, 24, 19);
         }
+        if (z > 0) fieldObject(c, "district/6", 25, 135, 22, 19);
         objs.sort((a, b) => a.y - b.y).forEach((o) => o.fn());
         for (let [x, y] of [
           [190, 146],
@@ -4687,6 +4826,7 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
           high: "High detail",
           classic: "Classic",
         },
+        textModes = { normal: "Normal", fast: "Fast", instant: "Instant" },
         items = {
           "Lumen Capsule": "Standard faceted capture capsule.",
           "Tide Capsule":
@@ -4697,13 +4837,17 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
           "Growth Stone": "Evolves compatible companions.",
           "Amber Pin": "Held • increases attack damage by 12%.",
           "Moss Band": "Held • restores 3% health each turn.",
-        };
+          "Calibration Lens":
+            "Held • adds up to 10 points of accuracy to Focus attacks.",
+        },
+        heldItems = ["Amber Pin", "Moss Band", "Calibration Lens"];
       function fresh() {
         return {
           v: 1,
           z: 0,
           x: 148,
           y: 129,
+          sanctuary: false,
           last: 0,
           visited: [0],
           badges: 0,
@@ -4716,21 +4860,27 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
           seen: [],
           caught: [],
           bag: Object.fromEntries(
-            Object.keys(items).map((k, i) => [k, [6, 0, 0, 2, 0, 0, 0][i]]),
+            Object.keys(items).map((k) => [
+              k,
+              { "Lumen Capsule": 6, "Field Tonic": 2 }[k] ?? 0,
+            ]),
           ),
           loot: [],
           train: [],
           rematch: [],
           quests: [],
           sigils: [],
+          fieldNotes: [],
           wind: false,
           tick: 0,
           survey: 0,
+          tracked: null,
           options: {
             sound: false,
             music: 40,
             effects: 60,
             fast: false,
+            text: "normal",
             reduced: false,
             graphics: "auto",
             keys: {
@@ -4819,6 +4969,33 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
           },
           num = (v, min, max) => Number.isInteger(v) && v >= min && v <= max;
         ok(g?.v === 1, "Unknown format");
+        if (g.sanctuary === undefined) g.sanctuary = false;
+        ok(
+          typeof g.sanctuary === "boolean" &&
+            (!g.sanctuary || (!g.trail && g.badges >= needs[g.z])),
+          "Invalid sanctuary passage",
+        );
+        if (g.tracked === undefined) g.tracked = null;
+        const tracked = species[g.tracked];
+        ok(
+          g.tracked === null ||
+            (num(g.tracked, 0, 299) &&
+              tracked &&
+              !tracked.s &&
+              tracked.f < 130 &&
+              tracked.zone === g.z),
+          "Invalid field tracking",
+        );
+        if (g.fieldNotes === undefined) g.fieldNotes = [];
+        ok(
+          Array.isArray(g.fieldNotes) &&
+            g.fieldNotes.length <= 9 &&
+            new Set(g.fieldNotes).size === g.fieldNotes.length &&
+            g.fieldNotes.every((route) =>
+              num(route, 1, Math.min(g.badges + 1, 9)),
+            ),
+          "Invalid field notes",
+        );
         ok(
           g.trail === undefined ||
             (num(g.trail, 0, 9) && g.trail <= g.badges + 1),
@@ -4904,7 +5081,7 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
               num(m.xp, 0, 1e9) &&
               typeof m.nick === "string" &&
               m.nick.length <= 24 &&
-              ["", "Moss Band", "Amber Pin"].includes(m.held),
+              (m.held === "" || heldItems.includes(m.held)),
             "Invalid companion",
           );
           ok(
@@ -4915,6 +5092,13 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
             "Invalid moves",
           );
         }
+        if (g.bag && !Object.hasOwn(g.bag, "Calibration Lens"))
+          g.bag["Calibration Lens"] = Number(
+            g.fieldNotes.length >= 3 &&
+              ![...g.party, ...g.box].some(
+                (m) => m.held === "Calibration Lens",
+              ),
+          );
         for (let k of Object.keys(items))
           ok(num(g.bag?.[k], 0, 1e8), "Invalid supplies");
         let o = g.options;
@@ -4934,6 +5118,8 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
             "Invalid key",
           );
         if (!Object.hasOwn(graphicsModes, o.graphics)) o.graphics = "auto";
+        if (!Object.hasOwn(textModes, o.text))
+          o.text = o.fast ? "instant" : "normal";
         return g;
       }
       try {
@@ -4971,28 +5157,61 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
         typing = null;
       function enableAudio() {
         if (G.options.sound) {
-          ac ??= new (window.AudioContext || window.webkitAudioContext)();
-          ac.resume().catch(() => {});
+          const Audio = window.AudioContext || window.webkitAudioContext;
+          if (!Audio) return;
+          ac ??= new Audio();
+          if (ac.state === "suspended") ac.resume().catch(() => {});
         }
       }
-      function tone(freq, t = 0.09, type = "triangle", music = false, end = 0) {
+      function tone(
+        freq,
+        t = 0.09,
+        type = "triangle",
+        music = false,
+        end = 0,
+        delay = 0,
+        weight = 1,
+      ) {
         if (!G.options.sound || !ac || paused) return;
+        const level = (music ? G.options.music : G.options.effects) / 100;
+        if (!level) return;
         let gain = ac.createGain(),
           osc = ac.createOscillator(),
-          now = ac.currentTime,
-          vol = (music ? G.options.music : G.options.effects) / 100;
+          now = ac.currentTime + delay;
         osc.type = type;
         osc.frequency.setValueAtTime(freq, now);
         if (end) osc.frequency.exponentialRampToValueAtTime(end, now + t);
         gain.gain.setValueAtTime(0.0001, now);
         gain.gain.exponentialRampToValueAtTime(
-          Math.max(0.0001, vol * (music ? 0.055 : 0.09)),
+          Math.max(0.0001, level * weight * (music ? 0.105 : 0.13)),
           now + 0.012,
         );
         gain.gain.exponentialRampToValueAtTime(0.0001, now + t);
         osc.connect(gain).connect(ac.destination);
-        osc.start();
+        osc.start(now);
         osc.stop(now + t + 0.01);
+      }
+      const soundPhrases = {
+        notes: [392, 493.88, 587.33],
+        relay: [329.63, 440, 659.26],
+        capture: [523.25, 659.26, 783.99, 1046.5],
+        badge: [293.66, 369.99, 440, 587.33],
+        restored: [261.63, 329.63, 392, 523.25, 659.26],
+        cup: [293.66, 369.99, 440, 587.33, 739.99, 880],
+      };
+      function soundPhrase(key) {
+        const phrase = soundPhrases[key];
+        phrase.forEach((freq, i) => {
+          tone(
+            freq,
+            i === phrase.length - 1 ? 0.55 : 0.26,
+            i === 0 ? "triangle" : "sine",
+            false,
+            0,
+            i * 0.078,
+            0.62,
+          );
+        });
       }
       function cry(id) {
         if (!G.options.sound || !ac) return;
@@ -5013,18 +5232,13 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
         ];
         const base = (185 + (d.call % 325)) / (1 + d.s * 0.14);
         phrases[group].forEach((ratio, i) =>
-          setTimeout(
-            () => {
-              if (!paused)
-                tone(
-                  base * ratio,
-                  group === 1 ? 0.19 : 0.1,
-                  ["sine", "triangle", "sine", "triangle"][group],
-                  false,
-                  base * ratio * (group === 2 ? 1.19 : 0.78),
-                );
-            },
-            i * (group === 0 ? 58 : 86),
+          tone(
+            base * ratio,
+            group === 1 ? 0.19 : 0.1,
+            ["sine", "triangle", "sine", "triangle"][group],
+            false,
+            base * ratio * (group === 2 ? 1.19 : 0.78),
+            i * (group === 0 ? 0.058 : 0.086),
           ),
         );
       }
@@ -5051,17 +5265,20 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
         wild: [0, 7, 5, 3, 10, 7, 5, null, 0, 5, 8, 12, 10, 7, 5, 2],
         league: [0, 7, 12, 7, 5, 8, 3, 5, 10, 7, 12, 14, 12, null, 8, 7],
         champion: [0, 7, 12, 10, 8, 12, 14, 10, 5, 8, 12, 7, 3, 5, 7, 2],
+        regulator: [0, -2, 0, 3, 6, 5, 3, null, 0, 7, 6, 12, 10, 6, 3, -2],
       };
       function music(t) {
         if (!G.options.sound || !ac) return;
         const z = G.trail || G.z;
         const track = B
-          ? B.kind === "wild"
-            ? "wild"
-            : B.kind === "champion"
-              ? "champion"
-              : "league"
-          : z;
+          ? {
+              wild: "wild",
+              champion: "champion",
+              story: "regulator",
+            }[B.kind] || "league"
+          : titleActive
+            ? "title"
+            : z;
         if (currentScore !== track) {
           currentScore = track;
           nextNote = t;
@@ -5069,38 +5286,58 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
         }
         if (t < nextNote) return;
         const beat = note % 16,
-          measure = (note >> 4) % 2;
+          measure = (note >> 4) % 4;
         const seq = B ? encounterScore[track] : regionalScore[z];
         const rate = B
           ? B.kind === "champion"
             ? 173
             : B.kind === "wild"
               ? 208
-              : 184
+              : B.kind === "story"
+                ? 191
+                : 184
           : [330, 370, 340, 275, 305, 410, 390, 365, 305, 360][z];
         nextNote = t + rate;
-        const root = 196 * 2 ** ((z % 5) / 12);
-        if (seq[beat] !== null)
+        const root =
+            196 * 2 ** (((z % 5) + (measure === 2 ? (B ? 3 : 5) : 0)) / 12),
+          pitch = seq[beat];
+        if (pitch !== null)
           tone(
-            root * 2 ** (seq[beat] / 12),
+            root * 2 ** (pitch / 12),
             beat % 4 === 3 ? 0.42 : 0.23,
-            z === 6 || z === 7 ? "sine" : "triangle",
+            z === 6 || z === 7 || titleActive ? "sine" : "triangle",
             true,
           );
+        const measureBass = [0, -4, -2, measure % 2 ? -7 : -5][beat >> 2];
         if (beat % 4 === 0) {
-          const bass =
-            root *
-            2 ** ([-12, -16, -14, measure === 0 ? -17 : -19][beat >> 2] / 12);
-          tone(bass, B ? 0.31 : 0.58, "sine", true);
-          if (B) tone(75, 0.068, "sine", true, 47);
+          const bass = root * 2 ** ((measureBass - 12) / 12);
+          tone(bass, B ? 0.31 : 0.73, "sine", true, 0, 0, 0.92);
+          if (B) tone(75, 0.085, "sine", true, 47, 0, 0.78);
+          else {
+            tone(bass * 2.997, 0.61, "sine", true, 0, 0.04, 0.34);
+            tone(
+              bass * (z === 5 || z === 7 || z === 9 ? 2.378 : 2.52),
+              0.71,
+              "sine",
+              true,
+              0,
+              0.1,
+              0.27,
+            );
+          }
         }
-        if (beat % 4 === 2 || (B && beat % 4 === 3))
+        if (pitch !== null && (beat % 4 === 2 || (B && beat % 4 === 3)))
           tone(
-            root * 2 ** ((seq[beat] - (measure ? 7 : 5)) / 12),
+            root * 2 ** ((pitch - (measure % 2 ? 7 : 5)) / 12),
             0.18,
             "sine",
             true,
+            0,
+            0.018,
+            0.58,
           );
+        if (B && beat % 4 === 2)
+          tone(139, 0.055, "triangle", true, 62, 0, 0.38);
         note++;
       }
       function modal(title, html, parent = null) {
@@ -5146,6 +5383,7 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
                     : html.includes('id="portrait"')
                       ? "dialogue"
                       : "menu";
+        $("roomBackdrop").hidden = $("overlay").dataset.scene !== "room";
         $("overlay").hidden = false;
         $("stage").inert = true;
         $("windowTitle").textContent = title;
@@ -5387,7 +5625,13 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
         key: "lesson",
       };
       function lessonPending() {
-        return G.z === 0 && !G.trail && G.badges === 0 && G.caught.length < 2;
+        return (
+          G.z === 0 &&
+          !G.trail &&
+          !G.sanctuary &&
+          G.badges === 0 &&
+          G.caught.length < 2
+        );
       }
       function objective() {
         if (!G.party.length)
@@ -5402,11 +5646,42 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
             "Meet the marked Gravlet in the west meadow. Weaken it, then throw a Lumen Capsule.",
             "lesson",
           ];
+        if (
+          G.trail &&
+          fieldRun?.route === G.trail &&
+          fieldRun.tracked &&
+          !G.fieldNotes.includes(G.trail)
+        )
+          return [
+            fieldStations[G.trail].name + " · " + fieldRun.step + "/3",
+            fieldStations[G.trail].clue,
+          ];
         if (G.trail)
           return [
             "Follow the trail to " + towns[G.trail],
-            "The east trail sign leads into town. Check the meadow and field cache along the way.",
+            "Follow the east trail sign into town or investigate the chimes at the fork.",
             "destination",
+          ];
+        if (G.sanctuary) {
+          const f = sanctuaryFamilies[G.z],
+            j = f.i - 130;
+          return G.quests.includes(j) && shrineReady(j)
+            ? [
+                "Find " + f.names[0],
+                "Follow the light beyond the altar. The guardian will answer again if you leave.",
+                "guardian",
+              ]
+            : [
+                "Investigate the altar",
+                "Read the inscription to learn what the shrine is waiting for.",
+                "altar",
+              ];
+        }
+        if (G.tracked !== null)
+          return [
+            "Follow " + species[G.tracked].name + " tracks",
+            "Follow the gold marker to the creature’s field sign.",
+            "tracked",
           ];
         if (G.badges < 8)
           return G.z === G.badges + 1
@@ -5459,8 +5734,16 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
               : "Interact";
       }
       function refresh() {
-        $("zoneLabel").textContent = G.trail ? "Walking route" : zones[G.z];
-        $("loc").textContent = G.trail ? routeNames[G.trail] : towns[G.z];
+        $("zoneLabel").textContent = G.trail
+          ? "Walking route"
+          : G.sanctuary
+            ? "Sanctuary"
+            : zones[G.z];
+        $("loc").textContent = G.trail
+          ? routeNames[G.trail]
+          : G.sanctuary
+            ? shrineNotes[sanctuaryFamilies[G.z].i - 130][0]
+            : towns[G.z];
         $("fieldObjective").textContent = objective()[0];
         $("fieldControls").hidden =
           G.tick > 110 || G.z !== 0 || Boolean(G.trail);
@@ -5484,7 +5767,7 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
         ],
         [
           "Speed",
-          "Wake Dart and Flash Feather act before ordinary moves. Pick the better matchup.",
+          "Wake Dart acts before ordinary moves. Arc Thread gives it Storm coverage.",
         ],
       ];
       function drawPartner(cv, id, t) {
@@ -5506,7 +5789,7 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
         if (G.party.length) return partyUI();
         modal(
           "Choose your field partner",
-          `<p>Oriel sets three travelling cases on the lab steps. Pick the companion you want by your side.</p>
+          `<p>The lighthouse stopped pulsing last night. Oriel needs a field researcher and a companion to follow the signal inland.</p>
           <div class="starter-grid">${[0, 3, 6]
             .map((id, n) => {
               const d = species[id],
@@ -5523,6 +5806,7 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
           <div class="starter-confirm"><p>You can find the other two families in the wild later.</p>
           <button id="chooseStarter" class="action primary"></button></div>`,
         );
+        paintMenuBackdrop("lab");
         for (const cv of $("content").querySelectorAll("canvas[data-id]"))
           drawPartner(cv, +cv.dataset.id, performance.now());
         previewStarter([0, 3, 6][Math.max(0, j)] ?? 0);
@@ -5552,9 +5836,9 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
         refresh();
         talk(
           "Researcher Oriel",
-          "See the Gravlet in the west meadow? It’s used to researchers. Let " +
+          "A Gravlet still answers the old signal in the west meadow. Take " +
             species[id].name +
-            " lead, then try a Lumen Capsule once Gravlet is tired.",
+            " along. Weaken Gravlet, then offer it a Lumen Capsule.",
           1,
           "closeUI()",
           "Head to the meadow",
@@ -5573,7 +5857,7 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
         action = "closeUI()",
         label = "Continue",
       ) {
-        const instant = G.options.fast || G.options.reduced;
+        const instant = G.options.reduced || G.options.text === "instant";
         modal(
           who,
           `<canvas id="portrait" width="32" height="32" class="portrait" aria-hidden="true"></canvas>
@@ -5581,7 +5865,12 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
             <div class="actions">${btn(label, "if(!finishSpeech()){" + action + "}", "primary")}</div></div>`,
         );
         portrait($("portrait"), who);
-        if (!instant) typing = { text, start: performance.now() };
+        if (!instant)
+          typing = {
+            text,
+            start: performance.now(),
+            interval: G.options.text === "fast" ? 7 : 17,
+          };
       }
       // Overworld actors and interactions
       const habitatPools = zones.map((_, z) =>
@@ -5607,10 +5896,19 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
           ];
           if (!G.party.length) visible = visible.slice(0, 1);
         }
+        if (G.tracked !== null) {
+          const matched = visible.findIndex(
+            (s) => s[2] === G.tracked && s[3] !== "lesson",
+          );
+          const slot = matched >= 0 ? matched : 1;
+          const [x, y] = visible[slot];
+          visible[slot] = [x, y, G.tracked, "tracked"];
+        }
         return visible;
       }
       function landmarks() {
         if (G.trail) return trailSpots();
+        if (G.sanctuary) return sanctuarySpots();
         const z = G.z,
           l = layouts[z],
           next = z + 1;
@@ -5641,6 +5939,17 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
             name: z === 9 ? "Open the region map" : "Walk to " + towns[next],
             fn: z === 9 ? openMap : () => beginRoute(next),
           },
+          ...(z > 0
+            ? [
+                {
+                  x: 25,
+                  y: 135,
+                  key: "west",
+                  name: "Return by " + routeNames[z],
+                  fn: () => beginRoute(z),
+                },
+              ]
+            : []),
           { x: 155, y: 150, name: "Read the trail sign", fn: readFieldSign },
           {
             x: 184,
@@ -5714,7 +6023,7 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
       let footprints = [],
         trailStamp = "";
       function followerPosition() {
-        let stamp = G.z + "/" + (G.trail || 0);
+        let stamp = G.z + "/" + (G.sanctuary ? "shrine" : G.trail || 0);
         if (stamp !== trailStamp) {
           trailStamp = stamp;
           footprints = [];
@@ -5811,6 +6120,11 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
           drawFieldGuide(t, spots);
           return;
         }
+        if (G.sanctuary) {
+          drawSanctuary(t, spots);
+          drawFieldGuide(t, spots);
+          return;
+        }
         w.drawImage(landscape(G.z, detailReady ? density : 1), 0, 0, 384, 224);
         const slow = G.options.reduced ? 0 : t;
         for (let i = 0; i < 29; i++) {
@@ -5832,10 +6146,26 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
             y = 152 + ((i * 13) % 46);
           rect(w, x + Math.floor(Math.sin(slow / 210 + i)), y, 1, 3, "#729b5d");
         }
+        if (G.story && G.z === 0) {
+          const x = Math.min(358, shore(0, 52) + 30),
+            y = 15;
+          const angle = G.options.reduced ? 0 : Math.sin(slow / 600) * 22;
+          poly(
+            w,
+            [
+              [x, y],
+              [384, y - 6 + angle],
+              [384, y + 6 + angle],
+            ],
+            "#ffe7a449",
+          );
+          oval(w, x, y, 5, 3, "#ffe9a887");
+          rect(w, x - 1, y - 1, 3, 3, "#fff5c9");
+        }
         const actors = [
           { y: 119, draw: () => person(w, 184, 119, 1) },
           { y: 135, draw: () => person(w, 98, 135, 3) },
-          { y: G.y, draw: () => person(w, G.x, G.y, 0, walkFrame, facing) },
+          { y: G.y, draw: () => fieldPlayer(t) },
         ];
         if (G.party.length)
           actors.push({
@@ -5882,38 +6212,81 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
         }
         drawFieldGuide(t, spots);
       }
+      function seaTile(x, y) {
+        return (
+          x > shore(G.z, y) - 2 &&
+          !(y >= 133 && y <= 153 && x < shore(G.z, y) + 37)
+        );
+      }
+      function fieldPlayer(t) {
+        if (!seaTile(G.x, G.y)) {
+          person(w, G.x, G.y, 0, walkFrame, facing);
+          return;
+        }
+        const x = G.x,
+          y = G.y + (G.options.reduced ? 0 : Math.round(Math.sin(t / 230)));
+        oval(w, x, y + 1, 11, 4, "#3d748c9d");
+        poly(
+          w,
+          [
+            [x - 12, y - 3],
+            [x - 7, y + 4],
+            [x + 7, y + 4],
+            [x + 12, y - 3],
+          ],
+          "#634530",
+        );
+        rect(w, x - 11, y - 4, 22, 2, "#dfca8a");
+        rect(w, x - 7, y + 2, 14, 1, "#9a7346");
+        person(w, x, y - 4, 0, 0, facing);
+        if (!G.options.reduced && walkFrame) {
+          rect(w, x - 17 * Math.sign(facing), y + 1, 7, 1, "#aadbcf");
+          rect(w, x - 12 * Math.sign(facing), y + 5, 5, 1, "#93cabe");
+        }
+      }
       function drawFieldCreature(spot, t, width) {
         const { x, y, id, key } = spot,
           phase = t / 230 + id;
         const hovering = G.options.reduced
           ? 0
           : Math.round(Math.sin(phase) * (key === "lesson" ? 2 : 1));
-        oval(w, x, y, width / 5, 2, "#6f8b5d");
+        const wander =
+          !G.options.reduced && key !== "lesson" && dist(spot) > 18
+            ? Math.round(Math.sin(t / 940 + id) * 3)
+            : 0;
+        oval(w, x + wander, y, width / 5, 2, "#6f8b5d");
         w.drawImage(
           sprite(id, false, idlePose(t, id), sceneDensity(w) > 1),
-          x - (width >> 1),
+          x + wander - (width >> 1),
           y - (width - 7) + hovering,
           width,
           width - 4,
         );
         if (
           key === "lesson" ||
+          key === "tracked" ||
+          key === "field-sighting" ||
           (!G.caught.includes(id) && species[id].f % 4 === 3)
         ) {
-          rect(w, x + 9, y - 19, 5, 1, "#fff5b5");
-          rect(w, x + 11, y - 21, 1, 5, "#fff5b5");
+          rect(w, x + wander + 9, y - 19, 5, 1, "#fff5b5");
+          rect(w, x + wander + 11, y - 21, 1, 5, "#fff5b5");
         }
       }
       function canWalk(x, y) {
-        if (G.trail)
-          return x >= 3 && x <= 381 && Math.abs(y - trailY(G.trail, x)) < 27;
+        if (G.sanctuary) return sanctuaryGround(x, y);
+        if (G.trail) {
+          const z = G.trail;
+          const bank = routeCanals.has(z) ? canalBank(z, y) : Infinity;
+          const bridge = Math.abs(y - trailY(z, 244)) <= 11;
+          return (
+            x >= 3 &&
+            x <= 381 &&
+            trailWidth(z, x, y) < 25 &&
+            (bridge || x < bank || x >= bank + 25)
+          );
+        }
         if (x < 5 || x > 379 || y < 28 || y > 218) return false;
-        if (
-          x > shore(G.z, y) - 2 &&
-          !(y >= 133 && y <= 153 && x < shore(G.z, y) + 37) &&
-          G.badges < 2
-        )
-          return false;
+        if (G.badges < 2 && seaTile(x, y)) return false;
         for (let [bx, by] of layouts[G.z].slice(0, 2))
           if (Math.abs(x - bx) < 23 && y < by + 1 && y > by - 33) return false;
         return !(fieldFootprints.get(G.z) || []).some(
@@ -5922,8 +6295,13 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
         );
       }
       function restoreFieldPosition() {
-        if (!G.trail) landscape(G.z);
+        if (!G.trail && !G.sanctuary) landscape(G.z);
         if (canWalk(G.x, G.y)) return;
+        if (G.sanctuary) {
+          G.x = 192;
+          G.y = 180;
+          return;
+        }
         if (G.trail) {
           G.x = Math.max(8, Math.min(376, G.x));
           G.y = trailY(G.trail, G.x);
@@ -5994,7 +6372,7 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
             }
           } else {
             if (typing && $("speech")) {
-              const n = Math.floor((t - typing.start) / 10) + 2;
+              const n = Math.floor((t - typing.start) / typing.interval) + 2;
               $("speech").textContent = typing.text.slice(0, n);
               if (n >= typing.text.length) typing = null;
             }
@@ -6088,11 +6466,131 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
         [140, 95, 121, 105],
         [143, 119, 104, 127],
       ];
+      // Optional habitat puzzles. Each chime has a fixed place and an inscription
+      // so the order can be solved with sound muted.
+      const fieldStations = [
+        null,
+        {
+          name: "The Sleeping Bough",
+          chimes: ["Root", "Bough", "Brook"],
+          order: [0, 2, 1],
+          clue: "Roots drink first. The brook carries their song up to the bough.",
+          note: "The feeders went quiet when the Stilllight stakes went in. Three chimes used to call the local creatures back out.",
+          result: "The bracken shakes as something answers the last note.",
+          species: "Spinchime",
+          curve: -49,
+        },
+        {
+          name: "The Glasswater Bell",
+          chimes: ["Beach", "Bell", "Wave"],
+          order: [2, 0, 1],
+          clue: "A wave reaches the beach. The bell replies.",
+          note: "Someone logged the shore at one unchanging tide. Ink trails on the brass plate describe an entire cycle.",
+          result:
+            "A trail of ink traces the stones exposed by the retreating tide.",
+          species: "Siltscribe",
+          curve: -43,
+        },
+        {
+          name: "A Kiln Gone Cold",
+          chimes: ["Glaze", "Clay", "Coal"],
+          order: [1, 0, 2],
+          clue: "Shape the clay, brush on glaze, then bring it to the coals.",
+          note: "The potters marked the timing of a full firing. The Stilllight diagram beside it allows only one temperature.",
+          result:
+            "Warm air slips through the tiles and a creature uncurls by the chimney.",
+          species: "Lacqueruff",
+          curve: 47,
+        },
+        {
+          name: "Copperfen Call",
+          chimes: ["Thunder", "Reed", "Rain"],
+          order: [0, 2, 1],
+          clue: "Thunder rolls. Rain lands. The reeds ring last.",
+          note: "A marsh conductor once counted the pause from the flash to the first drops. The timing is cut into the boardwalk.",
+          result: "A glint breaks the surface in the newly flooded shallows.",
+          species: "Keelcrest",
+          curve: 42,
+        },
+        {
+          name: "Voices in the Gallery",
+          chimes: ["Wall", "Foot", "Vault"],
+          order: [1, 0, 2],
+          clue: "Start at the footstep. Follow the echo off the wall and into the vault.",
+          note: "The quarry’s oldest map uses three echoes to mark its depth. Somebody has rubbed out the pauses.",
+          result:
+            "The echo loosens a ribbon of dust around a moving silhouette.",
+          species: "Ravelmask",
+          curve: -49,
+        },
+        {
+          name: "The Thaw Line",
+          chimes: ["Melt", "Frost", "Sun"],
+          order: [1, 2, 0],
+          clue: "Frost settles before sunrise. Meltwater follows the light.",
+          note: "A frozen measuring rod shows the old spring levels. A new rod is marked at a single height.",
+          result: "Fractions of reflected snow begin to turn beneath the ice.",
+          species: "Crownglass",
+          curve: 46,
+        },
+        {
+          name: "A Lantern Rehearsal",
+          chimes: ["Mask", "Curtain", "Wick"],
+          order: [2, 1, 0],
+          clue: "Light the wick, lift the curtain, then show the mask.",
+          note: "An old theatre troupe rehearsed its cues in the tunnel. Fresh boot prints circle the props.",
+          result: "A shadow bows in the light of the reopened lantern.",
+          species: "Murmurn",
+          curve: 49,
+        },
+        {
+          name: "The Wind’s Return",
+          chimes: ["Sail", "Anchor", "Cloud"],
+          order: [1, 0, 2],
+          clue: "Check the anchor, raise the sail, follow the clouds.",
+          note: "These plates once flexed with the breeze. The Society bolted them into place.",
+          result:
+            "A gust rattles the anchors, and something white races down its wake.",
+          species: "Shiverbill",
+          curve: -43,
+        },
+        {
+          name: "One Minute of Sky",
+          chimes: ["Star", "Horizon", "Lens"],
+          order: [1, 2, 0],
+          clue: "Check the horizon, turn the lens, name the star.",
+          note: "Beneath the brass cover is the original clockwork. The gears have three different speeds.",
+          result:
+            "The dial throws a moving band of starlight across the landing.",
+          species: "Vesperknell",
+          curve: -46,
+        },
+      ];
+      let fieldRun = null,
+        fieldPulse = null;
       function trailY(j, x) {
         let plan = trackPlan[j],
           segment = Math.min(2, Math.floor(Math.max(0, x) / 128)),
           f = (Math.max(0, x) - segment * 128) / 128;
         return Math.round(plan[segment] * (1 - f) + plan[segment + 1] * f);
+      }
+      function chimePath(z, x) {
+        const along = (x - 42) / 160;
+        if (!fieldStations[z] || along < 0 || along > 1) return null;
+        return Math.round(
+          trailY(z, x) + fieldStations[z].curve * Math.sin(Math.PI * along),
+        );
+      }
+      function trailWidth(z, x, y) {
+        const branch = chimePath(z, x);
+        return Math.min(
+          Math.abs(y - trailY(z, x)),
+          branch === null ? Infinity : Math.abs(y - branch) + 11,
+        );
+      }
+      const routeCanals = new Set([2, 3, 4]);
+      function canalBank(z, y) {
+        return 232 + Math.round(Math.sin(y / 37 + z) * 12);
       }
       const trailCache = new Map();
       function trailArt(z, density = 1) {
@@ -6122,18 +6620,23 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
         const riverFill = materialFill(c, 3);
         for (let x = 0; x < 384; x++) {
           let y = trailY(z, x),
-            width = 23 + Math.round(Math.sin(x / 29) * 4);
+            width = 23 + Math.round(Math.sin(x / 29) * 4),
+            branch = chimePath(z, x);
           if (aerial) {
             rect(c, x, y - width - 13, 1, width * 2 + 34, "#7f9282");
             rect(c, x, y - width - 16, 1, width * 2 + 28, grass);
           }
           rect(c, x, y - width, 1, width * 2, shade(grass, -13));
           rect(c, x, y - width + 2, 1, width * 2 - 4, pathFill);
+          if (branch !== null && Math.abs(branch - y) > 8) {
+            rect(c, x, branch - 13, 1, 26, shade(grass, -17));
+            rect(c, x, branch - 11, 1, 22, pathFill);
+          }
         }
         for (let j = 0; j < 950; j++) {
           let x = r() * 384,
             y = r() * 224,
-            inpath = Math.abs(y - trailY(z, x)) < 18;
+            inpath = trailWidth(z, x, y) < 19;
           if (inpath) rect(c, x, y, (1 + r() * 3) | 0, 1, shade(ground, -16));
           else if (!aerial)
             rect(
@@ -6145,21 +6648,21 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
               shade(grass, r() > 0.45 ? -10 : 12),
             );
         }
-        if ([2, 3, 4].includes(z)) {
+        if (routeCanals.has(z)) {
           for (let y = 0; y < 224; y++) {
-            let x = 232 + Math.round(Math.sin(y / 37 + z) * 12);
+            let x = canalBank(z, y);
             rect(c, x - 3, y, 31, 1, "#d6c19c");
             rect(c, x, y, 25, 1, riverFill);
             if (y % 7 === 0) rect(c, x + 3, y, 10, 1, "#a9d5c5");
           }
-          let y = trailY(z, 235);
-          fieldObject(c, "field/0", 242, y + 15, 60, 29);
+          const y = trailY(z, 244);
+          fieldObject(c, "field/0", canalBank(z, y) + 12, y + 15, 59, 32);
         }
         for (let j = 0; j < (woods ? 92 : 48); j++) {
           let x = r() * 398 - 7,
             y = r() * 224;
           if (
-            Math.abs(y - trailY(z, x)) < 36 ||
+            trailWidth(z, x, y) < 40 ||
             (aerial && Math.abs(y - trailY(z, x)) > 44)
           )
             continue;
@@ -6175,7 +6678,7 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
         if (cave)
           for (let j = 0; j < 13; j++)
             fieldObject(c, "field/12", j * 33, 14 + (j % 3) * 5, 40, 30);
-        for (const x of [20, 169, 363])
+        for (const x of [20, 48, 169, 363])
           fieldObject(c, "district/6", x, trailY(z, x), 22, 20);
         trailCache.set(z, cv);
         return cv;
@@ -6190,6 +6693,8 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
               : "Earn the " + badgeNames[j - 2] + " Badge to open this trail.",
           );
         G.trail = j;
+        G.sanctuary = false;
+        fieldRun = null;
         G.x = from === j ? 351 : 27;
         G.y = trailY(j, G.x);
         save();
@@ -6223,9 +6728,19 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
         beginRoute(j);
       }
       function trailSpots() {
-        let j = G.trail,
-          p = pool(j);
+        const j = G.trail,
+          p = pool(j),
+          station = fieldStations[j],
+          found = G.fieldNotes.includes(j),
+          sighting = p.find((id) => species[id].name === station.species);
         return [
+          {
+            x: 48,
+            y: trailY(j, 48),
+            key: "field-station",
+            name: "Read the field notebook",
+            fn: () => fieldStationUI(j),
+          },
           {
             x: 20,
             y: trailY(j, 20),
@@ -6262,13 +6777,22 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
           },
           {
             x: 122,
-            y: trailY(j, 122) - 17,
+            y: trailY(j, 122) + 19,
+            key: "oriel",
             name: "Meet Oriel",
-            fn: researcher,
+            fn: () =>
+              talk(
+                "Researcher Oriel",
+                j === 1
+                  ? "The trail chimes keep track of the light’s rhythm. Read the notebook at the fork, then listen to what the grove is trying to tell us."
+                  : station.note,
+                1,
+              ),
           },
           {
-            x: 246,
-            y: trailY(j, 246) + 19,
+            x: 274,
+            y: trailY(j, 274) + 19,
+            key: "field-cache",
             name: "Investigate field cache",
             fn: () => routeCache(j),
           },
@@ -6279,7 +6803,157 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
             name: "Meet " + species[p[(G.survey + i * 4) % p.length]].name,
             fn: () => wild(p[(G.survey + i * 4) % p.length]),
           })),
+          ...[76, 121, 175].map((x, i) => ({
+            x,
+            y: chimePath(j, x),
+            key: "field-chime-" + i,
+            chime: i,
+            name: (found ? "Ring " : "Tune ") + station.chimes[i] + " chime",
+            fn: () => touchChime(j, i),
+          })),
+          ...(found
+            ? [
+                {
+                  x: 149,
+                  y: chimePath(j, 149),
+                  key: "field-sighting",
+                  id: sighting,
+                  name: "Meet " + station.species,
+                  fn: () => wild(sighting),
+                },
+              ]
+            : []),
         ];
+      }
+      function fieldStationUI(route) {
+        const station = fieldStations[route],
+          done = G.fieldNotes.includes(route);
+        modal(
+          station.name,
+          `<div class="field-note">
+            <span class="field-note-kicker">${routeNames[route]} · Field notebook</span>
+            <p>${station.note}</p>
+            <blockquote>${station.clue}</blockquote>
+            <p>${
+              done
+                ? station.result +
+                  " Look for " +
+                  station.species +
+                  " by the chimes."
+                : "Follow the side path. Touch all three chimes in the order described here."
+            }</p>
+          </div><div class="actions">${btn(
+            done ? "Back to the trail" : "Investigate the chimes",
+            done ? "closeUI()" : "trackChimes(" + route + ")",
+            "primary",
+          )}</div>`,
+        );
+      }
+      function trackChimes(route) {
+        if (G.trail !== route) return;
+        if (fieldRun?.route !== route) fieldRun = { route, step: 0 };
+        fieldRun.tracked = true;
+        closeUI();
+      }
+      function touchChime(route, i) {
+        if (G.trail !== route) return;
+        const station = fieldStations[route];
+        fieldPulse = { route, i, t: performance.now() };
+        tone([329.63, 392, 493.88][i] * 2 ** ((route % 5) / 12), 0.36, "sine");
+        if (G.fieldNotes.includes(route)) return;
+        if (fieldRun?.route !== route) fieldRun = { route, step: 0 };
+        fieldRun.tracked = true;
+        const step = fieldRun.step;
+        fieldRun.step =
+          i === station.order[step] ? step + 1 : Number(i === station.order[0]);
+        if (fieldRun.step < 3) {
+          refresh();
+          toast(
+            station.chimes[i] +
+              " chime · " +
+              fieldRun.step +
+              " of 3 in tune" +
+              (i !== station.order[step] ? " · Listen again" : ""),
+          );
+          return;
+        }
+        G.fieldNotes.push(route);
+        G.bag["Field Tonic"]++;
+        G.bag["Dusk Capsule"] += 2;
+        const milestone = G.fieldNotes.length === 3;
+        if (milestone) G.bag["Calibration Lens"]++;
+        soundPhrase("notes");
+        clearTimeout(toastTimer);
+        $("toast").textContent = "";
+        save();
+        refresh();
+        talk(
+          "Field notes recorded",
+          station.result +
+            " " +
+            station.species +
+            " is nearby. " +
+            (milestone
+              ? "Three notebooks complete. Oriel included a Calibration Lens for your party."
+              : "Oriel’s supply pouch holds a Field Tonic and two Dusk Capsules."),
+          1,
+        );
+      }
+      function drawChime(c, spot, t) {
+        const { x, y, chime: i } = spot,
+          route = G.trail;
+        const live =
+          G.fieldNotes.includes(route) ||
+          (fieldRun?.route === route &&
+            fieldStations[route].order.slice(0, fieldRun.step).includes(i));
+        const life =
+          fieldPulse?.route === route &&
+          fieldPulse.i === i &&
+          !G.options.reduced
+            ? Math.max(0, 1 - (t - fieldPulse.t) / 670)
+            : 0;
+        const ink = ["#a2e5bc", "#f7d991", "#c1d8f8"][i];
+        oval(c, x, y + 1, 10, 3, "#304b4666");
+        rect(c, x - 5, y - 12, 10, 13, "#3d5057");
+        rect(c, x - 4, y - 12, 3, 10, "#879088");
+        rect(c, x - 6, y - 2, 12, 3, "#536a69");
+        poly(
+          c,
+          [
+            [x, y - 22],
+            [x + 7, y - 15],
+            [x, y - 8],
+            [x - 7, y - 15],
+          ],
+          "#243b42",
+        );
+        poly(
+          c,
+          [
+            [x, y - 20],
+            [x + 5, y - 15],
+            [x, y - 10],
+            [x - 5, y - 15],
+          ],
+          live ? ink : shade(ink, -36),
+        );
+        rect(c, x - 1, y - 17, 3, 3, "#fff7d3");
+        if (life > 0) {
+          c.save();
+          c.globalAlpha = life;
+          for (let k = 0; k < 10; k++) {
+            const radius = 8 + (1 - life) * 18;
+            rect(
+              c,
+              x + Math.cos(k * 0.628) * radius,
+              y - 15 + Math.sin(k * 0.628) * radius * 0.7,
+              2,
+              2,
+              ink,
+            );
+          }
+          c.restore();
+        }
       }
       function routeCache(j) {
         if (!G.loot.includes(j)) {
@@ -6309,6 +6983,21 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
           384,
           224,
         );
+        if (routeCanals.has(j) && !G.options.reduced) {
+          const bridge = trailY(j, 244);
+          for (let i = 0; i < 19; i++) {
+            const y = (i * 21 + Math.floor(t / 55)) % 224;
+            if (Math.abs(y - bridge) > 17)
+              rect(
+                w,
+                canalBank(j, y) + 4 + ((i * 7) % 16),
+                y,
+                5,
+                1,
+                "#d3edd6b0",
+              );
+          }
+        }
         const actors = [
           { y: G.y, draw: () => person(w, G.x, G.y, 0, walkFrame, facing) },
           { y: followerPosition()[1], draw: () => followSprite(t) },
@@ -6316,9 +7005,11 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
         for (const s of spots) {
           if (s.id != null)
             actors.push({ y: s.y, draw: () => drawFieldCreature(s, t, 30) });
-          else if (s.x === 122)
+          else if (s.chime != null)
+            actors.push({ y: s.y, draw: () => drawChime(w, s, t) });
+          else if (s.key === "oriel")
             actors.push({ y: s.y, draw: () => person(w, s.x, s.y, 1) });
-          else if (s.x === 246) {
+          else if (s.key === "field-cache") {
             w.save();
             w.globalAlpha = G.loot.includes(j) ? 0.55 : 1;
             fieldObject(w, "district/11", s.x, s.y, 16, 15);
@@ -6348,11 +7039,14 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
         plannedWalk = [];
         arrival = null;
         G.trail = 0;
+        G.sanctuary = false;
+        fieldRun = null;
         G.z = z;
         G.x = 151;
         G.y = 128;
         G.last = z;
         uniq(G.visited, z);
+        G.tracked = null;
         G.survey = 0;
         heal();
         save();
@@ -6364,9 +7058,18 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
         if (B) return battleUI();
         modal(
           "Region Map",
-          '<canvas class="pixel" id="mapart" width="370" height="120"></canvas><p class="message">' +
-            objective()[1] +
-            '</p><div class="maplist">' +
+          '<canvas class="pixel" id="mapart" width="370" height="120" aria-label="Asterra route map"></canvas><p class="message">' +
+            esc(objective()[1]) +
+            '</p><p class="map-field-notes">Field notebooks · ' +
+            G.fieldNotes.length +
+            " of 9 completed" +
+            '</p><div class="actions">' +
+            btn("Open field notebooks", "fieldLedger()") +
+            (G.tracked !== null ||
+            (G.trail && fieldRun?.tracked && !G.fieldNotes.includes(G.trail))
+              ? btn("Resume League objective", "resumeLeagueObjective()")
+              : "") +
+            '</div><div class="maplist">' +
             towns
               .map(
                 (v, i) =>
@@ -6379,13 +7082,18 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
                   " · " +
                   v +
                   '<small style="display:block;font-weight:normal">' +
-                  (i === G.z
-                    ? "Current location"
-                    : G.visited.includes(i)
-                      ? "Visited lodge · travel"
-                      : i <= G.badges + 1
-                        ? "Follow the walking route"
-                        : "Undiscovered route") +
+                  (G.trail && i === G.trail
+                    ? "Current route · " + routeNames[i]
+                    : !G.trail && i === G.z
+                      ? G.sanctuary
+                        ? "Nearby sanctuary"
+                        : "Current location"
+                      : G.visited.includes(i)
+                        ? "Visited lodge · travel"
+                        : i <= G.badges + 1
+                          ? "Follow the walking route"
+                          : "Undiscovered route") +
+                  (G.fieldNotes.includes(i) ? " · Field notes recorded" : "") +
                   "</small></button>",
               )
               .join("") +
@@ -6421,26 +7129,85 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
             c.lineTo(x, y);
             c.stroke();
           }
-          oval(c, x, y, 6, 6, i === G.z ? "#bd863d" : "#637e67");
-          oval(c, x, y, 4, 4, i === G.z ? "#f4d88a" : "#e1dec1");
+          const here = !G.trail && i === G.z;
+          oval(c, x, y, 6, 6, here ? "#bd863d" : "#637e67");
+          oval(
+            c,
+            x,
+            y,
+            4,
+            4,
+            here ? "#f4d88a" : G.visited.includes(i) ? "#e1dec1" : "#a1ad9c",
+          );
           c.fillStyle = "#364d40";
           c.font = "bold 8px monospace";
           c.fillText(i + 1, x - 2, y + 3);
         }
+        if (G.trail) {
+          const [x1, y1] = pts[G.trail - 1],
+            [x2, y2] = pts[G.trail],
+            f = G.x / 384;
+          const x = x1 + (x2 - x1) * f,
+            y = y1 + (y2 - y1) * f;
+          poly(
+            c,
+            [
+              [x, y - 6],
+              [x + 6, y],
+              [x, y + 6],
+              [x - 6, y],
+            ],
+            "#283b3e",
+          );
+          poly(
+            c,
+            [
+              [x, y - 4],
+              [x + 4, y],
+              [x, y + 4],
+              [x - 4, y],
+            ],
+            "#f4d88a",
+          );
+        }
+      }
+      function fieldLedger() {
+        const done = G.fieldNotes.length;
+        modal(
+          "Field notebooks",
+          `<p>${done} of 9 completed. Oriel issues a Calibration Lens once you complete three.</p>
+            <ol class="league-ladder">${fieldStations
+              .slice(1)
+              .map((station, i) => {
+                const route = i + 1,
+                  reached = route <= G.badges + 1,
+                  found = G.fieldNotes.includes(route);
+                return `<li><span aria-hidden="true">${found ? "◆" : "◇"}</span>
+                <div><b>${reached ? station.name : "Undiscovered trail"}</b><br>
+                  <small>${found ? station.species + " · " : ""}${reached ? routeNames[route] : "Continue the League expedition"}</small></div>
+                <span>${found ? "Recorded" : ""}</span></li>`;
+              })
+              .join("")}</ol>${btn("Back to map", "openMap()", "primary")}`,
+          openMap,
+        );
+      }
+      function resumeLeagueObjective() {
+        if (fieldRun) fieldRun.tracked = false;
+        clearTracking();
       }
       const trails = [
-          "Tangled sea holly",
-          "Rootbound terrace",
-          "Flooded grotto",
-          "Fallen kilnstone",
-          "High relay gate",
-          "Sheer fossil ledge",
-          "Frozen star gate",
-          "Veiled stage door",
-          "Windborne arch",
-          "Observatory archive",
-        ],
-        needs = [1, 1, 2, 3, 4, 5, 6, 7, 8, 8]; // Equipment belongs to the researcher. Every passage has an immediate return to the trail.
+        "Tangled sea holly",
+        "Rootbound terrace",
+        "Flooded grotto",
+        "Fallen kilnstone",
+        "High relay gate",
+        "Sheer fossil ledge",
+        "Frozen star gate",
+        "Veiled stage door",
+        "Windborne arch",
+        "Observatory archive",
+      ];
+      // Equipment belongs to the researcher. Every sanctuary has an immediate return to town.
       const crossings = [
         ["Shear the sea holly", "Vine shears", "vine"],
         ["Cut the root curtain", "Vine shears", "vine"],
@@ -6473,8 +7240,8 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
             ) +
             '</p><div class="actions">' +
             btn(
-              phase ? "Approach shrine" : a[0],
-              phase ? "shrine()" : "useTraversal()",
+              phase ? "Enter sanctuary" : a[0],
+              phase ? "enterSanctuary()" : "useTraversal()",
               "primary",
             ) +
             btn("Return to trail", "sideTrail()") +
@@ -6675,6 +7442,179 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
           "Begin with the oldest sign of a creature.",
         ],
       ];
+      const sanctuaryFamilies = zones.map((_, z) =>
+        families.find((f) => f.zone === z && f.i >= 130),
+      );
+      const sanctuaryPlans = [
+        [146, 93, "field/11", "#d9cf91", "#6d9681"],
+        [185, 81, "field/4", "#caef98", "#789965"],
+        [245, 101, "district/4", "#92e1d6", "#7ab9b7"],
+        [220, 84, "field/5", "#ffc686", "#b49674"],
+        [145, 92, "field/6", "#acdedd", "#80a399"],
+        [237, 86, "field/7", "#f2cf88", "#9b8e6f"],
+        [176, 77, "field/8", "#e5f3f1", "#bbcacf"],
+        [226, 83, "field/9", "#ecc8e7", "#756f8d"],
+        [148, 94, "field/10", "#f6ddac", "#a4c4b6"],
+        [206, 80, "field/11", "#b0e9de", "#818faa"],
+      ];
+      function shrineReady(j) {
+        return (
+          G.badges >= needs[G.z] &&
+          (j !== 8 || G.story) &&
+          (j !== 9 || G.caught.length >= 200)
+        );
+      }
+      function enterSanctuary() {
+        if (crossing?.z !== G.z || !crossing.phase || G.badges < needs[G.z])
+          return;
+        G.x = 192;
+        G.y = 181;
+        G.sanctuary = true;
+        save();
+        closeUI();
+      }
+      function leaveSanctuary() {
+        if (!G.sanctuary) return;
+        G.sanctuary = false;
+        G.x = 85;
+        G.y = 181;
+        restoreFieldPosition();
+        save();
+        closeUI();
+      }
+      function sanctuaryGround(x, y) {
+        const [altarX, altarY] = sanctuaryPlans[G.z];
+        return (
+          ((x - 192) / 165) ** 2 + ((y - 113) / 99) ** 2 <= 1 &&
+          !(Math.abs(x - altarX) < 14 && y < altarY + 2 && y > altarY - 24)
+        );
+      }
+      function sanctuarySpots() {
+        const f = sanctuaryFamilies[G.z],
+          j = f.i - 130;
+        const [x, y] = sanctuaryPlans[G.z];
+        const spots = [
+          {
+            x: 192,
+            y: 194,
+            key: "retreat",
+            name: "Return to " + towns[G.z],
+            fn: leaveSanctuary,
+          },
+          {
+            x,
+            y: y + 13,
+            key: "altar",
+            name: "Read the shrine altar",
+            fn: shrine,
+          },
+        ];
+        if (G.quests.includes(j) && shrineReady(j))
+          spots.push({
+            x: x < 192 ? 243 : 142,
+            y: 126,
+            key: "guardian",
+            id: f.first,
+            name: "Meet " + f.names[0],
+            fn: () => wild(f.first),
+          });
+        return spots;
+      }
+      const sanctuaryCache = new Map();
+      function sanctuaryArt(z, density) {
+        const cached = sanctuaryCache.get(z);
+        if (cached?.width === 384 * density) return cached;
+        const cv = canvas(384, 224),
+          c = setSceneResolution(cv, 384, 224, density),
+          [ax, ay, object, light, terrain] = sanctuaryPlans[z],
+          random = rng(497 + z * 29);
+        rect(
+          c,
+          0,
+          0,
+          384,
+          224,
+          [0, 2, 4].includes(z) ? materialFill(c, 3) : shade(terrain, -50),
+        );
+        oval(c, 192, 116, 176, 105, shade(terrain, -24));
+        oval(c, 192, 111, 168, 101, terrain);
+        c.save();
+        c.beginPath();
+        c.ellipse(192, 111, 166, 99, 0, 0, Math.PI * 2);
+        c.clip();
+        paintGround(c, z, terrain, 0.78);
+        for (let i = 0; i < 110; i++) {
+          const x = 20 + random() * 344,
+            y = 17 + random() * 185;
+          rect(
+            c,
+            x,
+            y,
+            2 + Math.round(random() * 3),
+            1,
+            shade(terrain, i % 3 ? 12 : -15),
+          );
+        }
+        oval(c, 192, 130, 85, 50, shade(terrain, -18));
+        oval(c, 192, 127, 81, 48, materialFill(c, routeTiles[z]));
+        for (let i = 0; i < 14; i++) {
+          const a = (i / 14) * Math.PI * 2;
+          const x = 192 + Math.cos(a) * 97,
+            y = 124 + Math.sin(a) * 56;
+          if (y < 165)
+            fieldObject(
+              c,
+              i % 4 === 2 ? object : "field/2",
+              x,
+              y,
+              i % 4 === 2 ? 29 : 15,
+            );
+        }
+        for (let i = 0; i < 7; i++) {
+          const x = (i % 2 ? 283 : 45) + ((i * 17) % 48),
+            y = 51 + ((i * 22) % 118);
+          c.drawImage(tree(c, z, i % 5), x - 19, y - 35, 38, 43);
+        }
+        for (let y = 174; y < 215; y += 5)
+          rect(c, 178, y, 28, 3, shade(terrain, y % 2 ? 18 : 28));
+        oval(c, ax, ay + 5, 34, 13, shade(terrain, -31));
+        oval(c, ax, ay + 2, 29, 11, shade(terrain, 27));
+        oval(c, ax, ay, 24, 9, light);
+        fieldObject(c, object, ax, ay, 42, 48);
+        c.restore();
+        sanctuaryCache.set(z, cv);
+        return cv;
+      }
+      function drawSanctuary(t, spots) {
+        const z = G.z,
+          [ax, ay, , light] = sanctuaryPlans[z];
+        w.drawImage(
+          sanctuaryArt(z, detailReady ? sceneDensity(w) : 1),
+          0,
+          0,
+          384,
+          224,
+        );
+        const altarReady = spots.some((s) => s.key === "guardian");
+        for (let i = 0; i < (altarReady ? 17 : 8); i++) {
+          const clock = G.options.reduced ? 0 : t;
+          const x = ax + Math.sin(i * 4 + clock / 1450) * (12 + i * 2),
+            y = ay - ((i * 17 + clock / 25) % 45);
+          rect(w, x, y, i % 3 ? 1 : 2, 1, light);
+        }
+        fieldObject(w, "district/6", 192, 194, 21, 18);
+        const guardian = spots.find((s) => s.key === "guardian");
+        const actors = [
+          { y: G.y, draw: () => person(w, G.x, G.y, 0, walkFrame, facing) },
+          { y: followerPosition()[1], draw: () => followSprite(t) },
+        ];
+        if (guardian)
+          actors.push({
+            y: guardian.y,
+            draw: () => drawFieldCreature(guardian, t, 62),
+          });
+        for (const actor of actors.sort((a, b) => a.y - b.y)) actor.draw();
+      }
       let ritualStep = 0;
       function ritual(j, reset = true) {
         if (reset) ritualStep = 0;
@@ -6735,30 +7675,40 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
       }
       function storyArrival(z) {
         let scene = {
+          1: [
+            "Fern",
+            "The vines used to reach for the roof at first light. Now the greenhouse stays in one long morning. Help Mim get the water moving, then come find me.",
+            "Fern",
+          ],
           2: [
             "Lio",
-            "Did you hear that? The harbour bells all stopped on the same note. Oriel found a silver stake beneath the pier.",
+            "The harbour bells all stopped on the same note. I climbed under the pier. There’s a silver stake there, just like the one at Brinewick.",
             3,
           ],
           3: [
             "Stilllight Society · Surveyor Ise",
-            "We tuned the regulator to protect the hatchlings. Now the canal will not cool. Take this reading to Oriel at the relay.",
-            2,
+            "We set the regulator to protect the hatchlings during a flood. Now the canal won’t cool. Tell Oriel we need help at the relay.",
+            "Ise",
+          ],
+          4: [
+            "Iona",
+            "The regulator is taking orders from eight relay seals. If you’re heading up there, earn the whole set. The climb will test your party.",
+            "Iona",
           ],
           5: [
             "Researcher Oriel",
-            "These strata show a different pulse in every season. Holding Wildlight steady is hurting the habitats. The regulator is at the meridian.",
+            "See how the fossil bands get wider each spring? Wildlight has always changed with the seasons. Let’s give the region back its rhythm.",
             1,
           ],
           7: [
             "Lio",
-            "The wind rig works! I saw the entire region from the pass. Those silver lines all end under the observatory dome.",
+            "I could see Brinewick from the pass. The lighthouse is still stuck on that first flash. All the silver lines run under the observatory dome.",
             3,
           ],
           9: [
             "Director Avenel",
-            "The regulator locked itself at noon. My colleagues are evacuating the lower chamber. Bring the eight seals inside.",
-            2,
+            "Ise is clearing the lower chamber. Bring your seals inside. Orreryon has been holding the dome together since the regulator jammed.",
+            "Avenel",
           ],
         }[z];
         if (scene) talk(...scene);
@@ -7045,12 +7995,9 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
       }
 
       function shrine() {
-        let f = families.find((f) => f.i >= 130 && f.zone === G.z),
+        let f = sanctuaryFamilies[G.z],
           j = f.i - 130,
-          ready =
-            G.badges >= needs[G.z] &&
-            (j !== 8 || G.story) &&
-            (j !== 9 || G.caught.length >= 200);
+          ready = shrineReady(j);
         modal(
           zones[G.z] + " shrine",
           '<canvas class="pixel" id="shrineView" width="320" height="112"></canvas><p>' +
@@ -7066,14 +8013,21 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
             "</p>" +
             (ready
               ? btn(
-                  G.quests.includes(j) ? "Call " + f.names[0] : shrineClues[j],
                   G.quests.includes(j)
-                    ? "wild(" + f.first + ")"
+                    ? (G.sanctuary ? "Find " : "Call ") + f.names[0]
+                    : shrineClues[j],
+                  G.quests.includes(j)
+                    ? G.sanctuary
+                      ? "closeUI()"
+                      : "wild(" + f.first + ")"
                     : "ritual(" + j + ")",
                   "primary",
                 )
               : "") +
-            btn("Back to trail", "sideTrail()"),
+            btn(
+              G.sanctuary ? "Back outside" : "Back to trail",
+              G.sanctuary ? "closeUI()" : "sideTrail()",
+            ),
         );
         const c = setSceneResolution(
           $("shrineView"),
@@ -7099,17 +8053,19 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
         }
         talk(
           "Researcher Oriel",
-          [
-            "Take the east trail to Fern in Briarbrook. If you need another companion, the field marks by the pier will take you to every species on this coast.",
-            "The greenhouse vines have stopped following the sun. Someone has damped their Wildlight.",
-            "These silver stakes are Stilllight instruments. Follow the river upstream.",
-            "The foundry keeps firing without fuel. The regulator is pushing energy out of the ground.",
-            "Lio found a map inside an old relay. All the lines meet at the observatory.",
-            "A fossil remembers the sky before the regulators. Its pulse was never perfectly steady.",
-            "The high pass is open. Ride the wind currents to reach the floating ruins.",
-            "Someone left the theatre lanterns burning. Their shifting light reveals a route above the clouds.",
-            "Eight seals will turn the regulator. Bring them to the meridian.",
-          ][G.badges],
+          G.story
+            ? "Brinewick’s light is sweeping the bay again. If you head back to the field chimes, record what appears when each trail comes back into tune."
+            : [
+                "Look for the notebook at the first fork on Thistlebend Walk. Fern’s greenhouse is at the far end. Back here, the marks by the pier can lead you to more coastal companions.",
+                "The greenhouse vines have stopped following the sun. Someone has damped their Wildlight.",
+                "These silver stakes are Stilllight instruments. Follow the river upstream.",
+                "The foundry keeps firing without fuel. The regulator is pushing energy out of the ground.",
+                "Lio found a map inside an old relay. All the lines meet at the observatory.",
+                "A fossil remembers the sky before the regulators. Its pulse was never perfectly steady.",
+                "The high pass is open. Ride the wind currents to reach the floating ruins.",
+                "Someone left the theatre lanterns burning. Their shifting light reveals a route above the clouds.",
+                "Eight seals will turn the regulator. Bring them to the meridian.",
+              ][G.badges],
           1,
         );
       }
@@ -7117,14 +8073,14 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
         if (!G.party.length) return toast("Choose a partner with Oriel first.");
         modal(
           zones[G.z] + " survey",
-          '<p>Follow a field mark to its owner. ✧ indicates an uncommon sighting.</p><div class="grid">' +
+          '<p>Select a field sign and follow its trail. A diamond marks an uncommon sighting.</p><div class="grid">' +
             pool(G.z)
               .map(
                 (id, j) =>
-                  '<button class="choice" onclick="wild(' +
+                  '<button class="choice" onclick="trackSpecies(' +
                   id +
                   ')">' +
-                  pic(id) +
+                  pic(id, !G.seen.includes(id)) +
                   "<b>" +
                   (j % 4 === 3 ? "✧ " : "") +
                   species[id].name +
@@ -7132,11 +8088,35 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
                   E[species[id].el[0]] +
                   " · " +
                   families[species[id].f].mark +
+                  (G.caught.includes(id) ? " · Recorded" : "") +
                   "</small></button>",
               )
               .join("") +
-            "</div>",
+            "</div>" +
+            (G.tracked !== null
+              ? '<div class="actions">' +
+                btn("Clear current trail", "clearTracking()") +
+                "</div>"
+              : ""),
         );
+      }
+      function trackSpecies(id) {
+        if (
+          !G.party.length ||
+          G.trail ||
+          G.sanctuary ||
+          !pool(G.z).includes(id)
+        )
+          return;
+        G.tracked = id;
+        save();
+        closeUI();
+        toast("Tracking " + species[id].name);
+      }
+      function clearTracking() {
+        G.tracked = null;
+        save();
+        closeUI();
       }
       // Turn resolution. AI commits before a player's command is executed.
       const volatile = () => ({
@@ -7145,6 +8125,9 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
         off: 0,
         guard: 0,
         brace: false,
+        relay: false,
+        acted: false,
+        lastHeal: -4,
       });
       let anim = null,
         afterBattle = null,
@@ -7173,6 +8156,7 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
           beat: [],
           guided,
           intent: null,
+          relayTarget: null,
           mods: new Map(),
           field: -1,
           fieldTurns: 0,
@@ -7236,15 +8220,25 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
       function speed(m) {
         return stats(m, 5) + (species[m.id].trait === 2 ? 2 : 0);
       }
+      function actionOrder(m, v) {
+        return (
+          (v?.k === 4 ? 20000 : v?.k === 2 ? 10000 : 0) +
+          speed(m) * (mod(m).status === "Snare" ? 0.6 : 1)
+        );
+      }
+      function moveAccuracy(v, m) {
+        const lens = m.held === "Calibration Lens" && v.category === "Focus";
+        return Math.min(100, v.acc + (lens ? 10 : 0));
+      }
       function msg(s) {
         B.log.push(s);
         B.beat.push(s);
         if (B.log.length > 150) B.log.shift();
       }
       function statusName(e) {
-        return [0, 6, 2].includes(e)
+        return [0, 6].includes(e)
           ? "Scorch"
-          : [3, 5, 8].includes(e)
+          : [2, 5, 8].includes(e)
             ? "Drowse"
             : "Snare";
       }
@@ -7257,6 +8251,7 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
             (1 + mod(m).off * 0.24)) /
             (1 + mod(t).guard * 0.23)) *
           (mod(t).brace ? 0.75 : 1) *
+          (mod(m).relay ? 1.25 : 1) *
           (phys && species[t.id].trait === 1 ? 0.82 : 1) *
           (!phys && species[m.id].trait === 4 ? 1.12 : 1) *
           (m.held === "Amber Pin" ? 1.12 : 1)
@@ -7280,6 +8275,7 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
         }
         const s = mod(m),
           ts = mod(t);
+        s.acted = true;
         if (s.status === "Drowse" && Math.random() < 0.3) {
           battleEffect("fail", m, v.e, { label: "Drowsy" });
           msg(user + " is drowsy and misses its cue.");
@@ -7287,7 +8283,7 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
         }
         m.en -= v.cost;
         const lead = user + " uses " + v.name + ". ";
-        if (Math.random() * 100 >= v.acc) {
+        if (Math.random() * 100 >= moveAccuracy(v, m)) {
           battleEffect("fail", t, v.e, { label: "Miss" });
           msg(lead + "It misses.");
           return;
@@ -7306,6 +8302,13 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
           const braced = ts.brace;
           ts.brace = false;
           const eff = match(v.e, t.id);
+          const released = s.relay;
+          s.relay = false;
+          const relayed = t.hp > 0 && B.relayTarget === t && eff < 1;
+          if (relayed) {
+            ts.relay = true;
+            t.en = Math.min(12, t.en + 3);
+          }
           msg(
             lead +
               amount +
@@ -7315,11 +8318,20 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
                 : eff < 0.99
                   ? " Resisted."
                   : "") +
-              (braced ? " Guard softens the hit." : ""),
+              (braced ? " Guard softens the hit." : "") +
+              (released ? " Relay released." : "") +
+              (relayed ? " " + label(t) + " charges a relay!" : ""),
           );
-          battleEffect("hit", t, v.e, { k: v.k, amount, eff });
+          battleEffect("hit", t, v.e, {
+            k: v.k,
+            amount,
+            eff,
+            relayed,
+            released,
+          });
           tone(205 + v.e * 19, 0.16, "triangle", false, 92);
           if (eff > 1.01) tone(510, 0.12, "sine", false, 230);
+          if (relayed) soundPhrase("relay");
         } else if (v.k === 4) {
           const lifted = s.guard < 3;
           s.guard = Math.min(3, s.guard + 1);
@@ -7365,6 +8377,7 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
           battleEffect("field", m, v.e, { label: E[v.e] + " field" });
         } else {
           const amount = Math.min(maxhp(m) - m.hp, Math.ceil(maxhp(m) / 3));
+          s.lastHeal = B.turn;
           m.hp += amount;
           msg(
             lead +
@@ -7386,6 +8399,16 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
           t = active(),
           s = mod(m);
         if (B.guided && B.turn === 0) return { id: -1 };
+        const opener = moves[m.opener];
+        if (
+          !s.acted &&
+          opener &&
+          m.en >= opener.cost &&
+          (opener.k !== 5 || !mod(t).turns) &&
+          (opener.k !== 7 || B.field !== opener.e) &&
+          (opener.k !== 8 || m.hp < maxhp(m) * 0.65)
+        )
+          return { id: opener.id };
         let best = { id: -1 },
           value = 0;
         for (const id of m.moves) {
@@ -7394,10 +8417,16 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
           let score = 0;
           if (v.power) {
             const damage = estimateDamage(v, m, t);
-            score = (damage * v.acc) / 100 - v.cost * (m.en < 5 ? 1.8 : 0.8);
+            score =
+              (damage * moveAccuracy(v, m)) / 100 -
+              v.cost * (m.en < 5 ? 1.8 : 0.8);
             if (damage > t.hp) score += 10 + (v.k === 2 ? 12 : 0);
-          } else if (v.k === 8 && m.hp < maxhp(m) * 0.45 && B.turn % 3 !== 2) {
-            score = 24;
+          } else if (
+            v.k === 8 &&
+            m.hp < maxhp(m) * 0.45 &&
+            B.turn - s.lastHeal >= 3
+          ) {
+            score = Math.ceil(maxhp(m) / 3) * 0.85;
           } else if (v.k === 5 && !mod(t).turns && B.turn % 3 === 1) {
             score = 24;
           } else if (
@@ -7471,6 +8500,22 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
       }
       const captureItems = ["Lumen Capsule", "Tide Capsule", "Dusk Capsule"];
       const lessonThreshold = 0.6;
+      function sendOut(i, foe = false, voluntary = false) {
+        const leaving = foe ? enemy() : active();
+        mod(leaving).relay = false;
+        if (foe) B.ei = i;
+        else B.ai = i;
+        const next = foe ? enemy() : active();
+        if (voluntary) B.relayTarget = next;
+        if (foe) uniq(G.seen, next.id);
+        msg(
+          foe
+            ? B.name + " sends out " + label(next) + "."
+            : "Go, " + label(next) + "!",
+        );
+        battleEffect("arrive", next, species[next.id].el[0]);
+        cry(next.id);
+      }
       function battleAction(type, val) {
         if (!B || turnLock || B.forced) return;
         const p = active(),
@@ -7499,11 +8544,7 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
         function opp() {
           if (!foe.hp) return false;
           if (action.sw != null) {
-            B.ei = action.sw;
-            uniq(G.seen, enemy().id);
-            msg(B.name + " sends out " + label(enemy()) + ".");
-            battleEffect("arrive", enemy(), species[enemy().id].el[0]);
-            cry(enemy().id);
+            sendOut(action.sw, true, true);
           } else if (action.id >= 0) useMove(foe, active(), action.id);
           else if (B.guided && previousTurn === 0) {
             msg("Gravlet circles closer. It seems curious.");
@@ -7518,12 +8559,7 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
           return throwCapsule(val, opp);
         let playerAction;
         if (type === "switch") {
-          playerAction = () => {
-            B.ai = val;
-            msg("Go, " + label(active()) + "!");
-            battleEffect("arrive", active(), species[active().id].el[0]);
-            cry(active().id);
-          };
+          playerAction = () => sendOut(val, false, true);
         } else if (type === "item") {
           playerAction = () => {
             G.bag[val]--;
@@ -7544,12 +8580,9 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
             if (!p.hp) return false;
             useMove(p, enemy(), val);
           };
-          const order = (m, v) =>
-            (v?.k === 4 ? 2e4 : v?.k === 2 ? 1e4 : 0) +
-            speed(m) * (mod(m).status === "Snare" ? 0.6 : 1);
           const playerFirst =
             action.sw == null &&
-            order(p, moves[val]) >= order(foe, moves[action.id]);
+            actionOrder(p, moves[val]) >= actionOrder(foe, moves[action.id]);
           return playActions(
             playerFirst ? [playerAction, opp] : [opp, playerAction],
           );
@@ -7598,9 +8631,7 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
             if (!B || token !== battleToken) return;
             turnLock = false;
             if (ok) {
-              tone(660, 0.25);
-              tone(825, 0.32, "sine");
-              tone(990, 0.42, "sine");
+              soundPhrase("capture");
               finish("capture", k);
             } else {
               B.beat = [];
@@ -7620,6 +8651,7 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
         );
       }
       function resolveTurn() {
+        B.relayTarget = null;
         const p = active(),
           f = enemy();
         endEffects(p);
@@ -7639,11 +8671,7 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
             finish("win");
             return;
           }
-          B.ei = i;
-          uniq(G.seen, enemy().id);
-          msg(B.name + " sends out " + label(enemy()) + ".");
-          battleEffect("arrive", enemy(), species[enemy().id].el[0]);
-          cry(enemy().id);
+          sendOut(i, true);
         }
         if (!p.hp) {
           B.forced = true;
@@ -7695,7 +8723,9 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
         battleToken++;
         if (result === "loss") {
           G.trail = 0;
+          G.sanctuary = false;
           G.z = G.last;
+          G.tracked = null;
           G.x = 151;
           G.y = 127;
           heal();
@@ -7718,21 +8748,28 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
         }
         const battleXp = b.kind === "wild" ? 17 : 50 + G.badges * 7;
         const previous = G.party.map((m) => m.lv);
+        const pending = new Set(G.party.filter(eligible));
         expGain(battleXp);
         const growth = G.party
           .filter((m, i) => m.lv > previous[i])
           .map((m) => label(m) + " reached Lv. " + m.lv + ".");
+        const ready = G.party.find((m) => !pending.has(m) && eligible(m));
+        if (ready) growth.push(label(ready) + " can evolve from your party.");
         const progress = growth.length ? " " + growth.join(" ") : "";
         if (b.kind === "wild") {
           uniq(G.train, 0);
           if (!b.guided) G.survey++;
+          if (G.tracked === f.id) G.tracked = null;
         }
         if (result === "capture") {
           f.hp = Math.max(1, f.hp);
           if (b.guided) {
+            f.lv = Math.max(f.lv, 3, G.party[0].lv - 1);
+            f.moves = known(f).slice(0, 4);
             f.hp = maxhp(f);
             f.en = 12;
             G.bag["Lumen Capsule"] += 2;
+            heal();
           }
           grant(f);
           save();
@@ -7747,7 +8784,7 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
             "Capture recorded",
             `<div class="capture-stage"><canvas id="captureField" aria-hidden="true"></canvas></div>
             <div class="capture-result"><h3>${species[f.id].name}</h3>
-              <p>${where} ${b.guided ? "The east trail leads to Briarbrook Gym." : ""}</p>
+              <p>${where} ${b.guided ? "Follow the east trail to Briarbrook. Look for the notebook at the fork." : ""}</p>
               <small>${capsule} · ${battleXp} party XP${b.guided ? " · 2 spare Lumen Capsules" : ""}${esc(progress)}</small>
               <div class="actions">
                 <label>Nickname <input id="nick" maxlength="24" placeholder="${species[f.id].name}"></label>
@@ -7771,6 +8808,8 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
           return;
         }
         cb();
+        if (ready && !$("toast").textContent)
+          toast(label(ready) + " is ready to evolve.");
       }
       function placeCapture() {
         let i = G.box.indexOf(afterBattle);
@@ -7807,9 +8846,9 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
         const v = moves[a.id];
         const call =
           v.k === 2
-            ? "a priority strike"
+            ? "a quick " + E[v.e] + " strike"
             : v.power
-              ? "an incoming " + E[v.e] + " attack"
+              ? "a " + E[v.e] + " attack"
               : [
                   "a guard",
                   "a condition",
@@ -7817,7 +8856,16 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
                   "a " + E[v.e] + " field",
                   "a heal",
                 ][v.k - 4];
-        return "Foe is preparing " + call + ".";
+        const relay =
+          v.power &&
+          G.party.some((m) => m !== active() && m.hp && match(v.e, m.id) < 1);
+        return (
+          label(enemy()) +
+          " prepares " +
+          call +
+          "." +
+          (relay ? " Switch to a resistance for a relay." : "")
+        );
       }
 
       function matchupLabel(multiplier) {
@@ -7846,10 +8894,28 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
         const v = moves[id],
           note = $("moveHelp");
         if (!note) return;
-        note.textContent =
-          moveEffect(v) +
-          (v.power ? " · Power " + v.power : "") +
-          (v.acc !== 100 ? " · " + v.acc + "% accuracy" : "");
+        const foeMove = moves[B.intent?.id];
+        const accuracy = moveAccuracy(v, active());
+        const tempo =
+          foeMove && v.power
+            ? actionOrder(active(), v) >= actionOrder(enemy(), foeMove)
+              ? "Acts first"
+              : "Acts second"
+            : "";
+        const damage =
+          v.power && B.prior.has(enemy().id) && !B.intent?.sw
+            ? "About " +
+              Math.max(3, Math.round(estimateDamage(v, active(), enemy()))) +
+              " HP"
+            : "";
+        note.textContent = [
+          damage || (v.power && "Power " + v.power),
+          tempo,
+          accuracy !== 100 ? accuracy + "% accuracy" : "",
+          moveEffect(v),
+        ]
+          .filter(Boolean)
+          .join(" · ");
       }
       // Paint the battle instrument at game resolution. Native buttons keep their text and input.
       const elementEngravings = [
@@ -8232,7 +9298,8 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
             `
             <div class="fight-scene">
               <canvas id="arena" width="340" height="126" aria-hidden="true"></canvas>
-              <div class="battle-top"><b>${esc(B.name)}</b><span id="battleTurn"></span></div>
+              <div class="battle-top"><b>${esc(B.name)}</b><div class="battle-meter"><span id="battleTurn"></span>
+                ${B.foes.length > 1 ? '<span class="team-pips" id="foePips"></span>' : ""}</div></div>
               <div class="combatant foe-hud" id="foeHud"></div>
               <div class="combatant ally-hud" id="allyHud"></div>
               <section class="battle-panel" id="battlePanel" aria-label="Battle commands" hidden></section>
@@ -8335,18 +9402,22 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
           s.turns ? s.status + " " + s.turns : "",
           s.off ? "Power +" + s.off : "",
           s.brace ? "Braced" : "",
+          s.relay ? "Relay +25%" : "",
           s.guard ? "Guard +" + s.guard : "",
         ]
           .filter(Boolean)
           .join(" · ");
         if (
           node.dataset.label !== label(m) ||
+          node.dataset.species !== String(m.id) ||
           node.dataset.level !== String(m.lv) ||
           !node.children.length
         ) {
           node.innerHTML = `<div class="combatant-name"><strong>${esc(label(m))}</strong><span>Lv. ${m.lv}</span></div>
+            <small class="combatant-elements">${species[m.id].el.map((e) => E[e]).join(" · ")}</small>
             ${gauges(m)}<span class="combatant-status"></span>`;
           node.dataset.label = label(m);
+          node.dataset.species = m.id;
           node.dataset.level = m.lv;
         }
         setGauge(node.querySelector(".gauge:not(.energy)"), m.hp, maxhp(m));
@@ -8363,6 +9434,20 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
           "Turn " +
           (B.turn + (turnLock ? 0 : 1)) +
           (B.field >= 0 ? " · " + E[B.field] + " field " + B.fieldTurns : "");
+        const pips = $("foePips");
+        if (pips) {
+          const alive = B.foes.filter((m) => m.hp > 0).length;
+          const state = alive + " of " + B.foes.length + " opponents standing";
+          if (pips.getAttribute("aria-label") !== state) {
+            pips.setAttribute("aria-label", state);
+            pips.innerHTML = B.foes
+              .map(
+                (m) =>
+                  `<i class="${m.hp ? "live" : ""}" aria-hidden="true"></i>`,
+              )
+              .join("");
+          }
+        }
         $("battleMessage").textContent =
           B.beat.slice(-2).join(" ") || "Choose your next move.";
         $("battleHint").textContent = battleHint();
@@ -8567,23 +9652,124 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
               j % 2 ? shade(k, 57) : k,
             );
           }
-        if (life > 0.56)
-          for (let j = 0; j < 9; j++) {
-            let a = j * 0.7,
-              dist = (life - 0.54) * 50;
-            linePixel(
-              c,
-              cx + Math.cos(a) * dist,
-              cy + Math.sin(a) * dist,
-              cx + Math.cos(a) * (dist + 3),
-              cy + Math.sin(a) * (dist + 3),
-              j % 2 ? k : "#fff1b8",
-              j % 3 === 0 ? 2 : 1,
-            );
-          }
+        if (life > 0.56) elementalImpact(c, v, cx, cy, (life - 0.56) / 0.44);
         function creamFx() {
           return "#fff1cc";
         }
+      }
+      function elementalImpact(c, hit, x, y, phase) {
+        const ink = colors[hit.e],
+          light = shade(ink, 78),
+          scale = 0.35 + phase,
+          ring = 9 + phase * 18;
+        c.save();
+        c.globalAlpha = 1 - phase * 0.75;
+        if ([1, 8, 9].includes(hit.e) || hit.relayed) {
+          c.strokeStyle = hit.relayed ? "#ffe9a5" : light;
+          c.lineWidth = hit.e === 8 ? 1 : 2;
+          c.beginPath();
+          c.ellipse(
+            x,
+            y,
+            ring,
+            ring * (hit.e === 1 ? 0.38 : 0.78),
+            0,
+            0,
+            6.283,
+          );
+          c.stroke();
+          c.strokeStyle = ink;
+          c.beginPath();
+          c.ellipse(x, y, ring * 0.68, ring * 0.45, 0, 0, 6.283);
+          c.stroke();
+        }
+        const count = hit.e === 10 ? 5 : 9;
+        for (let j = 0; j < count; j++) {
+          const a = (j / count) * Math.PI * 2 + (hit.e % 4) * 0.32;
+          const ox = Math.round(x + Math.cos(a) * ring);
+          const oy = Math.round(
+            y + Math.sin(a) * ring * 0.73 - phase * (hit.e === 0 ? 15 : 6),
+          );
+          const size = Math.max(2, Math.round(((j % 3) + 3) * scale));
+          switch (hit.e) {
+            case 0:
+              poly(
+                c,
+                [
+                  [ox, oy - size - 3],
+                  [ox + size, oy + 2],
+                  [ox, oy + size],
+                  [ox - size, oy + 1],
+                ],
+                j % 2 ? "#ffb754" : ink,
+              );
+              rect(c, ox - 1, oy, 3, 3, "#ffef9e");
+              break;
+            case 2:
+              poly(
+                c,
+                [
+                  [ox - size, oy + 2],
+                  [ox - 1, oy - size],
+                  [ox + size, oy - 2],
+                  [ox + 1, oy + size],
+                ],
+                j % 2 ? light : ink,
+              );
+              linePixel(
+                c,
+                ox - size + 1,
+                oy + 2,
+                ox + size - 1,
+                oy - 1,
+                "#e2edb3",
+              );
+              break;
+            case 3:
+            case 7:
+              linePixel(
+                c,
+                ox - size,
+                oy + 3,
+                ox,
+                oy,
+                hit.e === 3 ? "#fff3b2" : light,
+                2,
+              );
+              linePixel(c, ox, oy, ox + size, oy - 4, shade(ink, 63), 1);
+              break;
+            case 4:
+            case 5:
+              poly(
+                c,
+                [
+                  [ox - size, oy - 1],
+                  [ox + 1, oy - size + 1],
+                  [ox + size, oy],
+                  [ox - 1, oy + size],
+                ],
+                j % 2 ? ink : light,
+              );
+              linePixel(c, ox - size, oy - 1, ox + 1, oy - size + 1, light, 1);
+              break;
+            case 6:
+              oval(c, ox, oy, size, Math.max(2, size - 1), ink);
+              rect(c, ox - 1, oy - 1, 2, 2, light);
+              break;
+            case 10:
+              rect(c, ox - size, oy, size * 2 + 1, 1, "#ffeba5");
+              rect(c, ox, oy - size, 1, size * 2 + 1, "#fcf3cb");
+              rect(c, ox - 1, oy - 1, 3, 3, "#f9da78");
+              break;
+            case 11:
+              oval(c, ox, oy, size + 1, size, ink);
+              oval(c, ox + 2, oy - 2, size, Math.max(1, size - 1), "#1b203e");
+              break;
+            default:
+              rect(c, ox, oy, size, 2, j % 2 ? ink : light);
+          }
+        }
+        c.restore();
       }
 
       const spriteBounds = new WeakMap();
@@ -8834,7 +10020,7 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
           y = Math.round(pos.y - pos.width * 0.4);
         const ink =
           state.type === "hit"
-            ? state.eff > 1.01
+            ? state.eff > 1.01 || state.relayed || state.released
               ? "#ffe39a"
               : "#fff6de"
             : shade(colors[state.e], 70);
@@ -8854,7 +10040,11 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
             );
           }
         }
-        const label = hit ? "-" + state.amount : state.label;
+        const label = hit
+          ? (state.relayed ? "RELAY  " : state.released ? "RELEASE  " : "") +
+            "−" +
+            state.amount
+          : state.label;
         if (!label) return;
         c.save();
         c.font = "bold 13px sans-serif";
@@ -8879,7 +10069,8 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
             .join("")}</ol>
           <details><summary>Turn order and conditions</summary>
           <p>Switches and items resolve before moves. Guards act first, then Quick moves. Other moves follow Speed. The researcher wins exact ties. Rest gives five energy and every active turn restores at least one.</p>
-          <p>Scorch drains 6% health. Snare reduces Speed by 40%. Drowse can interrupt a move. Conditions usually last three active turns and clear after the battle.</p></details>
+          <p>Scorch drains 6% health. Snare reduces Speed by 40%. Drowse has a 30% chance to interrupt a move. Conditions usually last three active turns, including the turn they land, and clear after the battle.</p>
+          <p>Switch in before an incoming attack. If your partner takes a resisted hit, it gains 3 energy and 25% power on its next successful hit. The charge fades when it switches out.</p></details>
           <div class="actions">${btn("Return to battle", "closeBattlePanel()", "primary")}</div>`,
         );
       }
@@ -8913,21 +10104,18 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
         if (!B || turnLock) return;
         openBattlePanel(
           "Switch companion",
-          `<p>${B.forced ? "Choose a conscious companion to continue." : "Your next companion takes the field before the foe’s move."}</p>
+          `<p>${B.forced ? "Choose a conscious companion to continue." : "Switch before the foe moves. Take a resisted hit to gain 3 energy and 25% power on your next successful attack."}</p>
             <div class="party-grid">${G.party.map((m, i) => partyCard(m, i, true)).join("")}</div>`,
         );
       }
       function chooseSwitch(i) {
         if (!B || !G.party[i]?.hp) return;
         if (B.forced) {
-          B.ai = i;
           B.forced = false;
           closeBattlePanel(false);
           B.beat = [];
-          msg("Go, " + label(active()) + "!");
+          sendOut(i);
           B.intent = ai();
-          battleEffect("arrive", active(), species[active().id].el[0]);
-          cry(active().id);
           battleUI();
         } else battleAction("switch", i);
       }
@@ -9006,15 +10194,152 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
           "A constellation is made of differences.",
         ],
       ];
-      const signatures = [1, 7, 5, 98, 14, 83, 89, 143],
-        champ = [
-          "Lysa of the Shoals",
-          "Quarrymaster Renn",
-          "Vesper Adept Vio",
-          "Skywarden Aven",
-          "Champion Senna",
+      const champ = [
+        "Lysa of the Shoals",
+        "Quarrymaster Renn",
+        "Vesper Adept Vio",
+        "Skywarden Aven",
+        "Champion Senna",
+      ];
+      // The lead move in each set is that companion's preferred opening.
+      const gymAides = [
+        ["Mosskit|Leaf Letter|Bark Fold|Briar Hook|Nettle Sleep"],
+        ["Skimkit|Reef Shell|Rill Slap|Copper Pulse|Wake Dart"],
+        ["Pipcoal|Soot Veil|Coal Knuckle|Cinder Stitch|Night Nick"],
+        ["Socketoad|Static Snare|Gust Heel|Copper Pulse|Flash Feather"],
+        [
+          "Cairnuck|Cairn Brace|Shale Press|Copper Pulse|Scree Skip",
+          "Loamback|Sap Mend|Shale Press|Briar Hook|Dust Lock",
         ],
-        champEls = [1, 4, 9, 3, 10];
+        [
+          "Icewick|Whiteout|Rime Claw|Foam Needle|Hoarfrost Ray",
+          "Flakefern|Cold Knot|Rime Claw|Leaf Letter|Snowdrop",
+        ],
+        [
+          "Candloom|Haunt Thread|Wisp Talon|Cinder Stitch|Echo Cut",
+          "Vesperknell|Lantern Mist|Wisp Talon|Veil Flicker|Gloam Bind",
+        ],
+        [
+          "Facetrix|Dazzle Net|Shale Press|Prism Note|Lustre Ward",
+          "Spectribbon|Dawn Field|Halo Horn|Foam Needle|Wake Dart",
+        ],
+      ];
+      const gymLessons = [
+        "Mim · Grove attacks threaten Tide partners. Try Gravlet’s Mind moves or Puddlepip’s Storm coverage.",
+        "Pern · A guard resolves before even the quickest strike.",
+        "Rusk · The red mark shows how long Scorch will keep draining health.",
+        "Cal · A Snare can make the fastest companion move last.",
+        "Tavi · A guard makes each ordinary hit weaker. Setup helps your next ones.",
+        "Nel · A new field replaces the one already in play.",
+        "Iri · Switch to give a companion with a condition some cover.",
+        "Venn · A dual-element companion can resist one part of a matchup and be weak to another.",
+      ];
+      const gymTeams = [
+        ["Brambleap|Nettle Sleep|Briar Hook|Bark Fold|Sap Mend"],
+        [
+          "Inklingel|Rain Choir|Rill Slap|Foam Needle|Lucid Beam",
+          "Rillcrest|Reef Shell|Rill Slap|Wake Dart|Springwater",
+        ],
+        [
+          "Emberook|Stokeheart|Coal Knuckle|Night Nick|Cinder Stitch",
+          "Glazelle|Cinder Stitch|Coal Knuckle|Flint Echo|Brickguard",
+          "Kilnwarden|Furnace Sky|Coal Knuckle|Copper Pulse|Kiln Roar",
+        ],
+        [
+          "Drafthare|Static Snare|Gust Heel|Flash Feather|Cinder Stitch",
+          "Relaywart|Arc Thread|Gust Heel|Magnet Pin|Spring Jab",
+          "Thundrouse|Rolling Front|Gust Heel|Flash Feather|Squall Drum",
+        ],
+        [
+          "Glyphox|Cairn Brace|Shale Press|Flint Echo|Dream Field",
+          "Escarpion|Spore Haze|Shale Press|Acrid Ink|Mineral Bath",
+          "Terrapinor|Leaf Letter|Shale Press|Root Rise|Sap Mend",
+          "Torhorn|Crag Stance|Shale Press|Spring Jab|Fault Chord",
+        ],
+        [
+          "Glaciruff|Whiteout|Rime Claw|Hoarfrost Ray|Springwater",
+          "Hoarorchid|Cold Knot|Rime Claw|Leaf Letter|Sleet Flick",
+          "Curlodon|Snow Mantle|Rime Claw|Fault Chord|Snowdrop",
+          "Borealbrawn|Crystal Poise|Rime Claw|Flint Echo|Glacier Song",
+        ],
+        [
+          "Votivowl|Haunt Thread|Wisp Talon|Veil Flicker|Furnace Sky",
+          "Velvetern|Nightfall|Dusk Rake|Veil Flicker|Night Nick",
+          "Carillune|Steel Pleat|Rivet Fist|Veil Flicker|Emberwake",
+          "Murmurn|Drowse Note|Wisp Talon|Echo Cut|Lucid Beam",
+          "Shadechoir|Lantern Mist|Wisp Talon|Hollow Anthem|Thought Skip",
+        ],
+        [
+          "Beacoon|Dawn Field|Halo Horn|Prism Note|Cinder Stitch",
+          "Facetrix|Cairn Brace|Shale Press|Prism Note|Mineral Bath",
+          "Spectribbon|Dazzle Net|Halo Horn|Foam Needle|Noonday Bell",
+          "Noctirang|Nightfall|Dusk Rake|Gleam Spur|Velvet Ray",
+          "Auravulp|Beacon Rise|Halo Horn|Lucid Beam|Noonday Bell",
+        ],
+      ];
+      const gymReserves = [
+        "Tapestria|Pollen Field|Briar Hook|Lucid Beam|Canopy Choir",
+        "Maelspire|Eddy Step|Rill Slap|Arc Thread|Undertow Bell",
+        "Fumaraven|Soot Veil|Coal Knuckle|Acrid Ink|Caustic Bloom",
+        "Sirocket|Draft Dance|Gust Heel|Cinder Stitch|Flash Feather",
+        "Cathedralith|Dust Lock|Shale Press|Veil Flicker|Fault Chord",
+        "Ramblewool|Quiet Mind|Rime Claw|Thought Skip|Whiteout",
+        "Libraven|Inner Orbit|Riddle Tap|Echo Cut|Hollow Anthem",
+        "Opalisk|Lustre Ward|Halo Horn|Undertow Bell|Gleam Spur",
+      ];
+      const cupTeams = [
+        [
+          "Carillune|Reef Shell|Rivet Fist|Foam Needle|Hollow Anthem",
+          "Miremitt|Brine Bind|Rill Slap|Leaf Letter|Sap Mend",
+          "Scripteray|Dream Field|Riddle Tap|Lucid Beam|Wake Dart",
+          "Tempestern|Rain Choir|Rill Slap|Arc Thread|Undertow Bell",
+        ],
+        [
+          "Petrograze|Dust Lock|Shale Press|Lucid Beam|Fault Chord",
+          "Bastiorr|Steel Pleat|Shale Press|Copper Pulse|Weld Seam",
+          "Altavane|Rolling Front|Gust Heel|Arc Thread|Scree Skip",
+          "Cathedralith|Crag Stance|Shale Press|Hollow Anthem|Mineral Bath",
+        ],
+        [
+          "Murmurn|Lantern Mist|Wisp Talon|Drowse Note|Echo Cut",
+          "Noctirang|Dazzle Net|Dusk Rake|Gleam Spur|Nightfall",
+          "Libraven|Inner Orbit|Riddle Tap|Echo Cut|Emberwake",
+          "Votivowl|Furnace Sky|Wisp Talon|Kiln Roar|Haunt Thread",
+        ],
+        [
+          "Pennacat|Static Snare|Gust Heel|Gleam Spur|Flash Feather",
+          "Canopuff|Pollen Field|Gust Heel|Leaf Letter|Ion Salve",
+          "Kitewyrm|Draft Dance|Gust Heel|Sleet Flick|Rolling Front",
+          "Nimbasil|Rolling Front|Gust Heel|Foam Needle|Squall Drum",
+        ],
+        [
+          "Facetrix|Lustre Ward|Shale Press|Gleam Spur|Prism Note",
+          "Frostfiddle|Whiteout|Rime Claw|Arc Thread|Cold Knot",
+          "Kilnwarden|Furnace Sky|Coal Knuckle|Spring Jab|Kiln Roar",
+          "Bowermaw|Crag Stance|Shale Press|Velvet Ray|Mineral Bath",
+          "Tapestria|Nettle Sleep|Briar Hook|Lucid Beam|Sap Mend",
+          "Auravulp|Dawn Field|Halo Horn|Thought Skip|Noonday Bell",
+        ],
+      ];
+      const regulatorTeam = [
+        "Horolume|Magnet Pin|Riddle Tap|Copper Pulse|Foundry Horn",
+        "Lanternet|Lustre Ward|Halo Horn|Cinder Stitch|Gleam Spur",
+        "Orreryon|Dawn Field|Halo Horn|Inner Orbit|Cortex Hymn",
+      ];
+      const speciesByName = new Map(species.map((d) => [d.name, d.id]));
+      const movesByName = new Map(moves.map((v) => [v.name, v.id]));
+      function opponentTeam(rows, level) {
+        return rows.map((row, i) => {
+          const [name, ...kit] = row.split("|");
+          const m = mon(
+            speciesByName.get(name),
+            level + Number(i === rows.length - 1),
+          );
+          m.moves = kit.map((move) => movesByName.get(move));
+          m.opener = m.moves[0];
+          return m;
+        });
+      }
       function teamFor(e, n, lv, sig) {
         let arr = species.filter(
             (d) =>
@@ -9058,7 +10383,8 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
         if (G.z === 9) return observatory();
         let j = G.z - 1,
           g = gymData[j],
-          cleared = G.badges > j;
+          cleared = G.badges > j,
+          aide = !cleared && G.sigils.includes(j) && !G.train.includes(j + 1);
         modal(
           towns[G.z] + " Gym",
           '<canvas class="pixel" id="interior" width="330" height="100"></canvas><h3>' +
@@ -9069,7 +10395,9 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
             E[gymEl[j]] +
             " · " +
             badgeNames[j] +
-            ' Badge</p><div class="actions">' +
+            " Badge</p>" +
+            (aide ? '<p class="message">' + gymLessons[j] + "</p>" : "") +
+            '<div class="actions">' +
             (cleared
               ? G.story
                 ? btn("Challenge rematch", "meetLeader(true)", "primary")
@@ -9087,7 +10415,7 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
             "</div>",
         );
         drawInterior(j);
-        showHost(gyms[j]);
+        showHost(aide ? g[5] : gyms[j]);
       }
       function showHost(name) {
         let art = $("interior");
@@ -9335,6 +10663,7 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
         const active = Number(roomTile(j, p.n));
         const status = $("roomStatus"),
           track = $("roomTrack");
+        paintMenuBackdrop("gym/" + j);
         if (p.done)
           status.textContent = "The path is open. Your gym trainer awaits.";
         else if (seq.length) {
@@ -9368,6 +10697,25 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
               : "Step onto a control");
         }
         drawRoom(p, labels);
+      }
+      function paintMenuBackdrop(key) {
+        const backdrop = $("roomBackdrop"),
+          width = 384,
+          height = Math.max(
+            108,
+            Math.round((width * innerHeight) / innerWidth),
+          ),
+          density = displayDensity(innerWidth, 3),
+          stamp = [key, height, density, detailReady].join("/");
+        backdrop.hidden = false;
+        if (backdrop.dataset.stage === stamp) return;
+        backdrop.dataset.stage = stamp;
+        const c = setSceneResolution(backdrop, width, height, density);
+        fillArtwork(c, sceneArt(c, key), width, height, 0.5, 0.42);
+        const veil = c.createLinearGradient(0, 0, 0, height);
+        veil.addColorStop(0, "#14242c38");
+        veil.addColorStop(1, "#0e222bc9");
+        rect(c, 0, 0, width, height, veil);
       }
       function drawRoom(p, labels) {
         const width = 288,
@@ -9515,7 +10863,7 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
       function gymTrainer() {
         let j = G.z - 1;
         startBattle(
-          teamFor(gymEl[j], 1 + (j >= 4), 3 + j * 2),
+          opponentTeam(gymAides[j], (j ? 2 : 1) + j * 2),
           "trainer",
           gymData[j][5],
           () => {
@@ -9531,14 +10879,14 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
         talk(
           gyms[j],
           [
-            "These seedlings share their strength through their roots. Let me show you.",
-            "Water carries force in both directions. Watch the returning swell.",
-            "The kiln is lit. Let’s see how your team holds its shape.",
-            "Keep up with the relay. A single beat changes everything.",
-            "The quarry keeps the marks of every visitor. Leave a good one.",
-            "See the halo around the moon? We have one clear moment before the snow.",
-            "When the lantern turns, look again. Your first impression may change.",
-            "Eight gardens, eight different rhythms. Let your team find its own.",
+            "Watch for Nettle Sleep. If your partner gets drowsy, give it cover. Brambleap will try to recover when its health runs low.",
+            "Inklingel will call the rain. Expect stronger Tide strikes while it lasts, and a Rillcrest that’s difficult to wear down.",
+            "The kiln is lit. If you give Emberook time to build power, you’ll feel every strike that follows.",
+            "My team can slow yours down. Read which creature moves first before you commit.",
+            "Torhorn’s guard holds. Give your team a turn to build power if the first hit barely registers.",
+            "Watch for the whiteout. There’s time to take cover before the hardest Frost strike.",
+            "When the lantern turns, look again. My team has more than one way to change the field.",
+            "You’ve heard eight different rhythms. Let’s see how your companions pass the light between them.",
           ][j],
           j,
           "leader(" + rematch + ")",
@@ -9554,44 +10902,39 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
           (!rematch && (j !== G.badges || !G.train.includes(j + 1)))
         )
           return;
-        startBattle(
-          teamFor(
-            gymEl[j],
-            rematch ? 5 : 1 + Math.floor((j + 1) / 2),
-            rematch ? 23 + j : 4 + j * 2,
-            signatures[j],
-          ),
-          "leader",
-          gyms[j],
-          () => {
-            if (rematch) {
-              uniq(G.rematch, j);
-              G.bag["Tide Capsule"] += 3;
-            } else {
-              G.badges++;
-              if (G.badges === 6) G.wind = true;
-            }
-            heal();
-            save();
-            refresh();
-            talk(
-              gyms[j],
-              gymData[j][6] +
-                " " +
-                (rematch
-                  ? "A fine rematch. Three Tide Capsules are yours."
-                  : "You earned the " +
-                    badgeNames[j] +
-                    " Badge and " +
-                    gear[j] +
-                    ". " +
-                    (j === 5
-                      ? "Your wind rig can now ride the summit currents."
-                      : "")),
-              j + 1,
-            );
-          },
+        const team = opponentTeam(
+          rematch ? [gymReserves[j], ...gymTeams[j]] : gymTeams[j],
+          rematch ? 23 + j : j === 0 ? 3 : 4 + j * 2,
         );
+        startBattle(team, "leader", gyms[j], () => {
+          if (rematch) {
+            uniq(G.rematch, j);
+            G.bag["Tide Capsule"] += 3;
+          } else {
+            G.badges++;
+            soundPhrase("badge");
+            if (G.badges === 6) G.wind = true;
+          }
+          heal();
+          save();
+          refresh();
+          talk(
+            gyms[j],
+            gymData[j][6] +
+              " " +
+              (rematch
+                ? "A fine rematch. Three Tide Capsules are yours."
+                : "You earned the " +
+                  badgeNames[j] +
+                  " Badge and " +
+                  gear[j] +
+                  ". " +
+                  (j === 5
+                    ? "Your wind rig can now ride the summit currents."
+                    : "")),
+            j + 1,
+          );
+        });
       }
       function rival() {
         if (!G.party.length)
@@ -9647,59 +10990,74 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
       function observatory() {
         if (G.badges < 8) return toast("Eight badges open the star chamber.");
         if (!G.story) {
-          talk(
-            "Director Avenel",
-            "We tried to silence the fluctuations. The habitats fell quiet with them. Help Orreryon break the regulator’s hold.",
-            2,
-            "finale()",
-            "Free the meridian",
-          );
-          return;
+          return meridian(false);
         }
         if (G.cup < 5) {
           modal(
             "Asterra Championship",
-            '<canvas id="interior" class="pixel" width="330" height="100"></canvas><p>Four specialists and the reigning champion await. Your party recovers between rounds.</p>' +
-              champ
-                .map(
-                  (s, i) =>
-                    '<div class="message">' +
-                    (i < G.cup ? "✓ " : i === G.cup ? "◆ " : "◇ ") +
-                    s +
-                    "</div>",
-                )
-                .join("") +
-              btn("Challenge " + champ[G.cup], "cupFight()", "primary"),
+            `<div class="chapter-art"><canvas id="interior" class="pixel" width="330" height="98" aria-hidden="true"></canvas>
+              <h3>The championship roster</h3></div>
+            <p>Your party rests between rounds. You can leave the observatory and return for the next match.</p>
+            <ol class="league-ladder">${champ
+              .map(
+                (name, i) =>
+                  `<li class="${i === G.cup ? "next" : ""}">
+                <canvas width="46" height="46" data-league-portrait="${i}" aria-hidden="true"></canvas>
+                <div><b>${name}</b><br><small>${["Tide & currents", "Stone & defence", "Spirit & conditions", "Storm & speed", "Mixed elements"][i]}</small></div>
+                <span>${i < G.cup ? "Won" : i === G.cup ? "Next" : "Waiting"}</span>
+              </li>`,
+              )
+              .join("")}</ol>
+            ${btn("Challenge " + champ[G.cup], "cupFight()", "primary")}`,
           );
           drawInterior("championship");
-          showHost(champ[G.cup]);
+          for (const cv of $("content").querySelectorAll(
+            "[data-league-portrait]",
+          ))
+            portrait(cv, champ[Number(cv.dataset.leaguePortrait)]);
         } else credits();
       }
+      function meridian(restored) {
+        modal(
+          restored ? "Wildlight restored" : "The Meridian Regulator",
+          `<div class="chapter-art"><canvas id="interior" class="pixel" width="330" height="139" aria-hidden="true"></canvas>
+            <h3>${restored ? "The rings turn again" : "The longest noon"}</h3></div>
+            <div class="field-note"><span class="field-note-kicker">Director Avenel</span>
+            <p>${
+              restored
+                ? "Listen. The marsh is singing. Ise and I will pull up the stakes. Orreryon can return to its shrine, and you can take your team into the League."
+                : "The regulator has trapped three partners in its rings. Your seals can unlock it when their hold breaks. Watch their moves and swap partners when you see an opening."
+            }</p></div>
+            <div class="actions">${btn(
+              restored ? "Enter the championship" : "Release the regulator",
+              restored ? "observatory()" : "finale()",
+              "primary",
+            )}</div>`,
+        );
+        drawInterior(restored ? "championship" : "regulator");
+        paintMenuBackdrop(restored ? "championship" : "regulator");
+      }
       function finale() {
-        startBattle([mon(298, 19)], "story", "Stilllight regulator", () => {
-          G.story = 1;
-          heal();
-          save();
-          refresh();
-          talk(
-            "Director Avenel",
-            "The rings are turning at different speeds again. Hear that? Even the marsh is singing. The Society will help restore what we changed. Orreryon waits at the meridian shrine.",
-            2,
-            "observatory()",
-            "Enter the championship",
-          );
-        });
+        if (G.story || G.badges < 8) return;
+        startBattle(
+          opponentTeam(regulatorTeam, 18),
+          "story",
+          "Stilllight regulator",
+          () => {
+            G.story = 1;
+            soundPhrase("restored");
+            heal();
+            save();
+            refresh();
+            meridian(true);
+          },
+        );
       }
       function cupFight() {
         let j = G.cup;
         if (!G.story || j > 4) return;
         startBattle(
-          teamFor(
-            champEls[j],
-            j === 4 ? 6 : 4,
-            19 + j,
-            j === 4 ? 143 : undefined,
-          ),
+          opponentTeam(cupTeams[j], 19 + j),
           "champion",
           champ[j],
           () => {
@@ -9707,33 +11065,49 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
             heal();
             save();
             refresh();
-            if (G.cup === 5) credits();
-            else observatory();
+            if (G.cup === 5) {
+              soundPhrase("cup");
+              credits();
+            } else observatory();
           },
         );
       }
       function credits() {
         modal(
           "The Asterra League",
-          '<canvas id="interior" class="pixel" width="330" height="100"></canvas><h3>Champion of Asterra</h3><p>From the salt grass of Brinewick to the turning meridian, your companions carried the light home.</p><p>Lio records the final match. Oriel opens a fresh field journal. Across ten habitats, the expedition continues.</p><p class="message">Eight badges · Championship complete · ' +
-            G.caught.length +
-            " / 300 species</p>" +
-            btn("Continue exploring", "closeUI()", "primary"),
+          `<div class="chapter-art"><canvas id="interior" class="pixel" width="330" height="134"></canvas><h3>Champion of Asterra</h3></div>
+            <p>Lio calls the last play from the balcony. When the crowd quiets, Oriel hands you back the journal you started in Brinewick.</p>
+            <dl class="expedition-record">
+              <div><dt>League badges</dt><dd>8 / 8</dd></div>
+              <div><dt>Species caught</dt><dd>${G.caught.length} / 300</dd></div>
+              <div><dt>Field notebooks</dt><dd>${G.fieldNotes.length} / 9</dd></div>
+            </dl>
+            <p>The gym leaders are ready for rematches. Out along the trails, there are still chimes to tune and shrines to discover.</p>
+            <div class="actions">${btn("Continue exploring", "closeUI()", "primary")}
+              ${btn("Open Field Atlas", "openAtlas()")}</div>`,
         );
         drawInterior("records");
+        paintMenuBackdrop("championship");
       }
       // Field Atlas, party, storage and expedition desk
       function partyCard(m, i, switching = false, relearn = false) {
         const activeSlot = i === (switching ? B.ai : 0);
+        const incoming = switching && !B.forced ? moves[B.intent?.id] : null;
+        const resistance =
+          incoming?.power && !activeSlot && m.hp ? match(incoming.e, m.id) : 1;
         const flag = !m.hp
           ? "Rest needed"
           : activeSlot
             ? switching
               ? "On field"
               : "Lead"
-            : eligible(m) && !switching
-              ? "Evolution ready"
-              : "";
+            : resistance < 1
+              ? "Relay on hit"
+              : resistance > 1
+                ? "Vulnerable"
+                : eligible(m) && !switching
+                  ? "Evolution ready"
+                  : "";
         const handler = switching
           ? "chooseSwitch"
           : relearn
@@ -9744,6 +11118,7 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
           ${specimenArt(m.id, flag)}
           <span class="card-copy"><span class="card-name"><b>${esc(label(m))}</b><small>Lv. ${m.lv}</small></span>
             ${elementTags(species[m.id])}${gauges(m)}
+            ${resistance !== 1 ? `<small class="${resistance < 1 ? "strong" : "weak"}">${E[incoming.e]} ×${Number(resistance.toFixed(2))}</small>` : ""}
           </span></button>`;
       }
       function partyUI(relearn = false) {
@@ -9839,7 +11214,7 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
         modal(
           "Held equipment",
           "<p>One held item per companion. Exchanged items return to the bag.</p>" +
-            ["", "Amber Pin", "Moss Band"]
+            ["", ...heldItems]
               .map(
                 (k) =>
                   '<button class="entry" ' +
@@ -9848,7 +11223,9 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
                   i +
                   ",'" +
                   k +
-                  "')\"><span><b>" +
+                  "')\">" +
+                  (k ? itemIcon(k) : "") +
+                  "<span><b>" +
                   (k || "Remove item") +
                   "</b><small>" +
                   (items[k] || "Return the held item to the bag.") +
@@ -9860,7 +11237,7 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
       }
       function equip(i, k) {
         let m = G.party[i];
-        if (k && !G.bag[k]) return;
+        if (!m || (k && (!heldItems.includes(k) || !G.bag[k]))) return;
         if (m.held) G.bag[m.held]++;
         if (k) G.bag[k]--;
         m.held = k;
@@ -10544,7 +11921,8 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
             </section>
             <section class="settings-group"><h3>Display and pacing</h3>
               ${toggle("Artwork detail", graphicsModes[o.graphics], "cycleGraphics()", "graphics")}
-              ${toggle("Text and battles", o.fast ? "Fast" : "Normal", "flipSetting('fast')", "fast")}
+              ${toggle("Battle speed", o.fast ? "Fast" : "Normal", "flipSetting('fast')", "fast")}
+              ${toggle("Text speed", textModes[o.text], "cycleTextSpeed()", "text")}
               ${toggle("Motion", o.reduced ? "Reduced" : "Full", "flipSetting('reduced')", "reduced")}
               ${document.fullscreenEnabled ? toggle("Display", document.fullscreenElement ? "Full screen" : "Windowed", "fullScreen()", "screen") : ""}
             </section>
@@ -10581,6 +11959,13 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
         G.options.graphics = modes[(index + 1) % modes.length];
         save();
         settings("graphics");
+      }
+      function cycleTextSpeed() {
+        const speeds = Object.keys(textModes);
+        G.options.text =
+          speeds[(speeds.indexOf(G.options.text) + 1) % speeds.length];
+        save();
+        settings("text");
       }
       function bindKey(k) {
         waitingKey = k;
@@ -10843,11 +12228,25 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
       document.addEventListener("keyup", (e) =>
         keys.delete(e.key.length === 1 ? e.key.toLowerCase() : e.key),
       );
+      let hiddenSince = document.hidden ? performance.now() : null;
       document.addEventListener("visibilitychange", () => {
         paused = document.hidden;
         keys.clear();
-        if (paused) ac?.suspend();
-        else enableAudio();
+        if (paused) {
+          hiddenSince ??= performance.now();
+          ac?.suspend().catch(() => {});
+          return;
+        }
+        if (hiddenSince !== null) {
+          const elapsed = performance.now() - hiddenSince;
+          if (typing) typing.start += elapsed;
+          if (anim) anim.t += elapsed;
+          if (captureStage) captureSince += elapsed;
+          if (evoState) evoState.t += elapsed;
+          if (fieldPulse) fieldPulse.t += elapsed;
+          hiddenSince = null;
+        }
+        if (G.options.sound) ac?.resume().catch(() => {});
       });
       window.addEventListener("blur", () => keys.clear());
       document.addEventListener("click", (e) => {
@@ -10880,7 +12279,12 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
             let nx = xx + dx * cell,
               ny = yy + dy * cell,
               key = nx + "," + ny;
-            if (seen.has(key) || !canWalk(nx, ny)) continue;
+            if (
+              seen.has(key) ||
+              !canWalk(nx, ny) ||
+              !canWalk(xx + dx * (cell / 2), yy + dy * (cell / 2))
+            )
+              continue;
             seen.add(key);
             queue.push([nx, ny, i]);
           }
@@ -10928,13 +12332,13 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
             ...v,
             d: Math.min(
               Math.hypot(v.x - x, v.y - y - 3),
-              v.id != null || v.key === "oriel"
+              v.id != null || v.key === "oriel" || v.chime != null
                 ? Math.hypot(v.x - x, v.y - y - 14)
                 : Infinity,
             ),
           }))
           .sort((a, b) => a.d - b.d)[0];
-        if (!G.trail) {
+        if (!G.trail && !G.sanctuary) {
           let idx = layouts[G.z]
             .slice(0, 2)
             .findIndex(
@@ -11491,8 +12895,50 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
         );
         assert(
           Object.keys(items).every((k) => Number.isInteger(fresh().bag[k])) &&
+            heldItems.every((k) => items[k]) &&
             new Set(families.slice(130).map((f) => f.zone)).size === 10,
           "items and shrines",
+        );
+        assert(
+          fieldStations.length === 10 &&
+            fieldStations
+              .slice(1)
+              .every(
+                (station, i) =>
+                  station.chimes.length === 3 &&
+                  station.order.length === 3 &&
+                  new Set(station.order).size === 3 &&
+                  station.order.every((slot) => station.chimes[slot]) &&
+                  pool(i + 1).includes(speciesByName.get(station.species)),
+              ),
+          "field notebooks",
+        );
+        for (const rows of [
+          ...gymAides,
+          ...gymTeams,
+          gymReserves,
+          ...cupTeams,
+          regulatorTeam,
+        ]) {
+          assert(rows.length > 0, "empty League team");
+          for (const row of rows) {
+            const [name, ...kit] = row.split("|");
+            assert(
+              speciesByName.has(name) &&
+                kit.length === 4 &&
+                new Set(kit).size === 4 &&
+                kit.every((move) => movesByName.has(move)) &&
+                kit.some((move) => moves[movesByName.get(move)].power > 0),
+              name + " League moves",
+            );
+          }
+        }
+        assert(
+          gymTeams.every((team, i) => {
+            const name = team.at(-1).split("|")[0];
+            return species[speciesByName.get(name)].el.includes(gymEl[i]);
+          }),
+          "gym signatures",
         );
         return true;
       }
