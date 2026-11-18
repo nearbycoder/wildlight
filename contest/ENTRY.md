@@ -2,7 +2,7 @@
 
 **by nearbycoder**
 
-[Play Wildlight](https://nearbycoder.github.io/wildlight/play/) · [Game site and controls](https://nearbycoder.github.io/wildlight/) · [Gameplay reel](https://nearbycoder.github.io/wildlight/assets/site/asterra-tour.mp4)
+[Play Wildlight](https://nearbycoder.github.io/wildlight/play/) · [Game site and controls](https://nearbycoder.github.io/wildlight/) · [Gameplay reel](https://nearbycoder.github.io/wildlight/assets/site/asterra-tour.mp4) · [Public GitHub source](https://github.com/nearbycoder/wildlight)
 
 ## Short description
 
@@ -15,6 +15,12 @@ Your first assignment as a field researcher takes you from the Brinewick meadow 
 Build a party of six from 300 collectible species. Each opponent signals its next move, so a switch at the right moment can turn a resisted hit into the energy for a stronger reply. Solve eight gym puzzles, explore ten legendary sanctuaries and enter the Asterra Championship after the story.
 
 Wildlight is free and plays in a modern browser with keyboard, mouse or touch. It saves locally and includes a portable backup. Open in-game Settings to turn on the soundtrack, change text speed or reduce motion.
+
+## How Wildlight uses SHIFT
+
+In battle, the foe signals its next move. Shift to a partner that resists that attack and the hit charges a relay. The incoming partner gains three energy and 25% power on its next successful strike. Build a team whose resistances give you reasons to trade places.
+
+Out on the trails, the Stilllight Society has locked Asterra’s natural cycles in place. Chimes respond to the order of rain, tide or light. Eventually you help the observatory’s rings move at different speeds again.
 
 ## First expedition
 
@@ -35,6 +41,6 @@ Wildlight is an original game by nearbycoder, developed with Codex assistance. C
 
 ## Contest target
 
-**Indie Spirit Season 2** is a fit for the current build. Its posted rules expressly allow existing games, HTML games and AI-assisted development and artwork. It lists three winners and a Community Choice award. [Indie Spirit Season 2 rules](https://itch.io/jam/indiespiritseason2)
+**GitHub Game Off 2026** is open for the theme **SHIFT**. Entries are evaluated on gameplay, graphics, audio, innovation, theme and overall experience. The deadline is **December 1, 2026 at 1:37 p.m. Pacific (3:37 p.m. Central)**. [GitHub announcement](https://github.blog/open-source/gaming/game-off-2026-the-theme-is-shift/)
 
-The itch.io submission counter shows **November 24–30, 2026**, while the prose rules list **December 1–7**. Use the live submission form to confirm the window before entering. [Live submission counter](https://itch.io/jam/indiespiritseason2)
+The rules allow browser games and disclosed AI-assisted development and artwork. The game’s public GitHub history starts on November 17, within the development window. Provide the GitHub source URL and the playable build through the itch.io entry form. [Official rules and FAQ](https://itch.io/jam/game-off-2026/topic/7290154/frequently-asked-questions-faq)
