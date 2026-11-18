@@ -14,7 +14,7 @@ Settings includes full-screen mode where supported, key bindings, reduced motion
 
 ## GitHub Pages
 
-The landing page is [index.html](index.html). Its expedition journal features the game’s creature sprites, leader portraits and title-screen alphabet. Begin expedition opens the standalone game in the same tab. GitHub Pages publishes the repository root from `main`. Relative links work both under the project URL and when browsing a local checkout.
+The landing page is [index.html](index.html). Its scrolling field guide includes a gameplay tour, habitat artwork, evolution studies, battle mechanics, eight gym puzzles, and illustrated controls. Begin expedition opens the standalone game. Play here loads the same game inside the page on demand. GitHub Pages publishes the repository root from `main`. Relative links work both under the project URL and when browsing a local checkout.
 
 ## Browser verification
 

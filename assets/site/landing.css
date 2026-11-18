@@ -964,3 +964,601 @@ footer a:hover {
     animation: none;
   }
 }
+
+/* The field guide reads from coast to championship in one continuous spread. */
+#journal {
+  padding-bottom: 0;
+}
+.tabs {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+}
+.tabstrip {
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  max-width: 1192px;
+}
+.tabstrip a {
+  min-height: 54px;
+  font-size: clamp(11px, 1.1vw, 15px);
+  border: 0;
+}
+.tabstrip a:last-child {
+  border: 0;
+}
+.pages {
+  width: 100%;
+  margin: 0;
+}
+.feature,
+.launch {
+  padding: clamp(44px, 6vw, 84px) max(calc((100% - 1120px) / 2), 5vw);
+}
+.pages > section,
+.launch {
+  scroll-margin-top: 66px;
+}
+.pages > .page {
+  width: min(1120px, 90%);
+  margin: clamp(36px, 5vw, 64px) auto;
+}
+.pages > .page + .page {
+  margin-top: 0;
+}
+.feature h2,
+.launch h2 {
+  font-size: clamp(27px, 3.2vw, 46px);
+  max-width: 29ch;
+  line-height: 1.16;
+}
+.feature h3,
+.manual-layout h3,
+.control-grid h3 {
+  font: normal clamp(15px, 1.3vw, 19px) / 1.34 var(--pixel);
+  text-transform: uppercase;
+  letter-spacing: 0;
+}
+.world {
+  background: #f6f0dc;
+  color: var(--ink);
+  border-bottom: 5px double #9b9b73;
+}
+.world-spread {
+  display: grid;
+  grid-template-columns: 0.88fr 1.12fr;
+  align-items: center;
+  gap: clamp(26px, 4.8vw, 70px);
+}
+.dek {
+  font:
+    clamp(17px, 1.48vw, 21px) / 1.53 Georgia,
+    serif;
+  margin: 15px 0;
+  color: inherit;
+}
+.world-spread > div > p:not(.dek):not(.folio),
+.craft p,
+.study p,
+.tactics p,
+.launch-copy > p:last-child {
+  font-size: 15px;
+  line-height: 1.65;
+  margin: 12px 0 0;
+}
+.numbers {
+  display: flex;
+  justify-content: flex-start;
+  gap: clamp(18px, 3vw, 48px);
+  padding-top: 16px;
+  border-top: 1px solid #c7c4a4;
+  margin: 22px 0 0;
+}
+.numbers div {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 4px;
+}
+.numbers dd {
+  margin: 0;
+  color: #3b6246;
+  font: 26px/1 var(--pixel);
+}
+.numbers dt,
+.footage figcaption,
+.battle-screen figcaption {
+  font: 12px/1.45 var(--mono);
+}
+.footage,
+.battle-screen {
+  margin: 0;
+  border: 3px solid #304d3e;
+  outline: 1px solid #b7ae88;
+  box-shadow: 5px 5px #31543c26;
+  background: #203f34;
+  overflow: hidden;
+}
+.footage video {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 12/7;
+  image-rendering: pixelated;
+}
+.footage figcaption,
+.battle-screen figcaption {
+  background: #244333;
+  color: #f2e7bf;
+  padding: 10px 12px;
+}
+.footage figcaption {
+  display: flex;
+  justify-content: space-between;
+  gap: 4px 14px;
+  flex-wrap: wrap;
+}
+.footage figcaption span {
+  color: #d3d9bf;
+}
+.postcards,
+.study-plates,
+.tactics {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(14px, 2vw, 26px);
+}
+.postcards {
+  margin-top: clamp(28px, 4vw, 54px);
+}
+.postcards figure,
+.study-art figure {
+  margin: 0;
+  min-width: 0;
+}
+.postcards img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 2px solid #647c62;
+}
+.postcards figcaption {
+  padding-top: 10px;
+}
+.postcards b {
+  display: block;
+  font: 15px/1.35 var(--pixel);
+  text-transform: uppercase;
+}
+.postcards span {
+  display: block;
+  font-size: 14px;
+  line-height: 1.5;
+  margin-top: 5px;
+  color: #415a48;
+}
+.design {
+  color: var(--ink);
+  background: #e9e6cf;
+  border-block: 4px double #a9ad8f;
+}
+.design .dek {
+  max-width: 64ch;
+}
+.study-plates {
+  margin-top: 26px;
+}
+.study-art {
+  display: flex;
+  align-items: flex-end;
+  background: #dadfb6;
+  background-image:
+    linear-gradient(#fff3 1px, transparent 1px),
+    linear-gradient(90deg, #fff3 1px, transparent 1px);
+  background-size: 14px 14px;
+  border: 1px solid #a3ae8e;
+  padding: 20px 5px 14px;
+}
+.marsh .study-art {
+  background-color: #c7dfca;
+}
+.stone .study-art {
+  background-color: #e6d4b5;
+}
+.study-art figure {
+  flex: 1;
+  text-align: center;
+}
+.study-art img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.study-art figcaption {
+  font: bold clamp(9px, 1vw, 12px) var(--mono);
+  padding: 5px 0 0;
+}
+.study h3 {
+  margin: 16px 0 0;
+}
+.study p,
+.tactics p,
+.craft p {
+  margin-top: 7px;
+}
+.craft {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  padding-top: 21px;
+  margin-top: 28px;
+  border-top: 1px dashed #a0a98b;
+}
+.craft h3 {
+  margin: 0;
+}
+.battles {
+  color: #f4eed7;
+  background: #16332d;
+  border-bottom: 1px solid #677251;
+}
+.battles .folio,
+.launch .folio {
+  color: #dac590;
+}
+.battle-screen {
+  margin: 25px 0;
+  border-color: #acaa7b;
+}
+.battle-screen img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.battle-screen figcaption {
+  background: #122a24;
+}
+.tactics h3 {
+  color: #f0cf85;
+  margin: 0;
+}
+.tactics p {
+  color: #dde3d2;
+}
+.control-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(18px, 4vw, 45px);
+  margin: 25px 0 27px;
+}
+.control-grid h3,
+.manual-layout h3 {
+  margin: 0 0 12px;
+}
+.bindings {
+  margin: 0;
+}
+.bindings > div {
+  display: grid;
+  grid-template-columns: minmax(118px, 0.75fr) 1fr;
+  gap: 8px;
+  align-items: center;
+  border-top: 1px solid #bdc1a7;
+  padding: 10px 0;
+}
+.bindings dt,
+.bindings dd {
+  margin: 0;
+  font-size: 14px;
+}
+.bindings dt {
+  font-weight: bold;
+}
+kbd {
+  font: 600 12px/1.5 var(--mono);
+  display: inline-block;
+  color: #334e3d;
+  background: #f9f6df;
+  border: 1px solid #b1b897;
+  border-bottom: 3px solid #9ba889;
+  border-radius: 3px;
+  padding: 1px 4px;
+}
+#guide .manual-layout {
+  border-top: 2px solid #b7b99d;
+  padding-top: 22px;
+}
+.launch {
+  background: #233e32;
+  color: #fff0ca;
+  text-align: center;
+  border-top: 3px double #a29a6d;
+}
+.launch h2,
+.launch .folio {
+  margin-inline: auto;
+}
+.launch-copy > p:last-child {
+  margin: 12px auto 24px;
+}
+.cabinet {
+  width: min(100%, 880px);
+  margin: 0 auto;
+  aspect-ratio: 12/7;
+  position: relative;
+  background: #162c25;
+  border: 4px double #c6ba89;
+  box-shadow: 0 6px #132b23;
+}
+.cabinet iframe,
+.cabinet img,
+.cabinet #console-cover {
+  width: 100%;
+  height: 100%;
+  display: block;
+  border: 0;
+}
+.cabinet img {
+  object-fit: cover;
+  filter: brightness(0.72);
+}
+.cabinet .play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  white-space: nowrap;
+}
+.console-links {
+  margin: 20px 0 0;
+  display: flex;
+  gap: 12px 25px;
+  justify-content: center;
+  flex-wrap: wrap;
+  font: bold 12px/1.6 var(--mono);
+}
+@media (max-width: 820px) {
+  .world-spread {
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  .numbers {
+    gap: 14px;
+  }
+  .numbers dd {
+    font-size: 22px;
+  }
+  .numbers dt {
+    font-size: 11px;
+  }
+  .postcards,
+  .study-plates,
+  .tactics {
+    gap: 14px;
+  }
+  .feature h3 {
+    font-size: 15px;
+  }
+}
+@media (max-width: 700px) {
+  .tabs {
+    position: static;
+  }
+  .tabstrip {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .tabstrip a {
+    font-size: 11px;
+    min-height: 39px;
+    padding: 10px 2px;
+  }
+  .tabs .active {
+    box-shadow: none;
+  }
+  .tabs .active:after {
+    display: none;
+  }
+  .pages > section,
+  .launch {
+    scroll-margin-top: 10px;
+  }
+  .world-spread,
+  .control-grid {
+    grid-template-columns: 1fr;
+  }
+  .feature,
+  .launch {
+    padding: 38px 5vw;
+  }
+  .pages > .page {
+    width: calc(100% - 22px);
+    margin: 27px auto;
+  }
+  .postcards,
+  .study-plates,
+  .tactics {
+    grid-template-columns: 1fr;
+    gap: 23px;
+  }
+  .postcards figure {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 12px;
+    align-items: center;
+  }
+  .postcards figcaption {
+    padding: 0;
+  }
+  .postcards b {
+    font-size: 13px;
+  }
+  .postcards span {
+    font-size: 13px;
+  }
+  .study {
+    display: grid;
+    grid-template-columns: 42% 1fr;
+    column-gap: 14px;
+    align-items: start;
+  }
+  .study-art {
+    grid-column: 1/-1;
+    min-height: 110px;
+    align-items: center;
+    padding: 8px;
+  }
+  .study-art img {
+    max-width: 110px;
+    margin: auto;
+  }
+  .study-art figcaption {
+    font-size: 11px;
+  }
+  .study h3 {
+    margin-top: 12px;
+  }
+  .study p {
+    font-size: 14px;
+    margin-top: 9px;
+  }
+  .craft {
+    gap: 18px;
+  }
+  .craft p {
+    font-size: 14px;
+  }
+  .control-grid {
+    gap: 22px;
+  }
+  .battle-screen {
+    margin: 20px 0;
+  }
+  .tactics p {
+    font-size: 14px;
+  }
+  .cabinet {
+    aspect-ratio: 3/4;
+    max-height: 77svh;
+  }
+  .cabinet img {
+    object-position: 55% 50%;
+  }
+  .console-links {
+    font-size: 11px;
+  }
+  .world-spread > div > p:not(.dek):not(.folio) {
+    font-size: 14px;
+  }
+  .feature h2,
+  .launch h2 {
+    font-size: 25px;
+  }
+  .footage figcaption {
+    font-size: 10px;
+  }
+  .numbers {
+    justify-content: space-between;
+  }
+}
+@media (max-width: 400px) {
+  .postcards figure {
+    grid-template-columns: 1fr;
+  }
+  .postcards figcaption {
+    padding: 0;
+  }
+  .craft {
+    grid-template-columns: 1fr;
+  }
+  .control-grid .bindings > div {
+    grid-template-columns: 118px 1fr;
+  }
+}
+.leader {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) minmax(150px, 29%);
+  gap: 16px;
+}
+.gym-floor {
+  margin: 0;
+}
+.gym-floor img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+  border: 1px solid #8f9a76;
+}
+.gym-floor figcaption {
+  margin-top: 4px;
+  font: 10px var(--mono);
+  color: #506147;
+}
+.leader[hidden] {
+  display: none;
+}
+.legends {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5%;
+  align-items: center;
+  background: #283c3e;
+  color: #f6efcf;
+  border-block: 3px double #89947b;
+}
+.legends .folio {
+  color: #d4c892;
+}
+.legends .dek {
+  font-size: 19px;
+}
+.legends p:last-child {
+  font-size: 15px;
+  line-height: 1.65;
+}
+.legend-trio {
+  display: flex;
+  align-items: end;
+  background: radial-gradient(ellipse at center, #6880787a, transparent 70%);
+  padding: 12px 0;
+}
+.legend-trio figure {
+  margin: 0;
+  width: 33.333%;
+  text-align: center;
+}
+.legend-trio img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.legend-trio b,
+.legend-trio small {
+  display: block;
+}
+.legend-trio b {
+  font: clamp(11px, 1.2vw, 17px) / 1.6 var(--pixel);
+  text-transform: uppercase;
+}
+.legend-trio small {
+  font: 11px var(--mono);
+  color: #ded6b3;
+}
+@media (max-width: 700px) {
+  .leader {
+    grid-template-columns: 54px 1fr;
+    gap: 10px;
+  }
+  .gym-floor {
+    grid-column: 1/-1;
+    max-width: 400px;
+  }
+  .legends {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .legend-trio {
+    max-width: 480px;
+  }
+  .legend-trio small {
+    font-size: 9px;
+  }
+}

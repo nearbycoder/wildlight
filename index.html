@@ -36,8 +36,8 @@
       href="assets/site/title-coast.png"
       media="(min-width: 701px)"
     />
-    <link rel="stylesheet" href="assets/site/landing.css?v=journal" />
-    <script defer src="assets/site/field-guide.js?v=journal"></script>
+    <link rel="stylesheet" href="assets/site/landing.css?v=field-tour" />
+    <script defer src="assets/site/field-guide.js?v=field-tour"></script>
     <link
       rel="preload"
       as="font"
@@ -85,18 +85,117 @@
       <div id="journal" tabindex="-1">
         <nav class="tabs" aria-label="Expedition journal">
           <div class="tabstrip">
-            <a href="#partners" class="active"
-              ><img src="assets/site/menu-book.png" alt="" />Field Atlas</a
-            >
-            <a href="#journey"
-              ><img src="assets/site/menu-badge.png" alt="" />League circuit</a
-            >
-            <a href="#guide"
-              ><img src="assets/site/menu-bag.png" alt="" />Field manual</a
-            >
+            <a href="#world">The region</a><a href="#partners">Field Atlas</a
+            ><a href="#design">Creature design</a><a href="#battles">Battles</a
+            ><a href="#journey">League</a><a href="#guide">Controls</a>
           </div>
         </nav>
         <div class="pages">
+          <section
+            id="world"
+            class="feature world"
+            aria-labelledby="world-title"
+          >
+            <div class="world-spread">
+              <div>
+                <p class="folio">The region <span>/</span> Asterra</p>
+                <h2 id="world-title">Follow the Wildlight</h2>
+                <p class="dek">
+                  A field journal, a travelling case and a coast full of
+                  creatures. Your first assignment begins in Brinewick Village.
+                </p>
+                <p>
+                  Across Asterra, creatures store natural energy in their
+                  bodies. The Stilllight Society wants to quiet its
+                  fluctuations. As habitats change, your research leads from a
+                  seaside lodge to a dormant celestial observatory.
+                </p>
+                <dl class="numbers">
+                  <div>
+                    <dt>Species</dt>
+                    <dd>300</dd>
+                  </div>
+                  <div>
+                    <dt>Habitats</dt>
+                    <dd>10</dd>
+                  </div>
+                  <div>
+                    <dt>Gym badges</dt>
+                    <dd>8</dd>
+                  </div>
+                </dl>
+              </div>
+              <figure class="footage">
+                <video
+                  controls
+                  playsinline
+                  preload="none"
+                  width="768"
+                  height="448"
+                  poster="assets/site/brinewick-film.png"
+                  aria-label="Silent gameplay tour through four locations in Asterra"
+                >
+                  <source src="assets/site/asterra-tour.mp4" type="video/mp4" />
+                  <a href="assets/site/asterra-tour.mp4"
+                    >Watch the gameplay tour</a
+                  >
+                </video>
+                <figcaption>
+                  Field footage <span>Four stops across Asterra · 0:16</span>
+                </figcaption>
+              </figure>
+            </div>
+            <div class="postcards">
+              <figure>
+                <img
+                  loading="lazy"
+                  src="assets/site/briarwood.png"
+                  width="340"
+                  height="126"
+                  alt="The blossom-antlered Vernalith in a wooded battle clearing."
+                />
+                <figcaption>
+                  <b>Briarwood</b
+                  ><span
+                    >Vernalith brings spring growth wherever its hooves touch
+                    the forest floor.</span
+                  >
+                </figcaption>
+              </figure>
+              <figure>
+                <img
+                  loading="lazy"
+                  src="assets/site/rimefall.png"
+                  width="340"
+                  height="126"
+                  alt="Hibernox on a snow-covered mountain pass."
+                />
+                <figcaption>
+                  <b>Rimefall Pass</b
+                  ><span
+                    >High in the snowy pass, aurora light runs through
+                    Hibernox’s mane.</span
+                  >
+                </figcaption>
+              </figure>
+              <figure>
+                <img
+                  loading="lazy"
+                  src="assets/site/cirrus.png"
+                  width="340"
+                  height="126"
+                  alt="Altavane banks above rock platforms and floating ruins."
+                />
+                <figcaption>
+                  <b>Cirrus Steps</b
+                  ><span
+                    >Altavane rides the currents between islands of stone
+                    suspended in the sky.</span
+                  >
+                </figcaption>
+              </figure>
+            </div>
+          </section>
           <section class="page" id="partners" aria-labelledby="atlas-title">
             <div class="section-head">
               <div>
@@ -407,6 +506,206 @@
               families can join the same expedition.
             </p>
           </section>
+          <section
+            class="feature design"
+            id="design"
+            aria-labelledby="design-title"
+          >
+            <p class="folio">
+              Creature design <span>/</span> Evolution studies
+            </p>
+            <h2 id="design-title">From field mark to final form</h2>
+            <p class="dek">
+              Watch a thread become a wing pattern, a swimming tail give way to
+              cupped hands, and a stone core become a working pendulum.
+            </p>
+            <div class="study-plates">
+              <article class="study silk">
+                <div class="study-art">
+                  <figure>
+                    <img
+                      loading="lazy"
+                      src="assets/site/fuzzlet.png"
+                      width="88"
+                      height="78"
+                      alt="Fuzzlet"
+                    />
+                    <figcaption>Fuzzlet</figcaption>
+                  </figure>
+                  <figure>
+                    <img
+                      loading="lazy"
+                      src="assets/site/loomoth.png"
+                      width="88"
+                      height="78"
+                      alt="Loomoth"
+                    />
+                    <figcaption>Loomoth</figcaption>
+                  </figure>
+                  <figure>
+                    <img
+                      loading="lazy"
+                      src="assets/site/tapestria.png"
+                      width="88"
+                      height="78"
+                      alt="Tapestria"
+                    />
+                    <figcaption>Tapestria</figcaption>
+                  </figure>
+                </div>
+                <h3>Silk into wings</h3>
+                <p>
+                  Fuzzlet spins a thread from its abdomen. Loomoth hangs in a
+                  shuttle of silk. Tapestria’s open wings carry the same woven
+                  bars.
+                </p>
+              </article>
+              <article class="study marsh">
+                <div class="study-art">
+                  <figure>
+                    <img
+                      loading="lazy"
+                      src="assets/site/dewbit.png"
+                      width="88"
+                      height="78"
+                      alt="Dewbit"
+                    />
+                    <figcaption>Dewbit</figcaption>
+                  </figure>
+                  <figure>
+                    <img
+                      loading="lazy"
+                      src="assets/site/poolpalm.png"
+                      width="88"
+                      height="78"
+                      alt="Poolpalm"
+                    />
+                    <figcaption>Poolpalm</figcaption>
+                  </figure>
+                  <figure>
+                    <img
+                      loading="lazy"
+                      src="assets/site/miremitt.png"
+                      width="88"
+                      height="78"
+                      alt="Miremitt"
+                    />
+                    <figcaption>Miremitt</figcaption>
+                  </figure>
+                </div>
+                <h3>A life in the marsh</h3>
+                <p>
+                  Dewbit paddles with a leaf-shaped tail. Poolpalm grows its
+                  first webbed hands. Miremitt cups seedlings in its broad palms
+                  above the water.
+                </p>
+              </article>
+              <article class="study stone">
+                <div class="study-art">
+                  <figure>
+                    <img
+                      loading="lazy"
+                      src="assets/site/ticlet.png"
+                      width="88"
+                      height="78"
+                      alt="Ticlet"
+                    />
+                    <figcaption>Ticlet</figcaption>
+                  </figure>
+                  <figure>
+                    <img
+                      loading="lazy"
+                      src="assets/site/pendulor.png"
+                      width="88"
+                      height="78"
+                      alt="Pendulor"
+                    />
+                    <figcaption>Pendulor</figcaption>
+                  </figure>
+                  <figure>
+                    <img
+                      loading="lazy"
+                      src="assets/site/horolume.png"
+                      width="88"
+                      height="78"
+                      alt="Horolume"
+                    />
+                    <figcaption>Horolume</figcaption>
+                  </figure>
+                </div>
+                <h3>Stone that keeps time</h3>
+                <p>
+                  Ticlet’s core peeks through a seam. In Pendulor it swings on a
+                  short stalk. Horolume’s chest pillars leave it room to swing
+                  freely.
+                </p>
+              </article>
+            </div>
+            <div class="craft">
+              <div>
+                <h3>On the sprite sheet</h3>
+                <p>
+                  Family-specific drawings give each stage its own anatomy. The
+                  game caches front and rear views with three idle poses, then
+                  draws them on a low-resolution Canvas for crisp pixel edges.
+                </p>
+              </div>
+              <div>
+                <h3>In the soundtrack</h3>
+                <p>
+                  Each habitat has its own melody. The score switches when a
+                  battle starts, and each species has a synthesised call. Enable
+                  music and effects separately in Settings.
+                </p>
+              </div>
+            </div>
+          </section>
+          <section
+            class="feature battles"
+            id="battles"
+            aria-labelledby="battle-title"
+          >
+            <p class="folio">Battle journal <span>/</span> Glasswater Bay</p>
+            <h2 id="battle-title">Read the next turn</h2>
+            <figure class="battle-screen">
+              <img
+                loading="lazy"
+                src="assets/site/glasswater-battle.png"
+                width="340"
+                height="126"
+                alt="A level 12 Tempestern faces a wild Puddlepip beneath the lighthouse at Glasswater Bay. Health and energy are shown for both creatures."
+              />
+              <figcaption>
+                Tempestern encounters a wild Puddlepip at Glasswater Bay.
+              </figcaption>
+            </figure>
+            <div class="tactics">
+              <div>
+                <h3>Build a party of six</h3>
+                <p>
+                  Give each partner up to four moves. A fast attacker can open
+                  the fight, a defensive partner can take a hit, and a free
+                  lodge tutor lets you change a moveset between routes.
+                </p>
+              </div>
+              <div>
+                <h3>Spend energy wisely</h3>
+                <p>
+                  Choose among 108 moves across 12 elements. Priority and Speed
+                  decide who acts first. Raise a defence, change the field or
+                  switch to a partner with a better matchup.
+                </p>
+              </div>
+              <div>
+                <h3>Time the capsule</h3>
+                <p>
+                  A wild creature is easier to capture at low health or under a
+                  status condition. Choose a Lumen Capsule, try the capture and
+                  send your new companion to the party or storage.
+                </p>
+              </div>
+            </div>
+          </section>
           <section class="page" id="journey" aria-labelledby="league-title">
             <div class="section-head">
               <div>
@@ -496,6 +795,16 @@
                   </p>
                   <strong>Canopy Badge</strong> · Vine-clearing equipment
                 </div>
+                <figure class="gym-floor">
+                  <img
+                    src="assets/site/room-1.png"
+                    width="288"
+                    height="126"
+                    loading="lazy"
+                    alt="Interactive puzzle floor at Briarbrook Gym"
+                  />
+                  <figcaption>Briarbrook Gym · Puzzle floor</figcaption>
+                </figure>
               </article>
               <article class="leader" id="gym-2">
                 <img
@@ -514,6 +823,16 @@
                   </p>
                   <strong>Current Badge</strong> · Water traversal
                 </div>
+                <figure class="gym-floor">
+                  <img
+                    src="assets/site/room-2.png"
+                    width="288"
+                    height="126"
+                    loading="lazy"
+                    alt="Interactive puzzle floor at Tideglass Gym"
+                  />
+                  <figcaption>Tideglass Gym · Puzzle floor</figcaption>
+                </figure>
               </article>
               <article class="leader" id="gym-3">
                 <img
@@ -531,6 +850,16 @@
                   </p>
                   <strong>Ember Badge</strong> · Heavy-object movement
                 </div>
+                <figure class="gym-floor">
+                  <img
+                    src="assets/site/room-3.png"
+                    width="288"
+                    height="126"
+                    loading="lazy"
+                    alt="Interactive puzzle floor at Cindermill Gym"
+                  />
+                  <figcaption>Cindermill Gym · Puzzle floor</figcaption>
+                </figure>
               </article>
               <article class="leader" id="gym-4">
                 <img
@@ -549,6 +878,16 @@
                   </p>
                   <strong>Dynamo Badge</strong> · Expanded fast travel
                 </div>
+                <figure class="gym-floor">
+                  <img
+                    src="assets/site/room-4.png"
+                    width="288"
+                    height="126"
+                    loading="lazy"
+                    alt="Interactive puzzle floor at Voltspire Gym"
+                  />
+                  <figcaption>Voltspire Gym · Puzzle floor</figcaption>
+                </figure>
               </article>
               <article class="leader" id="gym-5">
                 <img
@@ -567,6 +906,16 @@
                   </p>
                   <strong>Strata Badge</strong> · Climbing equipment
                 </div>
+                <figure class="gym-floor">
+                  <img
+                    src="assets/site/room-5.png"
+                    width="288"
+                    height="126"
+                    loading="lazy"
+                    alt="Interactive puzzle floor at Slatehaven Gym"
+                  />
+                  <figcaption>Slatehaven Gym · Puzzle floor</figcaption>
+                </figure>
               </article>
               <article class="leader" id="gym-6">
                 <img
@@ -585,6 +934,16 @@
                   </p>
                   <strong>Crystal Badge</strong> · High mountain pass
                 </div>
+                <figure class="gym-floor">
+                  <img
+                    src="assets/site/room-6.png"
+                    width="288"
+                    height="126"
+                    loading="lazy"
+                    alt="Interactive puzzle floor at Frostmere Gym"
+                  />
+                  <figcaption>Frostmere Gym · Puzzle floor</figcaption>
+                </figure>
               </article>
               <article class="leader" id="gym-7">
                 <img
@@ -602,6 +961,16 @@
                   </p>
                   <strong>Lantern Badge</strong> · Hidden ruin passages
                 </div>
+                <figure class="gym-floor">
+                  <img
+                    src="assets/site/room-7.png"
+                    width="288"
+                    height="126"
+                    loading="lazy"
+                    alt="Interactive puzzle floor at Veilmarket Gym"
+                  />
+                  <figcaption>Veilmarket Gym · Puzzle floor</figcaption>
+                </figure>
               </article>
               <article class="leader" id="gym-8">
                 <img
@@ -620,6 +989,16 @@
                   </p>
                   <strong>Zenith Badge</strong> · Championship qualification
                 </div>
+                <figure class="gym-floor">
+                  <img
+                    src="assets/site/room-8.png"
+                    width="288"
+                    height="126"
+                    loading="lazy"
+                    alt="Interactive puzzle floor at Astral Crown Gym"
+                  />
+                  <figcaption>Astral Crown Gym · Puzzle floor</figcaption>
+                </figure>
               </article>
             </div>
             <p class="footnote">
@@ -627,59 +1006,134 @@
               specialists and a champion.
             </p>
           </section>
-          <section class="page" id="guide" aria-labelledby="manual-title">
+          <section class="feature legends" aria-labelledby="legend-title">
+            <div>
+              <p class="folio">
+                Legendary encounters <span>/</span> Shrine surveys
+              </p>
+              <h2 id="legend-title">Keep a place in your Atlas</h2>
+              <p class="dek">
+                Ten legendary creatures have their own shrines. Three belong to
+                the land, sea and sky.
+              </p>
+              <p>
+                At the fault cairn, set stones in order to call Terravale. In
+                the drowned belfry, read the shell chimes for Pelagoria. At the
+                vane garden, follow the rising wind for Altavane. Complete a
+                survey and you can return for another encounter.
+              </p>
+            </div>
+            <div class="legend-trio">
+              <figure>
+                <img
+                  loading="lazy"
+                  src="assets/site/terravale.png"
+                  width="88"
+                  height="78"
+                  alt="Terravale"
+                />
+                <figcaption>
+                  <b>Terravale</b><small>Stone · Grove</small>
+                </figcaption>
+              </figure>
+              <figure>
+                <img
+                  loading="lazy"
+                  src="assets/site/pelagoria.png"
+                  width="88"
+                  height="78"
+                  alt="Pelagoria"
+                />
+                <figcaption>
+                  <b>Pelagoria</b><small>Tide · Radiance</small>
+                </figcaption>
+              </figure>
+              <figure>
+                <img
+                  loading="lazy"
+                  src="assets/site/altavane.png"
+                  width="88"
+                  height="78"
+                  alt="Altavane"
+                />
+                <figcaption>
+                  <b>Altavane</b><small>Storm · Alloy</small>
+                </figcaption>
+              </figure>
+            </div>
+          </section>
+          <section class="page" id="guide" tabindex="-1" aria-labelledby="manual-title">
             <div class="section-head">
               <div>
                 <p class="folio">
                   Expedition manual <span>/</span> Research division
                 </p>
-                <h2 id="manual-title">In the field</h2>
+                <h2 id="manual-title">Expedition controls</h2>
               </div>
+            </div>
+            <p class="lead">
+              Play with a keyboard, mouse or touch screen. Open Settings in the
+              expedition menu to rebind keys, adjust text speed or turn on
+              reduced motion.
+            </p>
+            <div class="control-grid">
+              <article>
+                <h3>Keyboard</h3>
+                <dl class="bindings">
+                  <div>
+                    <dt><kbd>WASD</kbd> / <kbd>Arrows</kbd></dt>
+                    <dd>Walk through the region</dd>
+                  </div>
+                  <div>
+                    <dt><kbd>E</kbd> / <kbd>Enter</kbd></dt>
+                    <dd>Interact and confirm</dd>
+                  </div>
+                  <div>
+                    <dt><kbd>Esc</kbd></dt>
+                    <dd>Go back or pause</dd>
+                  </div>
+                  <div>
+                    <dt><kbd>M</kbd></dt>
+                    <dd>Open the region map</dd>
+                  </div>
+                  <div>
+                    <dt><kbd>Tab</kbd></dt>
+                    <dd>Inspect your party</dd>
+                  </div>
+                </dl>
+              </article>
+              <article>
+                <h3>Mouse &amp; touch</h3>
+                <dl class="bindings">
+                  <div>
+                    <dt>Click or tap</dt>
+                    <dd>Walk to a destination or choose a command</dd>
+                  </div>
+                  <div>
+                    <dt>Directional pad</dt>
+                    <dd>Hold a direction to walk on touch screens</dd>
+                  </div>
+                  <div>
+                    <dt>Interaction button</dt>
+                    <dd>Talk, inspect or enter</dd>
+                  </div>
+                  <div>
+                    <dt>Menu</dt>
+                    <dd>Open your journal, map and settings</dd>
+                  </div>
+                </dl>
+              </article>
             </div>
             <div class="manual-layout">
               <div class="field-notes">
-                <figure>
-                  <img
-                    src="assets/site/trail.png"
-                    width="544"
-                    height="306"
-                    alt="A field researcher meets wild creatures along Potters’ Towpath."
-                  />
-                  <figcaption>Potters’ Towpath · Kilnway Canal</figcaption>
-                </figure>
+                <h3>Camp at a lodge</h3>
                 <p>
-                  Set out from Brinewick Village to catalogue 300 species across
-                  ten habitats. Track the Stilllight Society to the dormant
-                  observatory as you earn your League badges.
+                  Restore the whole party, organise storage and relearn moves
+                  for free. Your last lodge is also where the expedition resumes
+                  after a defeat.
                 </p>
               </div>
               <div class="manual">
-                <details open>
-                  <summary>How do I move and interact?</summary>
-                  <div>
-                    <p>
-                      Walk with <kbd>WASD</kbd> or the arrow keys. Press
-                      <kbd>E</kbd> or <kbd>Enter</kbd> to interact,
-                      <kbd>M</kbd> for the map, <kbd>Tab</kbd> for your party
-                      and <kbd>Esc</kbd> for the expedition menu.
-                    </p>
-                    <p>
-                      Click or tap a destination to walk there. Touch devices
-                      also have a directional pad and an interaction button.
-                    </p>
-                  </div>
-                </details>
-                <details>
-                  <summary>How do battles and captures work?</summary>
-                  <div>
-                    <p>
-                      Each turn, choose a move, switch your active creature or
-                      use an item. Check the element matchup and your available
-                      energy. Lower a wild creature’s health or inflict a status
-                      condition to improve your capsule’s chances.
-                    </p>
-                  </div>
-                </details>
                 <details>
                   <summary>Where is my progress saved?</summary>
                   <div>
@@ -710,6 +1164,36 @@
           </section>
         </div>
       </div>
+      <section class="launch" id="play-here" aria-labelledby="launch-title">
+        <div class="launch-copy">
+          <p class="folio">Brinewick Village <span>/</span> Starting lodge</p>
+          <h2 id="launch-title">Your expedition starts here</h2>
+          <p>
+            Meet Researcher Oriel, open your first travelling case and step into
+            the meadow.
+          </p>
+        </div>
+        <div class="cabinet">
+          <div id="console-cover">
+            <img
+              loading="lazy"
+              src="assets/site/brinewick-film.png"
+              width="384"
+              height="224"
+              alt="Brinewick Village, the starting point of your expedition."
+            /><a class="play" href="play/index.html" id="start-console"
+              >▶ Play here</a
+            >
+          </div>
+        </div>
+        <div class="console-links">
+          <a id="return-guide" href="#guide" hidden>Return to controls</a>
+          <a href="play/index.html">Open the full-page game ↗</a
+          ><a download="wildlight.html" href="play/index.html"
+            >Download for offline play ↓</a
+          >
+        </div>
+      </section>
     </main>
     <footer>
       <div>

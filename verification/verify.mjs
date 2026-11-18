@@ -141,12 +141,35 @@ async function startBrowser() {
     const details=document.querySelector(".manual details:last-child");
     details.querySelector("summary").click();
     if(!details.open||!details.getClientRects().length)return false;
+    const sections=["world","partners","design","battles","journey","guide","play-here"];
+    if(sections.some((id,i)=>{const panel=document.getElementById(id);return !panel.getClientRects().length || (i&&panel.getBoundingClientRect().top<=document.getElementById(sections[i-1]).getBoundingClientRect().top)}))return false;
     const backup=document.querySelector(".manual a[download]");
     return document.querySelectorAll(".partner").length===3 &&
       backup.href===document.querySelector(".hero-actions .play").href;
   })()`);
   if (!siteOk) throw Error("Landing page field guide or download link failed");
   console.log("PASS journal navigation, nine starter forms, eight League leaders and offline download");
+  await ev("document.querySelector('#start-console').click()");
+  let frameReady=false;
+  for(let i=0;i<100&&!frameReady;i++){
+    const tree=await call("Page.getFrameTree");
+    const frame=tree.frameTree.childFrames?.find(child=>child.frame.url.endsWith("/play/index.html"));
+    if(frame){
+      const {executionContextId}=await call("Page.createIsolatedWorld",{frameId:frame.frame.id,worldName:"verify-cabinet"});
+      const view=await call("Runtime.evaluate",{contextId:executionContextId,expression:"document.readyState==='complete' && !!document.querySelector('#titleArt')",returnByValue:true});
+      frameReady=!!view.result.value;
+    }
+    if(!frameReady)await delay(50);
+  }
+  if(!frameReady)throw Error("Inline game did not reach its title screen");
+  if (await ev("location.protocol.startsWith('http')")) {
+    const returned = await ev(`(() => {
+      const game = document.querySelector(".cabinet iframe");
+      game.contentWindow.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape", shiftKey: true, bubbles: true }));
+      return document.activeElement.id === "guide" && location.hash === "#guide" && game.isConnected;
+    })()`);
+    if (!returned) throw Error("Keyboard shortcut could not return from the game to its controls");
+  }
   await ev("document.querySelector('.hero-actions .play').click()");
   for (let i = 0; i < 100; i++) {
     if (
