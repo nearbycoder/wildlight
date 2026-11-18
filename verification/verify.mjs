@@ -62,6 +62,79 @@ async function ev(expression) {
     );
   return r.result.value;
 }
+async function waitFor(expression, description, timeout = 5500) {
+  const until = Date.now() + timeout;
+  do {
+    if (await ev(expression)) return;
+    await delay(36);
+  } while (Date.now() < until);
+  throw Error(description);
+}
+const testKeys = {
+  Enter: 13,
+  Escape: 27,
+  Tab: 9,
+  ArrowLeft: 37,
+  ArrowUp: 38,
+  ArrowRight: 39,
+  ArrowDown: 40,
+  1: 49,
+  e: 69,
+};
+function sendKey(key, type) {
+  const windowsVirtualKeyCode = testKeys[key];
+  return call("Input.dispatchKeyEvent", { type, key, windowsVirtualKeyCode });
+}
+async function press(key) {
+  await sendKey(key, "keyDown");
+  await sendKey(key, "keyUp");
+}
+async function mousePress(x, y) {
+  await call("Input.dispatchMouseEvent", {
+    type: "mousePressed",
+    x,
+    y,
+    button: "left",
+    clickCount: 1,
+  });
+  await call("Input.dispatchMouseEvent", {
+    type: "mouseReleased",
+    x,
+    y,
+    button: "left",
+    clickCount: 1,
+  });
+}
+async function atElement(selector) {
+  return ev(
+    `(() => {const r=document.querySelector(${JSON.stringify(selector)}).getBoundingClientRect(); return {x:r.x+r.width/2,y:r.y+r.height/2}})()`,
+  );
+}
+async function clickElement(selector) {
+  const { x, y } = await atElement(selector);
+  await mousePress(x, y);
+}
+async function tapAt(x, y) {
+  await call("Input.dispatchTouchEvent", {
+    type: "touchStart",
+    touchPoints: [{ x, y }],
+  });
+  await call("Input.dispatchTouchEvent", { type: "touchEnd", touchPoints: [] });
+}
+async function clickField(key) {
+  const { x, y } = await ev(`(() => {
+    const spot=landmarks().find(s=>s.key===${JSON.stringify(key)});
+    const rect=$("world").getBoundingClientRect();
+    return {x:rect.x+spot.x*rect.width/384,y:rect.y+spot.y*rect.height/224};
+  })()`);
+  await mousePress(x, y);
+}
+const fullBattleScreen = `(() => {
+  const stage=$("arena").getBoundingClientRect(), frame=$("window").getBoundingClientRect();
+  return frame.x===0&&frame.y===0&&frame.width===innerWidth&&frame.height===innerHeight&&
+    stage.width===innerWidth&&stage.height>innerHeight*0.46&&
+    $("battleControls").getBoundingClientRect().bottom<=innerHeight;
+})()`;
 async function shot(name) {
   const r = await call("Page.captureScreenshot", { format: "png" });
   fs.writeFileSync(
@@ -148,27 +221,42 @@ async function startBrowser() {
       backup.href===document.querySelector(".hero-actions .play").href;
   })()`);
   if (!siteOk) throw Error("Landing page field guide or download link failed");
-  console.log("PASS journal navigation, nine starter forms, eight League leaders and offline download");
+  console.log(
+    "PASS journal navigation, nine starter forms, eight League leaders and offline download",
+  );
   await ev("document.querySelector('#start-console').click()");
-  let frameReady=false;
-  for(let i=0;i<100&&!frameReady;i++){
-    const tree=await call("Page.getFrameTree");
-    const frame=tree.frameTree.childFrames?.find(child=>child.frame.url.endsWith("/play/index.html"));
-    if(frame){
-      const {executionContextId}=await call("Page.createIsolatedWorld",{frameId:frame.frame.id,worldName:"verify-cabinet"});
-      const view=await call("Runtime.evaluate",{contextId:executionContextId,expression:"document.readyState==='complete' && !!document.querySelector('#titleArt')",returnByValue:true});
-      frameReady=!!view.result.value;
+  let frameReady = false;
+  for (let i = 0; i < 100 && !frameReady; i++) {
+    const tree = await call("Page.getFrameTree");
+    const frame = tree.frameTree.childFrames?.find((child) =>
+      child.frame.url.endsWith("/play/index.html"),
+    );
+    if (frame) {
+      const { executionContextId } = await call("Page.createIsolatedWorld", {
+        frameId: frame.frame.id,
+        worldName: "verify-cabinet",
+      });
+      const view = await call("Runtime.evaluate", {
+        contextId: executionContextId,
+        expression:
+          "document.readyState==='complete' && !!document.querySelector('#titleArt')",
+        returnByValue: true,
+      });
+      frameReady = !!view.result.value;
     }
-    if(!frameReady)await delay(50);
+    if (!frameReady) await delay(50);
   }
-  if(!frameReady)throw Error("Inline game did not reach its title screen");
+  if (!frameReady) throw Error("Inline game did not reach its title screen");
   if (await ev("location.protocol.startsWith('http')")) {
     const returned = await ev(`(() => {
       const game = document.querySelector(".cabinet iframe");
       game.contentWindow.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape", shiftKey: true, bubbles: true }));
       return document.activeElement.id === "guide" && location.hash === "#guide" && game.isConnected;
     })()`);
-    if (!returned) throw Error("Keyboard shortcut could not return from the game to its controls");
+    if (!returned)
+      throw Error(
+        "Keyboard shortcut could not return from the game to its controls",
+      );
   }
   await ev("document.querySelector('.hero-actions .play').click()");
   for (let i = 0; i < 100; i++) {
@@ -202,22 +290,113 @@ async function campaign() {
       await new Promise((r) => setTimeout(r, 100));
       await shot(n);
     };
-  await ev("titleSelect(0);starters()");
+  await press("Enter");
+  await waitFor(
+    "!titleActive && !ui && objective()[2] === 'oriel'",
+    "Fresh expedition begins on the field by Oriel",
+  );
+  await ev("document.fonts.ready.then(()=>true)");
+  await snap("01-exploration");
+  await sendKey("ArrowRight", "keyDown");
+  try {
+    await waitFor(
+      "target()?.key === 'oriel'",
+      "Walk into Oriel’s interaction range",
+    );
+  } finally {
+    await sendKey("ArrowRight", "keyUp");
+  }
+  await press("Enter");
+  await waitFor(
+    "ui==='Choose your field partner'",
+    "Meet Oriel through the field prompt",
+  );
   await snap("02-starter-selection");
-  await run("choose(0);closeUI();G.options.fast=true;wild(pool(0)[0]);");
+  await clickElement('[data-starter="6"]');
+  assert(
+    await ev(
+      '$("chooseStarter").textContent==="Choose Puddlepip"&&G.party.length===0',
+    ),
+    "Starter preview commits only after confirmation",
+  );
+  await clickElement('[data-starter="0"]');
+  await press("Enter");
+  assert(await ev("G.party[0].id===0"), "Starter confirmation");
+  await press("Escape");
+  await waitFor(
+    "!ui && objective()[2] === 'lesson'",
+    "The meadow encounter is marked",
+  );
+  await clickField("lesson");
+  await waitFor(
+    "B?.guided===true && !turnLock",
+    "Walk to the marked Gravlet and start a guided battle",
+  );
+  assert(await ev(fullBattleScreen), "Desktop encounter fills the screen");
   await snap("03-wild-battle");
-  await run(
-    "G.options.fast=false;const originalRandom=rng(913874);Math.random=()=>.01;battleAction('item','Lumen Capsule')",
+  await clickElement('.battle-tools [onclick="battleBag()"]');
+  assert(
+    await ev(
+      'battlePanelOpen() && $("arena").isConnected && $("battleControls").inert',
+    ),
+    "Opening supplies retains the live arena",
+  );
+  await press("Escape");
+  assert(
+    await ev('!battlePanelOpen() && !$( "battleControls").inert'),
+    "Escape returns to battle commands",
+  );
+  await ev(
+    "const originalRandom=rng(913874);Math.random=()=>.27;const firstIntent=B.intent",
+  );
+  await press("1");
+  await waitFor(
+    "B.turn===1 && turnLock && B.intent===firstIntent && /damage/.test($( 'battleMessage').textContent)",
+    "First attack has a readable action beat and a committed foe response",
+  );
+  await waitFor("B.turn===1 && !turnLock", "Starter attack resolves");
+  if (await ev('catchOdds("Lumen Capsule") < 1')) {
+    await press("1");
+    await waitFor("B?.turn===2 && !turnLock", "Second starter attack resolves");
+  }
+  assert(
+    await ev(
+      'catchOdds("Lumen Capsule")===1 && $("quickCapsule").textContent.includes("100%")',
+    ),
+    "Weakened Gravlet shows a guaranteed catch",
+  );
+  await clickElement("#quickCapsule");
+  await waitFor(
+    'anim?.type==="capture" && turnLock',
+    "Lumen Capsule starts its animation",
   );
   await snap("04-capsule");
-  await new Promise((r) => setTimeout(r, 900));
-  assert(await run("ui==='Capture recorded'"), "capture");
-  await run(
-    "nameCapture();G.options.fast=true;Math.random=originalRandom;partyUI()",
+  await waitFor("ui==='Capture recorded'", "Tutorial capture");
+  assert(
+    await ev(
+      'G.party.length===2 && G.caught.includes(trainingSpot.id) && $("captureField").clientWidth===innerWidth',
+    ),
+    "The catch reveal fills the display",
   );
+  await shot("capture-recorded");
+  await press("Enter");
+  await waitFor(
+    "!ui && objective()[2] === 'exit'",
+    "Capture points the player to Briarbrook",
+  );
+  await press("Tab");
   await snap("05-party");
   await run("openAtlas()");
   await snap("06-atlas");
+  await run("closeUI();Math.random=originalRandom;G.options.fast=true");
+  await clickField("exit");
+  await waitFor(
+    "G.trail===1",
+    "The east sign leads directly to Thistlebend Walk",
+  );
+  console.log(
+    "PASS fresh tutorial with keyboard and pointer, full-screen encounters, guided capture and walking exit",
+  );
   await run(
     `window.autofight=()=>{let t=0;while(B&&t++<400){if(B.forced){chooseSwitch(G.party.findIndex(m=>m.hp>0));continue}let p=active(),f=enemy(),dmg=p.moves.map(id=>moves[id]).filter(v=>v.power&&v.cost<=p.en).sort((a,b)=>b.power*mul(b,p,f)-a.power*mul(a,p,f));let swaps=G.party.map((m,i)=>[m,i]).filter(([m,i])=>m.hp&&i!==B.ai).sort(([a],[b])=>match(species[b.id].el[0],f.id)-match(species[a.id].el[0],f.id));if(p.hp<maxhp(p)*.38&&G.bag['Field Tonic']>0)battleAction('item','Field Tonic');else if(swaps.length&&B.turn%5===0&&match(species[p.id].el[0],f.id)<1&&match(species[swaps[0][0].id].el[0],f.id)>1)battleAction('switch',swaps[0][1]);else if(dmg.length)battleAction('move',dmg[0].id);else battleAction('rest')}return [t,ui,G.party.map(m=>[m.lv,m.hp])]}`,
   );
@@ -229,7 +408,7 @@ async function campaign() {
     await run("nameCapture();Math.random=originalRandom");
   }
   for (let z = 1; z <= 8; z++) {
-    await run("closeUI();planTravel(" + z + ");");
+    if (z > 1) await run("closeUI();planTravel(" + z + ");");
     assert(await run("G.trail===" + z), "walking route");
     await run(
       "for(let step=0;step<175;step++){let next=G.x+2;walk(1,Math.sign(trailY(G.trail,next)-G.y))}interact();",
@@ -240,7 +419,26 @@ async function campaign() {
       let id = await run("pool(" + z + ").find(id=>!G.caught.includes(id))");
       await capture(id);
     }
-    await run("hall();startPuzzle();roomInput(1);startPuzzle();");
+    await run("hall();startPuzzle();");
+    if (z === 1) {
+      const startTile = await ev("puzzle.n");
+      const actions = await ev(
+        "solutions[0].slice(0, solutions[0].indexOf('4')+1)",
+      );
+      for (const d of actions)
+        await press(
+          ["ArrowUp", "ArrowRight", "ArrowDown", "ArrowLeft", "e"][Number(d)],
+        );
+      assert(
+        await ev('$( "roomTrack").textContent.startsWith("1 of 3")'),
+        "First gym teaches how to align a valve",
+      );
+      await clickElement('.room-toolbar [onclick="startPuzzle()"]');
+      assert(
+        await ev("puzzle.n===" + startTile + "&&puzzle.v.every(v=>v===0)"),
+        "Reset restores the first puzzle",
+      );
+    } else await run("roomInput(1);startPuzzle();");
     await snap("gym-" + z);
     await run(
       "for(let d of solutions[puzzle.j])roomInput(+d);solve();gymTrainer();",
@@ -307,6 +505,18 @@ async function collectAndRecover() {
       "(()=>{Math.random=()=>.01;useMove(active(),enemy(),5);let a=mod(enemy()).turns;endEffects(enemy());return mod(enemy()).turns===a-1&&mod(enemy()).status==='Scorch'})()",
     ),
     "status duration and damage",
+  );
+  check(
+    await ev(`(() => {
+    const p=active(), f=enemy(), guard=species[p.id].el[0]*9+4, attack=moves[f.moves[0]];
+    p.en=12;p.moves=[guard];mod(p).status="";
+    const damage=estimateDamage(attack,f,p);
+    useMove(p,f,guard);
+    if(!mod(p).brace || estimateDamage(attack,f,p)>=damage*0.75) return false;
+    endEffects(p);
+    return !mod(p).brace && mod(p).guard===1;
+  })()`),
+    "guard softens a forecast hit and the brace expires",
   );
   await ev("Math.random=prng;G.party.forEach(m=>m.hp=0);resolveTurn()");
   check(
@@ -525,7 +735,7 @@ async function additionalChecks() {
   await shot("walking-route");
   check(
     await ev(
-      `(()=>{G.trail=0;go(0);let before=G.bag['Amber Pin'];equip(0,'Amber Pin');let equipped=G.party[0].held;equip(0,'');return equipped==='Amber Pin'&&G.bag['Amber Pin']===before})()`,
+      `(()=>{G.trail=0;go(0);loot();let before=G.bag['Amber Pin'];equip(0,'Amber Pin');let equipped=G.party[0].held;equip(0,'');return equipped==='Amber Pin'&&G.bag['Amber Pin']===before})()`,
     ),
     "held equipment round-trip",
   );
@@ -577,9 +787,37 @@ async function additionalChecks() {
   });
   await call("Input.dispatchTouchEvent", { type: "touchEnd", touchPoints: [] });
   check(
-    await ev("!titleActive&&ui==='Researcher Oriel'"),
-    "touch title selection opens the story",
+    await ev("!titleActive&&!ui&&objective()[2]==='oriel'"),
+    "touch title selection starts in the village",
   );
+  const oriel = await ev(`(() => {
+    const s = landmarks().find(p=>p.key==="oriel"), r=$("world").getBoundingClientRect();
+    return [r.x+s.x*r.width/384, r.y+(s.y-7)*r.height/224];
+  })()`);
+  await tapAt(...oriel);
+  await waitFor(
+    "ui==='Choose your field partner'",
+    "Touching Oriel walks up and opens the partner choice",
+  );
+  const newPartner = await atElement('[data-starter="3"]');
+  await tapAt(newPartner.x, newPartner.y);
+  const chooseButton = await atElement("#chooseStarter");
+  await tapAt(chooseButton.x, chooseButton.y);
+  await waitFor("G.party[0]?.id===3", "Confirmed Cindillo using touch");
+  await ev("closeUI();beginLesson()");
+  check(
+    await ev(fullBattleScreen),
+    "touch battle uses portrait display and shows all commands",
+  );
+  await shot("touch-battle");
+  const pack = await atElement('.battle-tools [onclick="battleBag()"]');
+  await tapAt(pack.x, pack.y);
+  check(
+    await ev('battlePanelOpen() && $("arena").isConnected'),
+    "touch supplies overlay the active arena",
+  );
+  await ev("finish('flee')");
+
   await call("Emulation.setDeviceMetricsOverride", {
     width: 1360,
     height: 900,
@@ -587,10 +825,9 @@ async function additionalChecks() {
     mobile: false,
   });
   await call("Emulation.setTouchEmulationEnabled", { enabled: false });
-  await ev("choose(3);closeUI();pauseUI()");
+  await ev("pauseUI()");
   await shot("pause-menu");
   await ev("closeUI();drawWorld(0)");
-  await shot("01-exploration");
   await ev(
     "Math.random=rand;G=validateSave(JSON.parse(spare));save();showTitle()",
   );
