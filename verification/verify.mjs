@@ -278,6 +278,10 @@ async function checkEmbeddedArt() {
     "Complete embedded atlas must load before the title screen",
     12000,
   );
+  if (await ev("Boolean(detailImage)"))
+    throw Error(
+      "Standard displays should wait to decode higher-detail artwork",
+    );
   const result = await ev(`(() => {
     const fingerprint = (image) => {
       const { width, height } = image;
@@ -911,6 +915,166 @@ async function additionalChecks() {
   );
 }
 
+async function checkDisplayResolution() {
+  const snapshot = await ev("JSON.stringify(G)");
+  const viewport = (width, height, deviceScaleFactor, mobile = false) =>
+    call("Emulation.setDeviceMetricsOverride", {
+      width,
+      height,
+      deviceScaleFactor,
+      mobile,
+    });
+  const clickTitle = async (index) => {
+    const p = await ev(`(() => {
+      const cv = $("titleArt"), rect = cv.getBoundingClientRect(), logical = sceneSizes.get(cv);
+      const [x, y, w, h] = titleButtons[${index}];
+      return {x: rect.left + (x + w / 2) * rect.width / logical.width,
+              y: rect.top + (y + h / 2) * rect.height / logical.height};
+    })()`);
+    await mousePress(p.x, p.y);
+  };
+  await viewport(3840, 2160, 1);
+  await ev("G=fresh();showTitle()");
+  await waitFor(
+    "detailReady && sceneSizes.get($('titleArt')).density === 4",
+    "4K title loads its detailed artwork",
+    12000,
+  );
+  const complete = await ev(`(() => {
+    const frames = Object.keys(atlasFrames);
+    if (frames.length !== Object.keys(detailAtlasFrames).length) return false;
+    if (frames.some(name => !detailAtlasFrames[name])) return false;
+    for (const name of ["arena/0", "gym/6", "species/Gravlet", "rear/Spriglet"]) {
+      const base = artFrame(name), detail = artFrame(name, true);
+      if (detail.width !== 2 * base.width || detail.height !== 2 * base.height) return false;
+      const { data } = detail.getContext("2d").getImageData(0, 0, detail.width, detail.height);
+      let count = 0;
+      for (let y = 0; y < detail.height; y += 2) {
+        for (let x = 0; x + 1 < detail.width; x += 2) {
+          const i = (y * detail.width + x) * 4;
+          if (data[i+3] && data[i+7] && Math.abs(data[i] - data[i+4]) >= 4) count++;
+        }
+      }
+      if (count < 100) return false;
+    }
+    return true;
+  })()`);
+  if (!complete)
+    throw Error("Detailed art must add real samples for the original content");
+
+  await clickTitle(1);
+  await waitFor("ui === 'Settings'", "4K title hitboxes reach Settings");
+  const graphics = '[data-setting="graphics"]';
+  await clickElement(graphics);
+  if (!(await ev("G.options.graphics==='high'")))
+    throw Error("Manual detail choice failed");
+  await viewport(390, 844, 3, true);
+  if (!(await ev("displayDensity(innerWidth) === 2")))
+    throw Error("High detail did not work on a smaller display");
+  await viewport(3840, 2160, 1);
+  await clickElement(graphics);
+  if (
+    !(await ev(
+      "G.options.graphics==='classic' && displayDensity(innerWidth)===1",
+    ))
+  )
+    throw Error("Classic mode did not select the native grid");
+  await clickElement(graphics);
+  if (!(await ev("G.options.graphics==='auto'")))
+    throw Error("Auto detail choice failed");
+  await press("Escape");
+  await waitFor("titleActive && !ui", "Title can close Settings");
+  await clickTitle(0);
+  await waitFor(
+    "!titleActive && world.width===768",
+    "Large display follows the high-detail world grid",
+  );
+  await clickField("oriel");
+  await waitFor(
+    "ui==='Choose your field partner'",
+    "4K field pointer reaches the tutorial",
+  );
+  await clickElement("#chooseStarter");
+  await press("Escape");
+  await waitFor(
+    "!ui && objective()[2]==='lesson'",
+    "Large-screen partner selection",
+  );
+  await clickField("lesson");
+  await waitFor(
+    "B?.guided && $('arena').width>=1500",
+    "4K encounter uses the larger backing canvas",
+  );
+  if (
+    !(await ev(
+      `(${fullBattleScreen}) && document.querySelector(".battle-deck").clientWidth > 1800`,
+    ))
+  )
+    throw Error("4K encounter and command deck must fit the viewport");
+  await shot("4k-battle");
+  await clickElement('.battle-tools [onclick="battleBag()"]');
+  if (!(await ev("battlePanelOpen()")))
+    throw Error("4K pointer did not open battle supplies");
+  await press("Escape");
+  for (const [width, height, ratio, density, mobile] of [
+    [1920, 1080, 1, 2, false],
+    [1280, 800, 2, 3, false],
+    [3440, 1440, 1, 4, false],
+    [390, 844, 3, 1, true],
+    [1360, 900, 1, 1, false],
+  ]) {
+    await viewport(width, height, ratio, mobile);
+    await waitFor(
+      `sceneSizes.get($("arena"))?.density===${density} && (${fullBattleScreen})`,
+      `Full-screen arena at ${width} × ${height} and ${ratio}× pixel ratio`,
+    );
+  }
+  await ev(
+    `G.options.fast=true; Math.random=()=>0; battleAction("item","Lumen Capsule")`,
+  );
+  await viewport(3840, 2160, 1);
+  await waitFor(
+    "ui==='Capture recorded' && sceneSizes.get($('captureField'))?.density===4",
+    "Capture scene inherits high display detail",
+  );
+  await ev("nameCapture();go(1);closeUI();startPuzzle()");
+  const puzzleCell = await ev(`(() => {
+    const cv = $("roomArt"), size = sceneSizes.get(cv), box = cv.getBoundingClientRect();
+    const next = puzzle.n + 1;
+    return {
+      next, density: size.density,
+      x: box.left + (24 + (next % 11) * 24) * box.width / size.width,
+      y: box.top + (15 + Math.floor(next / 11) * 24) * box.height / size.height,
+    };
+  })()`);
+  await mousePress(puzzleCell.x, puzzleCell.y);
+  if (
+    puzzleCell.density !== 2 ||
+    !(await ev(`puzzle.n === ${puzzleCell.next}`))
+  )
+    throw Error("High-detail gym room pointer did not follow the logical grid");
+  const defaults = await ev(`(() => {
+    const old = JSON.parse(${JSON.stringify(snapshot)});
+    delete old.options.graphics;
+    if (validateSave(old).options.graphics !== "auto") return false;
+    old.options.graphics = "high";
+    return validateSave(old).options.graphics === "high";
+  })()`);
+  if (!defaults)
+    throw Error(
+      "Graphics preference did not round-trip with new and legacy saves",
+    );
+  await viewport(1360, 900, 1);
+  await ev(
+    "G=validateSave(JSON.parse(" +
+      JSON.stringify(snapshot) +
+      "));Math.random=rng(487);showTitle()",
+  );
+  console.log(
+    "PASS adaptive display at standard HD, 4K, ultrawide, Retina and touch sizes, with matching input",
+  );
+}
+
 async function contactSheets() {
   for (const back of [false, true]) {
     for (let i = 0; i < 3; i++) {
@@ -1004,6 +1168,7 @@ try {
   await ev("go(0);rivalFight();autofight()");
   if (await ev("G.rival!==G.badges")) throw Error("Rival battle failed");
   await additionalChecks();
+  await checkDisplayResolution();
   await contactSheets();
   if (errors.length) throw Error(errors.join("\n"));
   console.log(

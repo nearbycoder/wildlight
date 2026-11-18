@@ -10,7 +10,7 @@ Open **[play/index.html](play/index.html)** in a modern browser to play. The HTM
 
 Use the arrow keys or WASD to walk, E or Enter to interact, Escape for the expedition menu, M for the map and Tab for your party. You can also click or tap a destination to walk there. Touch devices have a directional pad and an interaction button. In battle, press 1–4 to use a move or choose a command on screen. The arena stays visible while you open supplies, switch companions or read the log.
 
-Settings includes full-screen mode where supported, key bindings, reduced motion, battle and text speed, music and effects volume. Sound starts muted. Use **Save** in the expedition menu to export a portable backup or restore a previous expedition.
+Settings includes full-screen mode where supported, key bindings, reduced motion, battle and text speed, music and effects volume. **Artwork detail** defaults to **Auto**, which uses the higher-detail atlas on large and high-DPI displays. Choose **High detail** to use it on a smaller display, or **Classic** for the original pixel grid. Sound starts muted. Use **Save** in the expedition menu to export a portable backup or restore a previous expedition.
 
 ## GitHub Pages
 
@@ -25,3 +25,5 @@ The automated playthrough walks through the Brinewick tutorial with keyboard and
 The front sprite sheets cover [species 001–100](verification/species-1.png), [101–200](verification/species-2.png) and [201–300](verification/species-3.png). The rear sprite sheets cover [species 001–100](verification/rear-1.png), [101–200](verification/rear-2.png) and [201–300](verification/rear-3.png). The [human cast sheet](verification/characters.png) pairs portraits with overworld sprites.
 
 The [arena sheet](verification/arenas.png) shows the 30 battle backdrops. The [evolution field studies](verification/evolution-families.png) show eight families side by side. In the Field Atlas, select any stage to compare its anatomy and field notes.
+
+The display checks cover standard HD, 4K, ultrawide, Retina and compact touch screens. The [4K battle capture](verification/4k-battle.png) shows the larger arena and command deck.

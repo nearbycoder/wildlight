@@ -1,6 +1,6 @@
 # Asterra art atlas
 
-[asterra-atlas.webp](asterra-atlas.webp) contains the artwork at the game’s native resolution in lossless WebP. [asterra-atlas.json](asterra-atlas.json) identifies each cell by name and gives its left edge, top edge, width and height. Run `node assets/art/embed.mjs` after changing the atlas or the manifest. The browser game embeds both in a single HTML file.
+[asterra-atlas.webp](asterra-atlas.webp) contains the artwork at the game’s native resolution in lossless WebP. [asterra-atlas.json](asterra-atlas.json) identifies each cell by name and gives its left edge, top edge, width and height. [asterra-detail.webp](asterra-detail.webp) samples the original artwork at double the density. Its [manifest](asterra-detail.json) adds the horizontal and vertical offsets for each cropped frame inside the doubled logical cell. Run `node assets/art/embed.mjs` after changing either atlas or manifest. Both atlases are embedded in the single HTML file, and the higher-detail atlas decodes when the display calls for it.
 
 The built-in ImageGen tool produced all source sheets. The atlas contains two illustrated battle views for each of the 300 species, 26 human portraits and matching overworld figures, the player’s walking cycle, equipment, regional terrain and props, and 30 battle backgrounds. It also contains the title panorama, Region Map, field lab, recovery lodge, evolution glade and Hall of Records. Canvas composes the sprite artwork with live movement, weather, effects and interactive puzzle states.
 
