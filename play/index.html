@@ -5733,17 +5733,18 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
               ? "Meet"
               : "Interact";
       }
+      function locationName() {
+        if (G.trail) return routeNames[G.trail];
+        if (G.sanctuary) return shrineNotes[sanctuaryFamilies[G.z].i - 130][0];
+        return towns[G.z];
+      }
       function refresh() {
         $("zoneLabel").textContent = G.trail
           ? "Walking route"
           : G.sanctuary
             ? "Sanctuary"
             : zones[G.z];
-        $("loc").textContent = G.trail
-          ? routeNames[G.trail]
-          : G.sanctuary
-            ? shrineNotes[sanctuaryFamilies[G.z].i - 130][0]
-            : towns[G.z];
+        $("loc").textContent = locationName();
         $("fieldObjective").textContent = objective()[0];
         $("fieldControls").hidden =
           G.tick > 110 || G.z !== 0 || Boolean(G.trail);
@@ -6777,7 +6778,7 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
           },
           {
             x: 122,
-            y: trailY(j, 122) + 19,
+            y: trailY(j, 122) + (station.curve < 0 ? 34 : -24),
             key: "oriel",
             name: "Meet Oriel",
             fn: () =>
@@ -11975,7 +11976,7 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
       function pauseUI() {
         if (B) return battleUI();
         const obj = objective(),
-          place = G.trail ? routeNames[G.trail] : towns[G.z];
+          place = locationName();
         const nav = [
           ["paw", "Party", "partyUI()", G.options.keys.party],
           ["bag", "Bag", "bagUI()"],
@@ -12018,15 +12019,19 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
           </div>
           <div class="journal-foot">${btn("Title screen", "showTitle()")}${btn("Resume expedition", "closeUI()", "primary")}</div>`,
         );
-        const cv = $("journalArt"),
-          c = cv.getContext("2d");
-        c.imageSmoothingEnabled = false;
+        const density = detailReady ? displayDensity(innerWidth, 2) : 1;
+        const c = setSceneResolution($("journalArt"), 384, 148, density);
+        const scene = G.trail
+          ? trailArt(G.trail, density)
+          : G.sanctuary
+            ? sanctuaryArt(G.z, density)
+            : landscape(G.z, density);
         c.drawImage(
-          G.trail ? trailArt(G.trail) : landscape(G.z),
+          scene,
           0,
-          G.trail ? 52 : 41,
-          384,
-          148,
+          (G.trail ? 52 : 41) * density,
+          384 * density,
+          148 * density,
           0,
           0,
           384,
@@ -12763,11 +12768,7 @@ Flitcoal|glow rump|Dark fuzz surrounds the larva's single glowing coal spot.|Fou
         $("stage").classList.remove("titleMode");
         $("titleArt").hidden = true;
         closeUI();
-        if (G.party.length)
-          toast(
-            (G.trail ? routeNames[G.trail] : towns[G.z]) +
-              " · Expedition resumed",
-          );
+        if (G.party.length) toast(locationName() + " · Expedition resumed");
       }
       function titleSelect(i, approved = false) {
         let opt = titleOptions()[i];

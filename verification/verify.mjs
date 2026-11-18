@@ -1005,6 +1005,9 @@ async function additionalChecks() {
         if(!G.sanctuary || !canWalk(G.x,G.y)) return false;
         const saved=validateSave(JSON.parse(localStorage.getItem(KEY)));
         if(!saved.sanctuary||saved.z!==i)return false;
+        pauseUI();
+        if(document.querySelector(".journal-art h3")?.textContent!==locationName())return false;
+        closeUI();
         for (const key of ["altar", "retreat"]){
           const spot=landmarks().find(s=>s.key===key);
           walkTo(spot.x,spot.y);
