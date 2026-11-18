@@ -30,422 +30,693 @@
     />
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="icon" href="assets/site/star.svg" type="image/svg+xml" />
-    <link rel="preload" as="image" href="assets/site/asterra.png" />
-    <link rel="stylesheet" href="assets/site/landing.css" />
-    <script defer src="assets/site/field-guide.js"></script>
+    <link
+      rel="preload"
+      as="image"
+      href="assets/site/title-coast.png"
+      media="(min-width: 701px)"
+    />
+    <link rel="stylesheet" href="assets/site/landing.css?v=journal" />
+    <script defer src="assets/site/field-guide.js?v=journal"></script>
+    <link
+      rel="preload"
+      as="font"
+      href="assets/site/asterra-pixel.ttf"
+      type="font/ttf"
+      crossorigin
+    />
   </head>
+
   <body>
-    <a class="skip" href="#main">Skip to content</a>
-    <header id="top">
-      <div class="wrap nav">
-        <a class="brand" href="#top" aria-label="Wildlight home"
-          ><span class="star" aria-hidden="true"></span> WILDLIGHT</a
-        >
-        <nav aria-label="Main">
-          <a href="#partners">Partners</a><a href="#journey">The journey</a
-          ><a href="#guide">Play guide</a>
-        </nav>
-        <a class="nav-play" href="play/index.html"
-          ><span aria-hidden="true">▶</span> Play now</a
-        >
-      </div>
-    </header>
-    <main id="main">
+    <a class="skip" href="#journal">Skip to expedition journal</a>
+    <main>
       <section class="hero" aria-labelledby="game-title">
-        <div class="wrap hero-inner">
-          <div class="intro">
-            <p class="kicker pale"><i></i> A creature-collecting RPG</p>
-            <h1 id="game-title">
-              <img
-                src="assets/site/wordmark.png"
-                width="262"
-                height="42"
-                alt="Wildlight"
-              /><span>The Asterra League</span>
-            </h1>
-            <p class="pitch">
-              Take your first steps as a field researcher in Asterra. Befriend
-              creatures that carry the light of the wild, and follow their trail
-              to a sleeping observatory.
-            </p>
-            <div class="hero-actions">
-              <a class="play" href="play/index.html"
-                ><span aria-hidden="true">▶</span> Play Wildlight</a
-              ><a class="meet" href="#partners"
-                >Meet the starters <span aria-hidden="true">↓</span></a
-              >
-            </div>
-            <p class="platform">
-              Free to play <b>·</b> Desktop &amp; touch <b>·</b> No account
-              needed
-            </p>
-          </div>
+        <picture class="panorama"
+          ><source
+            media="(max-width:700px)"
+            srcset="assets/site/title-coast-mobile.png" />
+          <img
+            src="assets/site/title-coast.png"
+            width="656"
+            height="259"
+            fetchpriority="high"
+            alt="Verdantler and its fawn overlook Asterra’s coast. Across the water, the old observatory catches the morning sun."
+        /></picture>
+        <div class="motes" aria-hidden="true">
+          <i></i><i></i><i></i><i></i><i></i><i></i>
         </div>
-      </section>
-      <div class="facts">
-        <dl class="wrap fact-grid">
-          <div>
-            <dt>Collectible species</dt>
-            <dd>300</dd>
-          </div>
-          <div>
-            <dt>Habitat zones</dt>
-            <dd>10</dd>
-          </div>
-          <div>
-            <dt>League gyms</dt>
-            <dd>8</dd>
-          </div>
-          <div>
-            <dt>Elements</dt>
-            <dd>12</dd>
-          </div>
-        </dl>
-      </div>
-      <section
-        class="paper section"
-        id="partners"
-        aria-labelledby="partner-heading"
-      >
-        <div class="wrap">
-          <p class="kicker"><i></i> The Field Atlas</p>
-          <div class="section-intro">
-            <h2 id="partner-heading">Meet your first partner.</h2>
-            <p>
-              Three travelling cases wait in Brinewick Village. Choose one
-              companion to begin. You can find the other two later.
-            </p>
-          </div>
-          <div class="partners">
-            <!-- The starter cards also work as a static field guide with JavaScript disabled. -->
-            <article class="partner grove">
-              <div class="plate">
-                <span class="index">№ 001</span
-                ><span class="element">Grove</span
-                ><img
-                  loading="lazy"
-                  class="sprite"
-                  src="assets/site/spriglet.png"
-                  width="88"
-                  height="78"
-                  alt="Spriglet"
-                />
-              </div>
-              <div class="partner-body">
-                <div aria-live="polite" aria-atomic="true">
-                  <h3>Spriglet</h3>
-                  <p>
-                    A leaf-eared fawn that restores health and builds its
-                    defences.
-                  </p>
-                </div>
-                <div
-                  class="stages"
-                  hidden
-                  role="group"
-                  aria-label="Spriglet evolution stages"
-                >
-                  <span>Evolution</span
-                  ><button
-                    type="button"
-                    data-number="001"
-                    data-name="Spriglet"
-                    data-element="Grove"
-                    data-note="A leaf-eared fawn that restores health and builds its defences."
-                    aria-label="Show Spriglet, stage 1"
-                    aria-pressed="true"
-                  >
-                    1</button
-                  ><button
-                    type="button"
-                    data-number="002"
-                    data-name="Brambleap"
-                    data-element="Grove"
-                    data-note="Paired thorn forks catch the light as it bounds through the thickets."
-                    aria-label="Show Brambleap, stage 2"
-                    aria-pressed="false"
-                  >
-                    2</button
-                  ><button
-                    type="button"
-                    data-number="003"
-                    data-name="Verdantler"
-                    data-element="Grove · Radiance"
-                    data-note="A forest guardian whose branching antlers feed light into the leaves at its throat."
-                    aria-label="Show Verdantler, stage 3"
-                    aria-pressed="false"
-                  >
-                    3
-                  </button>
-                </div>
-              </div>
-            </article>
-            <article class="partner flame">
-              <div class="plate">
-                <span class="index">№ 004</span
-                ><span class="element">Flame</span
-                ><img
-                  loading="lazy"
-                  class="sprite"
-                  src="assets/site/cindillo.png"
-                  width="88"
-                  height="78"
-                  alt="Cindillo"
-                />
-              </div>
-              <div class="partner-body">
-                <div aria-live="polite" aria-atomic="true">
-                  <h3>Cindillo</h3>
-                  <p>
-                    A warm-bellied burrower that withstands physical hits and
-                    strikes back hard.
-                  </p>
-                </div>
-                <div
-                  class="stages"
-                  hidden
-                  role="group"
-                  aria-label="Cindillo evolution stages"
-                >
-                  <span>Evolution</span
-                  ><button
-                    type="button"
-                    data-number="004"
-                    data-name="Cindillo"
-                    data-element="Flame"
-                    data-note="A warm-bellied burrower that withstands physical hits and strikes back hard."
-                    aria-label="Show Cindillo, stage 1"
-                    aria-pressed="true"
-                  >
-                    1</button
-                  ><button
-                    type="button"
-                    data-number="005"
-                    data-name="Charback"
-                    data-element="Flame"
-                    data-note="Flexible seams between fired clay plates let it curl up and roll downhill."
-                    aria-label="Show Charback, stage 2"
-                    aria-pressed="false"
-                  >
-                    2</button
-                  ><button
-                    type="button"
-                    data-number="006"
-                    data-name="Kilnwarden"
-                    data-element="Flame · Alloy"
-                    data-note="Its plates fuse into a vaulted kiln. Broad, heatproof forelegs brace it against the furnace pressure."
-                    aria-label="Show Kilnwarden, stage 3"
-                    aria-pressed="false"
-                  >
-                    3
-                  </button>
-                </div>
-              </div>
-            </article>
-            <article class="partner tide">
-              <div class="plate">
-                <span class="index">№ 007</span><span class="element">Tide</span
-                ><img
-                  loading="lazy"
-                  class="sprite"
-                  src="assets/site/puddlepip.png"
-                  width="88"
-                  height="78"
-                  alt="Puddlepip"
-                />
-              </div>
-              <div class="partner-body">
-                <div aria-live="polite" aria-atomic="true">
-                  <h3>Puddlepip</h3>
-                  <p>
-                    A quick shorebird that outpaces its opponents with focused
-                    attacks.
-                  </p>
-                </div>
-                <div
-                  class="stages"
-                  hidden
-                  role="group"
-                  aria-label="Puddlepip evolution stages"
-                >
-                  <span>Evolution</span
-                  ><button
-                    type="button"
-                    data-number="007"
-                    data-name="Puddlepip"
-                    data-element="Tide"
-                    data-note="A quick shorebird that outpaces its opponents with focused attacks."
-                    aria-label="Show Puddlepip, stage 1"
-                    aria-pressed="true"
-                  >
-                    1</button
-                  ><button
-                    type="button"
-                    data-number="008"
-                    data-name="Rillcrest"
-                    data-element="Tide"
-                    data-note="Long legs carry it through the shallows while its half-open wings keep it balanced."
-                    aria-label="Show Rillcrest, stage 2"
-                    aria-pressed="false"
-                  >
-                    2</button
-                  ><button
-                    type="button"
-                    data-number="009"
-                    data-name="Tempestern"
-                    data-element="Tide · Storm"
-                    data-note="Fork-tipped wings hold it in a storm glide, and a divided tail steers it through the gusts."
-                    aria-label="Show Tempestern, stage 3"
-                    aria-pressed="false"
-                  >
-                    3
-                  </button>
-                </div>
-              </div>
-            </article>
-          </div>
-        </div>
-      </section>
-      <section
-        id="journey"
-        class="journey section"
-        aria-labelledby="journey-heading"
-      >
-        <div class="wrap">
-          <p class="kicker pale"><i></i> Across Asterra</p>
-          <div class="section-intro">
-            <h2 id="journey-heading">The road to the League.</h2>
-            <p>
-              The Stilllight Society is quieting the region’s natural energy.
-              Follow the changes in its wildlife from the coast to the celestial
-              ruins.
-            </p>
-          </div>
-          <div class="journey-grid">
-            <article>
-              <img
-                loading="lazy"
-                width="544"
-                height="306"
-                src="assets/site/trail.png"
-                alt="A field researcher encounters wild creatures at a wooden bridge on Potters’ Towpath."
-              />
-              <h3>Go off the trail</h3>
-              <p>
-                Spot creatures in the overworld. Return with vine cutters,
-                climbing gear or water equipment to reach the habitats you
-                passed the first time.
-              </p>
-            </article>
-            <article>
-              <img
-                loading="lazy"
-                width="544"
-                height="306"
-                src="assets/site/battle.png"
-                alt="Spriglet faces a wild Frazil on the coast in a turn-based battle."
-              />
-              <h3>Build a team of six</h3>
-              <p>
-                Weaken a wild creature, then use a Lumen Capsule. Mix elements
-                and moves across your party, and recover together at a lodge.
-              </p>
-            </article>
-            <article>
-              <img
-                loading="lazy"
-                width="544"
-                height="306"
-                src="assets/site/gym.png"
-                alt="An in-game League gym puzzle with an interactive floor plan."
-              />
-              <h3>Earn your place</h3>
-              <p>
-                Solve eight gym puzzles and face their leaders. After the
-                observatory finale, four specialists and a champion stand
-                between you and the title.
-              </p>
-            </article>
-          </div>
-        </div>
-      </section>
-      <section class="section paper" id="guide" aria-labelledby="guide-heading">
-        <div class="wrap guide">
-          <div>
-            <p class="kicker"><i></i> Expedition manual</p>
-            <h2 id="guide-heading">How to play.</h2>
-            <p>
-              Open the game, select <strong>Begin expedition</strong> and meet
-              Researcher Oriel.
-            </p>
+        <div class="title-block">
+          <div class="crest" aria-hidden="true"><i></i></div>
+          <h1 id="game-title">
+            <img
+              src="assets/site/wordmark.png"
+              width="262"
+              height="42"
+              alt="Wildlight"
+            /><span class="ribbon">The Asterra League</span>
+          </h1>
+          <div class="hero-actions">
             <a class="play" href="play/index.html"
-              ><span aria-hidden="true">▶</span> Play Wildlight</a
+              ><b aria-hidden="true">▶</b> Begin expedition</a
+            ><span>Creature-collecting RPG · Play free</span>
+          </div>
+        </div>
+      </section>
+      <div id="journal" tabindex="-1">
+        <nav class="tabs" aria-label="Expedition journal">
+          <div class="tabstrip">
+            <a href="#partners" class="active"
+              ><img src="assets/site/menu-book.png" alt="" />Field Atlas</a
+            >
+            <a href="#journey"
+              ><img src="assets/site/menu-badge.png" alt="" />League circuit</a
+            >
+            <a href="#guide"
+              ><img src="assets/site/menu-bag.png" alt="" />Field manual</a
             >
           </div>
-          <div class="manual">
-            <details open>
-              <summary>How do I move and interact?</summary>
+        </nav>
+        <div class="pages">
+          <section class="page" id="partners" aria-labelledby="atlas-title">
+            <div class="section-head">
               <div>
-                <p>
-                  Walk with <kbd>WASD</kbd> or the arrow keys. Press
-                  <kbd>E</kbd> or <kbd>Enter</kbd> to interact, <kbd>M</kbd> for
-                  the map, <kbd>Tab</kbd> for your party and <kbd>Esc</kbd> for
-                  the expedition menu.
+                <p class="folio">
+                  Field Atlas <span>/</span> Brinewick Village
                 </p>
+                <h2 id="atlas-title">Starter companions</h2>
+              </div>
+              <span class="stamp">Species 001–009</span>
+            </div>
+            <div class="dialogue">
+              <img
+                src="assets/site/oriel.png"
+                width="84"
+                height="88"
+                alt="Researcher Oriel"
+              />
+              <div>
+                <strong>Researcher Oriel</strong>
                 <p>
-                  Click or tap a destination to walk there. Touch devices also
-                  have a directional pad and an interaction button.
+                  “Three travelling cases, three very different partners. Who
+                  will you take into the field?”
                 </p>
               </div>
-            </details>
-            <details>
-              <summary>How do battles and captures work?</summary>
-              <div>
-                <p>
-                  Each turn, choose a move, switch your active creature or use
-                  an item. Check the element matchup and your available energy.
-                  Lower a wild creature’s health or inflict a status condition
-                  to improve your capsule’s chances.
-                </p>
-              </div>
-            </details>
-            <details>
-              <summary>Where is my progress saved?</summary>
-              <div>
-                <p>
-                  The game autosaves in this browser at safe milestones. Open
-                  <strong>Expedition menu → Save → Export backup</strong> to
-                  keep a copy or carry your team to another device. Use
-                  <strong>Import backup</strong> to restore it.
-                </p>
-              </div>
-            </details>
-            <details>
-              <summary>Can I play offline?</summary>
-              <div>
-                <p>
-                  <a href="play/index.html" download="wildlight.html"
-                    >Download the standalone game</a
+            </div>
+            <div class="fieldbook">
+              <div class="picker" hidden aria-label="Choose a family">
+                <button
+                  type="button"
+                  data-family="0"
+                  aria-controls="family-0"
+                  aria-pressed="true"
+                >
+                  <img src="assets/site/spriglet.png" alt="" /><span
+                    ><small>№ 001</small>Spriglet</span
+                  ></button
+                ><button
+                  type="button"
+                  data-family="1"
+                  aria-controls="family-1"
+                  aria-pressed="false"
+                >
+                  <img src="assets/site/cindillo.png" alt="" /><span
+                    ><small>№ 004</small>Cindillo</span
+                  ></button
+                ><button
+                  type="button"
+                  data-family="2"
+                  aria-controls="family-2"
+                  aria-pressed="false"
+                >
+                  <img src="assets/site/puddlepip.png" alt="" /><span
+                    ><small>№ 007</small>Puddlepip</span
                   >
-                  and open it in a modern browser. To continue a web expedition
-                  offline, export your save first and import it in the
-                  downloaded game.
+                </button>
+              </div>
+              <div class="records">
+                <article
+                  class="partner grove"
+                  id="family-0"
+                  aria-label="Spriglet family"
+                >
+                  <div class="plate">
+                    <span class="index">№ 001</span
+                    ><img
+                      class="sprite"
+                      width="88"
+                      height="78"
+                      src="assets/site/spriglet.png"
+                      alt="Spriglet"
+                    />
+                  </div>
+                  <div class="partner-body">
+                    <div aria-live="polite" aria-atomic="true">
+                      <span class="element">Grove</span>
+                      <h3>Spriglet</h3>
+                      <p>
+                        A leaf-eared fawn that restores health and builds its
+                        defences.
+                      </p>
+                    </div>
+                    <div
+                      class="stages"
+                      hidden
+                      role="group"
+                      aria-label="Spriglet evolution stages"
+                    >
+                      <strong>Evolution line</strong>
+                      <div class="lineage">
+                        <button
+                          type="button"
+                          data-number="001"
+                          data-name="Spriglet"
+                          data-element="Grove"
+                          data-note="A leaf-eared fawn that restores health and builds its defences."
+                          aria-label="Show Spriglet, stage 1"
+                          aria-pressed="true"
+                        >
+                          <img
+                            width="88"
+                            height="78"
+                            src="assets/site/spriglet.png"
+                            alt=""
+                          /><span>Spriglet</span></button
+                        ><button
+                          type="button"
+                          data-number="002"
+                          data-name="Brambleap"
+                          data-element="Grove"
+                          data-note="Paired thorn forks catch the light as it bounds through the thickets."
+                          aria-label="Show Brambleap, stage 2"
+                          aria-pressed="false"
+                        >
+                          <img
+                            width="88"
+                            height="78"
+                            src="assets/site/brambleap.png"
+                            alt=""
+                          /><span>Brambleap</span></button
+                        ><button
+                          type="button"
+                          data-number="003"
+                          data-name="Verdantler"
+                          data-element="Grove · Radiance"
+                          data-note="A forest guardian whose branching antlers feed light into the leaves at its throat."
+                          aria-label="Show Verdantler, stage 3"
+                          aria-pressed="false"
+                        >
+                          <img
+                            width="88"
+                            height="78"
+                            src="assets/site/verdantler.png"
+                            alt=""
+                          /><span>Verdantler</span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </article>
+                <article
+                  class="partner flame"
+                  id="family-1"
+                  aria-label="Cindillo family"
+                >
+                  <div class="plate">
+                    <span class="index">№ 004</span
+                    ><img
+                      class="sprite"
+                      width="88"
+                      height="78"
+                      src="assets/site/cindillo.png"
+                      alt="Cindillo"
+                    />
+                  </div>
+                  <div class="partner-body">
+                    <div aria-live="polite" aria-atomic="true">
+                      <span class="element">Flame</span>
+                      <h3>Cindillo</h3>
+                      <p>
+                        A warm-bellied burrower that withstands physical hits
+                        and strikes back hard.
+                      </p>
+                    </div>
+                    <div
+                      class="stages"
+                      hidden
+                      role="group"
+                      aria-label="Cindillo evolution stages"
+                    >
+                      <strong>Evolution line</strong>
+                      <div class="lineage">
+                        <button
+                          type="button"
+                          data-number="004"
+                          data-name="Cindillo"
+                          data-element="Flame"
+                          data-note="A warm-bellied burrower that withstands physical hits and strikes back hard."
+                          aria-label="Show Cindillo, stage 1"
+                          aria-pressed="true"
+                        >
+                          <img
+                            width="88"
+                            height="78"
+                            src="assets/site/cindillo.png"
+                            alt=""
+                          /><span>Cindillo</span></button
+                        ><button
+                          type="button"
+                          data-number="005"
+                          data-name="Charback"
+                          data-element="Flame"
+                          data-note="Flexible seams between fired clay plates let it curl up and roll downhill."
+                          aria-label="Show Charback, stage 2"
+                          aria-pressed="false"
+                        >
+                          <img
+                            width="88"
+                            height="78"
+                            src="assets/site/charback.png"
+                            alt=""
+                          /><span>Charback</span></button
+                        ><button
+                          type="button"
+                          data-number="006"
+                          data-name="Kilnwarden"
+                          data-element="Flame · Alloy"
+                          data-note="Its plates fuse into a vaulted kiln. Broad, heatproof forelegs brace it against the furnace pressure."
+                          aria-label="Show Kilnwarden, stage 3"
+                          aria-pressed="false"
+                        >
+                          <img
+                            width="88"
+                            height="78"
+                            src="assets/site/kilnwarden.png"
+                            alt=""
+                          /><span>Kilnwarden</span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </article>
+                <article
+                  class="partner tide"
+                  id="family-2"
+                  aria-label="Puddlepip family"
+                >
+                  <div class="plate">
+                    <span class="index">№ 007</span
+                    ><img
+                      class="sprite"
+                      width="88"
+                      height="78"
+                      src="assets/site/puddlepip.png"
+                      alt="Puddlepip"
+                    />
+                  </div>
+                  <div class="partner-body">
+                    <div aria-live="polite" aria-atomic="true">
+                      <span class="element">Tide</span>
+                      <h3>Puddlepip</h3>
+                      <p>
+                        A quick shorebird that outpaces its opponents with
+                        focused attacks.
+                      </p>
+                    </div>
+                    <div
+                      class="stages"
+                      hidden
+                      role="group"
+                      aria-label="Puddlepip evolution stages"
+                    >
+                      <strong>Evolution line</strong>
+                      <div class="lineage">
+                        <button
+                          type="button"
+                          data-number="007"
+                          data-name="Puddlepip"
+                          data-element="Tide"
+                          data-note="A quick shorebird that outpaces its opponents with focused attacks."
+                          aria-label="Show Puddlepip, stage 1"
+                          aria-pressed="true"
+                        >
+                          <img
+                            width="88"
+                            height="78"
+                            src="assets/site/puddlepip.png"
+                            alt=""
+                          /><span>Puddlepip</span></button
+                        ><button
+                          type="button"
+                          data-number="008"
+                          data-name="Rillcrest"
+                          data-element="Tide"
+                          data-note="Long legs carry it through the shallows while its half-open wings keep it balanced."
+                          aria-label="Show Rillcrest, stage 2"
+                          aria-pressed="false"
+                        >
+                          <img
+                            width="88"
+                            height="78"
+                            src="assets/site/rillcrest.png"
+                            alt=""
+                          /><span>Rillcrest</span></button
+                        ><button
+                          type="button"
+                          data-number="009"
+                          data-name="Tempestern"
+                          data-element="Tide · Storm"
+                          data-note="Fork-tipped wings hold it in a storm glide, and a divided tail steers it through the gusts."
+                          aria-label="Show Tempestern, stage 3"
+                          aria-pressed="false"
+                        >
+                          <img
+                            width="88"
+                            height="78"
+                            src="assets/site/tempestern.png"
+                            alt=""
+                          /><span>Tempestern</span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </article>
+              </div>
+            </div>
+            <p class="footnote">
+              Catalogue 300 species across ten habitats. All three starter
+              families can join the same expedition.
+            </p>
+          </section>
+          <section class="page" id="journey" aria-labelledby="league-title">
+            <div class="section-head">
+              <div>
+                <p class="folio">League register <span>/</span> Asterra</p>
+                <h2 id="league-title">The badge case</h2>
+              </div>
+              <span class="stamp">Eight League gyms</span>
+            </div>
+            <p class="lead">
+              Each settlement has a leader, a puzzle and a badge. Select a badge
+              to meet its leader and learn what awaits inside.
+            </p>
+            <div class="case" aria-label="Choose a League badge">
+              <a href="#gym-1" aria-label="Canopy Badge, Briarbrook"
+                ><img
+                  src="assets/site/badge-canopy.png"
+                  width="34"
+                  height="34"
+                  alt=""
+                /><span>Canopy</span></a
+              ><a href="#gym-2" aria-label="Current Badge, Tideglass"
+                ><img
+                  src="assets/site/badge-current.png"
+                  width="34"
+                  height="34"
+                  alt=""
+                /><span>Current</span></a
+              ><a href="#gym-3" aria-label="Ember Badge, Cindermill"
+                ><img
+                  src="assets/site/badge-ember.png"
+                  width="34"
+                  height="34"
+                  alt=""
+                /><span>Ember</span></a
+              ><a href="#gym-4" aria-label="Dynamo Badge, Voltspire"
+                ><img
+                  src="assets/site/badge-dynamo.png"
+                  width="34"
+                  height="34"
+                  alt=""
+                /><span>Dynamo</span></a
+              ><a href="#gym-5" aria-label="Strata Badge, Slatehaven"
+                ><img
+                  src="assets/site/badge-strata.png"
+                  width="34"
+                  height="34"
+                  alt=""
+                /><span>Strata</span></a
+              ><a href="#gym-6" aria-label="Crystal Badge, Frostmere"
+                ><img
+                  src="assets/site/badge-crystal.png"
+                  width="34"
+                  height="34"
+                  alt=""
+                /><span>Crystal</span></a
+              ><a href="#gym-7" aria-label="Lantern Badge, Veilmarket"
+                ><img
+                  src="assets/site/badge-lantern.png"
+                  width="34"
+                  height="34"
+                  alt=""
+                /><span>Lantern</span></a
+              ><a href="#gym-8" aria-label="Zenith Badge, Astral Crown"
+                ><img
+                  src="assets/site/badge-zenith.png"
+                  width="34"
+                  height="34"
+                  alt=""
+                /><span>Zenith</span></a
+              >
+            </div>
+            <div class="leader-files">
+              <article class="leader" id="gym-1">
+                <img
+                  src="assets/site/fern.png"
+                  width="84"
+                  height="88"
+                  alt="Leader Fern"
+                />
+                <div>
+                  <p class="folio">Briarbrook Gym <span>/</span> Grove</p>
+                  <h3>Leader Fern</h3>
+                  <p>
+                    Rotate the greenhouse irrigation channels to open a path
+                    through the vines. Fern’s team wears opponents down with
+                    status effects and recovery.
+                  </p>
+                  <strong>Canopy Badge</strong> · Vine-clearing equipment
+                </div>
+              </article>
+              <article class="leader" id="gym-2">
+                <img
+                  src="assets/site/marina.png"
+                  width="84"
+                  height="88"
+                  alt="Leader Marina"
+                />
+                <div>
+                  <p class="folio">Tideglass Gym <span>/</span> Tide</p>
+                  <h3>Leader Marina</h3>
+                  <p>
+                    Change the aquarium’s water level to align its floating
+                    walkways. Marina keeps her team afloat with defensive
+                    switches and weather support.
+                  </p>
+                  <strong>Current Badge</strong> · Water traversal
+                </div>
+              </article>
+              <article class="leader" id="gym-3">
+                <img
+                  src="assets/site/calder.png"
+                  width="84"
+                  height="88"
+                  alt="Leader Calder"
+                />
+                <div>
+                  <p class="folio">Cindermill Gym <span>/</span> Flame</p>
+                  <h3>Leader Calder</h3>
+                  <p>
+                    Work the furnace switches to cross the ceramics foundry.
+                    Calder favours steady offensive pressure.
+                  </p>
+                  <strong>Ember Badge</strong> · Heavy-object movement
+                </div>
+              </article>
+              <article class="leader" id="gym-4">
+                <img
+                  src="assets/site/iona.png"
+                  width="84"
+                  height="88"
+                  alt="Leader Iona"
+                />
+                <div>
+                  <p class="folio">Voltspire Gym <span>/</span> Storm</p>
+                  <h3>Leader Iona</h3>
+                  <p>
+                    Connect the power station circuits to bring its lifts
+                    online. Iona controls the pace with speed changes and
+                    disruptive conditions.
+                  </p>
+                  <strong>Dynamo Badge</strong> · Expanded fast travel
+                </div>
+              </article>
+              <article class="leader" id="gym-5">
+                <img
+                  src="assets/site/petra.png"
+                  width="84"
+                  height="88"
+                  alt="Leader Petra"
+                />
+                <div>
+                  <p class="folio">Slatehaven Gym <span>/</span> Stone</p>
+                  <h3>Leader Petra</h3>
+                  <p>
+                    Shift the quarry museum’s fossil displays onto their
+                    pressure plates. Petra gives her durable partners time to
+                    build their defences.
+                  </p>
+                  <strong>Strata Badge</strong> · Climbing equipment
+                </div>
+              </article>
+              <article class="leader" id="gym-6">
+                <img
+                  src="assets/site/soren.png"
+                  width="84"
+                  height="88"
+                  alt="Leader Soren"
+                />
+                <div>
+                  <p class="folio">Frostmere Gym <span>/</span> Frost</p>
+                  <h3>Leader Soren</h3>
+                  <p>
+                    Slide between frozen mechanisms and turn the observatory
+                    mirrors. Soren builds his attacks around the changing
+                    weather.
+                  </p>
+                  <strong>Crystal Badge</strong> · High mountain pass
+                </div>
+              </article>
+              <article class="leader" id="gym-7">
+                <img
+                  src="assets/site/nyra.png"
+                  width="84"
+                  height="88"
+                  alt="Leader Nyra"
+                />
+                <div>
+                  <p class="folio">Veilmarket Gym <span>/</span> Spirit</p>
+                  <h3>Leader Nyra</h3>
+                  <p>
+                    Change the stage lights to reveal doors in the theatre’s
+                    shadow scenery. Nyra uses misdirection and delayed effects.
+                  </p>
+                  <strong>Lantern Badge</strong> · Hidden ruin passages
+                </div>
+              </article>
+              <article class="leader" id="gym-8">
+                <img
+                  src="assets/site/solenne.png"
+                  width="84"
+                  height="88"
+                  alt="Leader Solenne"
+                />
+                <div>
+                  <p class="folio">Astral Crown Gym <span>/</span> Radiance</p>
+                  <h3>Leader Solenne</h3>
+                  <p>
+                    Connect the conservatory’s constellations to cross its
+                    floating platforms. Solenne tests your whole team before the
+                    observatory finale.
+                  </p>
+                  <strong>Zenith Badge</strong> · Championship qualification
+                </div>
+              </article>
+            </div>
+            <p class="footnote">
+              Beyond the eighth badge, the Asterra Championship awaits with four
+              specialists and a champion.
+            </p>
+          </section>
+          <section class="page" id="guide" aria-labelledby="manual-title">
+            <div class="section-head">
+              <div>
+                <p class="folio">
+                  Expedition manual <span>/</span> Research division
+                </p>
+                <h2 id="manual-title">In the field</h2>
+              </div>
+            </div>
+            <div class="manual-layout">
+              <div class="field-notes">
+                <figure>
+                  <img
+                    src="assets/site/trail.png"
+                    width="544"
+                    height="306"
+                    alt="A field researcher meets wild creatures along Potters’ Towpath."
+                  />
+                  <figcaption>Potters’ Towpath · Kilnway Canal</figcaption>
+                </figure>
+                <p>
+                  Set out from Brinewick Village to catalogue 300 species across
+                  ten habitats. Track the Stilllight Society to the dormant
+                  observatory as you earn your League badges.
                 </p>
               </div>
-            </details>
-          </div>
+              <div class="manual">
+                <details open>
+                  <summary>How do I move and interact?</summary>
+                  <div>
+                    <p>
+                      Walk with <kbd>WASD</kbd> or the arrow keys. Press
+                      <kbd>E</kbd> or <kbd>Enter</kbd> to interact,
+                      <kbd>M</kbd> for the map, <kbd>Tab</kbd> for your party
+                      and <kbd>Esc</kbd> for the expedition menu.
+                    </p>
+                    <p>
+                      Click or tap a destination to walk there. Touch devices
+                      also have a directional pad and an interaction button.
+                    </p>
+                  </div>
+                </details>
+                <details>
+                  <summary>How do battles and captures work?</summary>
+                  <div>
+                    <p>
+                      Each turn, choose a move, switch your active creature or
+                      use an item. Check the element matchup and your available
+                      energy. Lower a wild creature’s health or inflict a status
+                      condition to improve your capsule’s chances.
+                    </p>
+                  </div>
+                </details>
+                <details>
+                  <summary>Where is my progress saved?</summary>
+                  <div>
+                    <p>
+                      The game autosaves in this browser at safe milestones.
+                      Open
+                      <strong>Expedition menu → Save → Export backup</strong> to
+                      keep a copy or carry your team to another device. Use
+                      <strong>Import backup</strong> to restore it.
+                    </p>
+                  </div>
+                </details>
+                <details>
+                  <summary>Can I play offline?</summary>
+                  <div>
+                    <p>
+                      <a href="play/index.html" download="wildlight.html"
+                        >Download the standalone game</a
+                      >
+                      and open it in a modern browser. To continue a web
+                      expedition offline, export your save first and import it
+                      in the downloaded game.
+                    </p>
+                  </div>
+                </details>
+              </div>
+            </div>
+          </section>
         </div>
-      </section>
+      </div>
     </main>
     <footer>
-      <div class="wrap foot">
-        <a class="brand" href="#top"
-          ><span class="star" aria-hidden="true"></span> Wildlight</a
-        ><span>The Asterra League</span
-        ><a href="https://github.com/nearbycoder/wildlight"
-          >View on GitHub ↗</a
-        >
+      <div>
+        <img src="assets/site/menu-book.png" alt="" /> Wildlight · The Asterra
+        League
       </div>
+      <a href="https://github.com/nearbycoder/wildlight">Game source ↗</a>
     </footer>
   </body>
 </html>

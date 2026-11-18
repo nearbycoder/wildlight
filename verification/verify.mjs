@@ -118,22 +118,35 @@ async function startBrowser() {
     await delay(50);
   }
   const siteOk = await ev(`(async()=>{
-    for(const card of document.querySelectorAll(".partner")){
+    for(const family of document.querySelectorAll(".picker button")){
+      family.click();
+      const card=document.getElementById(family.getAttribute("aria-controls"));
+      if(!card.getClientRects().length || family.getAttribute("aria-pressed")!=="true")return false;
       for(const button of card.querySelectorAll(".stages button")){
         button.click();
         const sprite=card.querySelector(".sprite");
-        sprite.loading="eager";
         await sprite.decode();
         if(card.querySelector("h3").textContent!==button.dataset.name ||
            sprite.naturalWidth!==88 || button.getAttribute("aria-pressed")!=="true")return false;
       }
     }
+    document.querySelector('.tabstrip a[href="#journey"]').click();
+    for(const badge of document.querySelectorAll(".case a")){
+      badge.click();
+      const leader=document.querySelector(badge.hash);
+      await leader.querySelector("img").decode();
+      if(!leader.getClientRects().length||!location.href.endsWith(badge.hash))return false;
+    }
+    document.querySelector('.tabstrip a[href="#guide"]').click();
+    const details=document.querySelector(".manual details:last-child");
+    details.querySelector("summary").click();
+    if(!details.open||!details.getClientRects().length)return false;
     const backup=document.querySelector(".manual a[download]");
     return document.querySelectorAll(".partner").length===3 &&
       backup.href===document.querySelector(".hero-actions .play").href;
   })()`);
   if (!siteOk) throw Error("Landing page field guide or download link failed");
-  console.log("PASS all nine field guide forms and standalone download");
+  console.log("PASS journal navigation, nine starter forms, eight League leaders and offline download");
   await ev("document.querySelector('.hero-actions .play').click()");
   for (let i = 0; i < 100; i++) {
     if (
