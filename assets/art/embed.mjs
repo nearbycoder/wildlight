@@ -2,10 +2,19 @@ import { readFileSync, writeFileSync } from "node:fs";
 
 const read = (name) => readFileSync(new URL(name, import.meta.url));
 const output = new URL("../../play/index.html", import.meta.url);
-const atlas = read("asterra-atlas.png");
+const atlas = read("asterra-atlas.webp");
 const frames = JSON.parse(read("asterra-atlas.json").toString("utf8"));
-const width = atlas.readUInt32BE(16);
-const height = atlas.readUInt32BE(20);
+if (
+  atlas.length < 25 ||
+  atlas.toString("ascii", 0, 4) !== "RIFF" ||
+  atlas.toString("ascii", 8, 16) !== "WEBPVP8L" ||
+  atlas[20] !== 0x2f
+)
+  throw new Error("The atlas must be encoded as lossless WebP.");
+
+const dimensions = atlas.readUInt32LE(21);
+const width = (dimensions & 0x3fff) + 1;
+const height = ((dimensions >>> 14) & 0x3fff) + 1;
 
 for (const [name, frame] of Object.entries(frames)) {
   const [x, y, w, h] = frame;
@@ -37,7 +46,7 @@ const manifest = Object.entries(frames)
     return `        ${key}: [${frame.join(", ")}],`;
   })
   .join("\n");
-const data = "data:image/png;base64," + atlas.toString("base64");
+const data = "data:image/webp;base64," + atlas.toString("base64");
 const embedded = `${start}
       const atlasFrames = {
 ${manifest}

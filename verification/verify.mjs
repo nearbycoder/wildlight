@@ -272,6 +272,54 @@ async function startBrowser() {
     throw Error("Catalogue validation failed");
 }
 
+async function checkEmbeddedArt() {
+  await waitFor(
+    "atlasReady && titleButtons.length && validateArtwork()",
+    "Complete embedded atlas must load before the title screen",
+    12000,
+  );
+  const result = await ev(`(() => {
+    const fingerprint = (image) => {
+      const { width, height } = image;
+      const rgba = image.getContext("2d").getImageData(0, 0, width, height).data;
+      let hash = 2166136261, alpha = 0;
+      for (let i = 0; i < rgba.length; i++) {
+        hash = Math.imul(hash ^ rgba[i], 16777619);
+        if (i % 4 === 3 && rgba[i]) alpha++;
+      }
+      if (alpha < 1) throw Error("Blank artwork");
+      return hash;
+    };
+    const poses = new Set();
+    for (const { id, name } of species) {
+      for (const back of [false, true]) {
+        const key = (back ? "rear/" : "species/") + name;
+        const image = sprite(id, back);
+        if (image !== artFrame(key)) throw Error(key + " did not use its atlas cell");
+        poses.add(fingerprint(image));
+      }
+    }
+    const backgrounds = new Set();
+    let portraits = 0, people = 0;
+    for (const name of Object.keys(atlasFrames)) {
+      if (/^(species|rear)\\//.test(name)) continue;
+      const hash = fingerprint(artFrame(name));
+      if (/^(arena|gym|shrine)\\//.test(name) || ["championship", "regulator"].includes(name))
+        backgrounds.add(hash);
+      if (name.startsWith("portrait/")) portraits++;
+      if (name.startsWith("person/")) people++;
+    }
+    return [poses.size, backgrounds.size, portraits, people];
+  })()`);
+  if (result.join(",") !== "600,30,26,26")
+    throw Error(
+      "Incomplete or duplicate creature and arena artwork: " + result,
+    );
+  console.log(
+    "PASS all 600 distinct sprite views and 30 distinct arena backdrops",
+  );
+}
+
 async function solveRoomPlans() {
   let paths = await ev(
     `window.solutions=Array.from({length:8},(_,j)=>{let queue=[[newRoom(j),'']],seen=new Set;for(let i=0;i<queue.length&&i<200000;i++){let [p,seq]=queue[i];if(p.done)return seq;for(let d=0;d<5;d++){let q=structuredClone(p);roomStep(q,d);let key=[q.n,q.phase,q.v,q.boxes,q.done].join('/');if(!seen.has(key)){seen.add(key);queue.push([q,seq+d])}}}return null})`,
@@ -462,11 +510,16 @@ async function campaign() {
     await run(
       "for(let d of solutions[puzzle.j])roomInput(+d);solve();gymTrainer();",
     );
+    assert(
+      await run(`B.backdrop === "gym/${z - 1}"`),
+      "gym trainer arena " + z,
+    );
     let r = await run("autofight()");
     assert(await run("G.train.includes(" + z + ")"), "trainer loss " + z);
     await run(
       "closeUI();for(let [i,m] of G.party.entries()){if(eligible(m)){evolution(i);evolveNow()}};lodge();closeUI();leader()",
     );
+    assert(await run(`B.backdrop === "gym/${z - 1}"`), "gym leader arena " + z);
     r = await run("autofight()");
     console.log("PASS badge", z);
     assert(await run("G.badges===" + z), "leader loss " + z);
@@ -480,12 +533,14 @@ async function campaign() {
     }
   }
   await run("closeUI();go(9);lodge();closeUI();finale()");
+  assert(await run('B.backdrop === "regulator"'), "story final arena");
   await run("autofight()");
   assert(await run("G.story===1"), "finale loss");
   await run("observatory()");
   await snap("championship");
   for (let j = 0; j < 5; j++) {
     await run("lodge();closeUI();cupFight()");
+    assert(await run('B.backdrop === "championship"'), "championship arena");
     await run("autofight()");
     console.log("PASS championship round", j + 1);
     assert(await run("G.cup===" + (j + 1)), "cup loss");
@@ -556,7 +611,11 @@ async function collectAndRecover() {
   );
   await ev("closeUI();save();");
   await call("Page.reload");
-  await wait(250);
+  await waitFor(
+    'typeof atlasReady !== "undefined" && atlasReady && titleButtons.length',
+    "Artwork restored after reload",
+    12000,
+  );
   check(
     await ev("G.cup===5&&G.party.length===6"),
     "browser reload restores champion and six companions",
@@ -598,7 +657,7 @@ async function collectAndRecover() {
   });
   await call("Emulation.setTouchEmulationEnabled", { enabled: false });
   await ev(
-    "window.capt=async id=>{wild(id);Math.random=()=>0;battleAction('item','Lumen Capsule');for(let n=0;n<30&&B;n++)await new Promise(r=>setTimeout(r,20));if(B||ui!=='Capture recorded')throw Error('Capture failed '+id);nameCapture()};window.naturalRand=Math.random;window.collectionAudit=[];",
+    "window.capt=async id=>{wild(id);const family=species[id].f,stage=family>=130?'shrine/'+(family-130):'arena/'+G.z;if(B?.backdrop!==stage)throw Error('Wrong arena for '+id);Math.random=()=>0;battleAction('item','Lumen Capsule');for(let n=0;n<30&&B;n++)await new Promise(r=>setTimeout(r,20));if(B||ui!=='Capture recorded'||captureStage!==stage)throw Error('Capture failed or lost its arena '+id);nameCapture()};window.naturalRand=Math.random;window.collectionAudit=[];",
   );
   for (let z = 0; z < 10; z++) {
     let out = await ev(
@@ -853,14 +912,16 @@ async function additionalChecks() {
 }
 
 async function contactSheets() {
-  for (let i = 0; i < 3; i++) {
-    let b = await ev(
-      `(()=>{let cv=canvas(1000,950),c=cv.getContext('2d');for(let n=0;n<100;n++){let id=${i}*100+n,x=n%10*100,y=Math.floor(n/10)*95;rect(c,x,y,100,95,n%2?'#edf0df':'#f5f2e4');c.drawImage(sprite(id),x+6,y);c.fillStyle='#304a3b';c.font='8px monospace';c.textAlign='center';c.fillText((id+1)+' '+species[id].name,x+50,y+86)}return cv.toDataURL().split(',')[1]})()`,
-    );
-    fs.writeFileSync(
-      root + "/verification/species-" + (i + 1) + ".png",
-      Buffer.from(b, "base64"),
-    );
+  for (const back of [false, true]) {
+    for (let i = 0; i < 3; i++) {
+      const b = await ev(
+        `(()=>{let cv=canvas(1000,950),c=cv.getContext('2d');for(let n=0;n<100;n++){let id=${i}*100+n,x=n%10*100,y=Math.floor(n/10)*95;rect(c,x,y,100,95,n%2?'#edf0df':'#f5f2e4');c.drawImage(sprite(id,${back}),x+6,y);c.fillStyle='#304a3b';c.font='8px monospace';c.textAlign='center';c.fillText((id+1)+' '+species[id].name,x+50,y+86)}return cv.toDataURL().split(',')[1]})()`,
+      );
+      fs.writeFileSync(
+        path.join(output, (back ? "rear-" : "species-") + (i + 1) + ".png"),
+        Buffer.from(b, "base64"),
+      );
+    }
   }
   const examples = [
     "Spriglet",
@@ -893,6 +954,29 @@ async function contactSheets() {
     path.join(output, "evolution-families.png"),
     Buffer.from(sheet, "base64"),
   );
+  const scenery = await ev(`(() => {
+    const scenes = [
+      ...zones.map((name, i) => [name, "arena/" + i]),
+      ...gyms.map((name, i) => [name + " · " + towns[i + 1], "gym/" + i]),
+      ...shrineNotes.map(([name], i) => [name, "shrine/" + i]),
+      ["Stilllight regulator", "regulator"], ["Asterra Championship", "championship"],
+    ];
+    const cv = canvas(1035, 622), c = cv.getContext("2d");
+    rect(c, 0, 0, cv.width, cv.height, "#142c35");
+    scenes.forEach(([name, key], i) => {
+      const x = 5 + (i % 5) * 207, y = 5 + Math.floor(i / 5) * 103;
+      c.save();
+      c.translate(x, y);
+      fillArtwork(c, artFrame(key), 200, 82, 0.5, 0.46);
+      c.restore();
+      c.fillStyle = "#f3dfae"; c.font = "10px monospace"; c.fillText(name, x + 4, y + 97);
+    });
+    return cv.toDataURL().split(",")[1];
+  })()`);
+  fs.writeFileSync(
+    path.join(output, "arenas.png"),
+    Buffer.from(scenery, "base64"),
+  );
   let fields = await ev(
     `(()=>{let names=Object.keys(cast),cv=canvas(6*114,Math.ceil(names.length/6)*112),c=cv.getContext('2d');names.forEach((k,i)=>{let x=i%6*114,y=(i/6|0)*112;rect(c,x,y,114,112,'#dce3cc');c.drawImage(portraitArt(k),x+4,y+3);person(c,x+98,y+85,k);c.fillStyle='#354f3f';c.font='bold 10px monospace';c.fillText(cast[k][0],x+6,y+103)});return cv.toDataURL().split(',')[1]})()`,
   );
@@ -904,6 +988,7 @@ async function contactSheets() {
 
 try {
   await startBrowser();
+  await checkEmbeddedArt();
   await solveRoomPlans();
   await campaign();
   const fight = await ev("autofight.toString()");

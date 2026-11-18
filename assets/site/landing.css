@@ -1226,6 +1226,45 @@ footer a:hover {
 .craft h3 {
   margin: 0;
 }
+.view-plates,
+.arena-plates {
+  display: grid;
+  gap: 12px;
+}
+.view-plates {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
+  margin-top: 18px;
+}
+.view-plates figure {
+  border: 1px solid #a3ae8e;
+  background: #eeecd8;
+}
+.view-plates .views {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  background: #d0d9b9;
+}
+.view-plates img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.view-plates img + img {
+  border-left: 1px dashed #93a281;
+  background: #c4d2b3;
+}
+.view-plates figcaption {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 5px;
+  padding: 8px;
+  font: 700 13px var(--mono);
+}
+.view-plates small {
+  color: #4d6249;
+  font-size: 10px;
+}
 .battles {
   color: #f4eed7;
   background: #142b34;
@@ -1246,6 +1285,24 @@ footer a:hover {
 }
 .battle-screen figcaption {
   background: #122a24;
+}
+.arena-plates {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+  margin-bottom: 24px;
+}
+.arena-plates figure {
+  border: 1px solid #68735a;
+  background: #12302e;
+}
+.arena-plates img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.arena-plates figcaption {
+  padding: 8px 10px;
+  color: #f0d79a;
+  font: 700 12px var(--mono);
 }
 .tactics h3 {
   color: #f0cf85;

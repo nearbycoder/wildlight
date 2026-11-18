@@ -5,1041 +5,4635 @@
     576,
     324
   ],
-  "arena/0": [
+  "gym/0": [
     576,
     0,
+    340,
+    166
+  ],
+  "gym/1": [
+    916,
+    0,
+    340,
+    166
+  ],
+  "gym/2": [
+    1256,
+    0,
+    340,
+    166
+  ],
+  "gym/3": [
+    1596,
+    0,
+    340,
+    166
+  ],
+  "gym/4": [
+    0,
+    324,
+    340,
+    166
+  ],
+  "gym/5": [
+    340,
+    324,
+    340,
+    166
+  ],
+  "gym/6": [
+    680,
+    324,
+    340,
+    166
+  ],
+  "gym/7": [
+    1020,
+    324,
+    340,
+    166
+  ],
+  "shrine/0": [
+    1360,
+    324,
+    340,
+    166
+  ],
+  "shrine/1": [
+    1700,
+    324,
+    340,
+    166
+  ],
+  "shrine/2": [
+    0,
+    490,
+    340,
+    166
+  ],
+  "shrine/3": [
+    340,
+    490,
+    340,
+    166
+  ],
+  "shrine/4": [
+    680,
+    490,
+    340,
+    166
+  ],
+  "shrine/5": [
+    1020,
+    490,
+    340,
+    166
+  ],
+  "shrine/6": [
+    1360,
+    490,
+    340,
+    166
+  ],
+  "shrine/7": [
+    1700,
+    490,
+    340,
+    166
+  ],
+  "shrine/8": [
+    0,
+    656,
+    340,
+    166
+  ],
+  "shrine/9": [
+    340,
+    656,
+    340,
+    166
+  ],
+  "regulator": [
+    680,
+    656,
+    340,
+    166
+  ],
+  "championship": [
+    1020,
+    656,
+    340,
+    166
+  ],
+  "lab": [
+    1360,
+    656,
+    340,
+    148
+  ],
+  "lodge": [
+    1700,
+    656,
+    340,
+    148
+  ],
+  "evolution": [
+    0,
+    822,
+    340,
+    148
+  ],
+  "records": [
+    340,
+    822,
+    340,
+    148
+  ],
+  "arena/0": [
+    680,
+    822,
     308,
     142
   ],
   "arena/1": [
-    0,
-    324,
+    988,
+    822,
     308,
     142
   ],
   "arena/2": [
-    308,
-    324,
+    1296,
+    822,
     308,
     142
   ],
   "arena/3": [
-    616,
-    324,
+    1604,
+    822,
     308,
     142
   ],
   "arena/4": [
     0,
-    466,
+    970,
     308,
     142
   ],
   "arena/5": [
     308,
-    466,
+    970,
     308,
     142
   ],
   "arena/6": [
     616,
-    466,
+    970,
     308,
     142
   ],
   "arena/7": [
-    0,
-    608,
+    924,
+    970,
     308,
     142
   ],
   "arena/8": [
-    308,
-    608,
+    1232,
+    970,
     308,
     142
   ],
   "arena/9": [
-    616,
-    608,
+    1540,
+    970,
     308,
     142
   ],
-  "arena/10": [
+  "map": [
     0,
-    750,
-    308,
-    142
+    1112,
+    370,
+    120
   ],
-  "arena/11": [
-    308,
-    750,
-    308,
-    142
+  "ground/0": [
+    370,
+    1112,
+    96,
+    96
+  ],
+  "ground/1": [
+    466,
+    1112,
+    96,
+    96
+  ],
+  "ground/2": [
+    562,
+    1112,
+    96,
+    96
+  ],
+  "ground/3": [
+    658,
+    1112,
+    96,
+    96
+  ],
+  "ground/4": [
+    754,
+    1112,
+    96,
+    96
+  ],
+  "ground/5": [
+    850,
+    1112,
+    96,
+    96
+  ],
+  "ground/6": [
+    946,
+    1112,
+    96,
+    96
+  ],
+  "ground/7": [
+    1042,
+    1112,
+    96,
+    96
+  ],
+  "ground/8": [
+    1138,
+    1112,
+    96,
+    96
+  ],
+  "ground/9": [
+    1234,
+    1112,
+    96,
+    96
+  ],
+  "ground/10": [
+    1330,
+    1112,
+    96,
+    96
+  ],
+  "ground/11": [
+    1426,
+    1112,
+    96,
+    96
   ],
   "portrait/Oriel": [
-    616,
-    750,
+    1522,
+    1112,
     84,
     88
   ],
   "portrait/Lio": [
-    700,
-    750,
+    1606,
+    1112,
     84,
     88
   ],
   "portrait/Fern": [
-    784,
-    750,
+    1690,
+    1112,
     84,
     88
   ],
   "portrait/Marina": [
-    868,
-    750,
+    1774,
+    1112,
     84,
     88
   ],
   "portrait/Calder": [
-    0,
-    892,
+    1858,
+    1112,
     84,
     88
   ],
   "portrait/Iona": [
-    84,
-    892,
+    1942,
+    1112,
     84,
     88
   ],
   "portrait/Petra": [
-    168,
-    892,
+    0,
+    1232,
     84,
     88
   ],
   "portrait/Soren": [
-    252,
-    892,
+    84,
+    1232,
     84,
     88
   ],
   "portrait/Nyra": [
-    336,
-    892,
+    168,
+    1232,
     84,
     88
   ],
   "portrait/Solenne": [
-    420,
-    892,
+    252,
+    1232,
     84,
     88
   ],
   "portrait/Avenel": [
-    504,
-    892,
+    336,
+    1232,
     84,
     88
   ],
   "portrait/Ise": [
-    588,
-    892,
+    420,
+    1232,
     84,
     88
   ],
   "portrait/Lysa": [
-    672,
-    892,
+    504,
+    1232,
     84,
     88
   ],
   "portrait/Vio": [
-    756,
-    892,
+    588,
+    1232,
     84,
     88
   ],
   "portrait/Aven": [
-    840,
-    892,
+    672,
+    1232,
     84,
     88
   ],
   "portrait/Senna": [
+    756,
+    1232,
+    84,
+    88
+  ],
+  "portrait/Renn": [
+    840,
+    1232,
+    84,
+    88
+  ],
+  "portrait/Mim": [
     924,
-    892,
+    1232,
+    84,
+    88
+  ],
+  "portrait/Pern": [
+    1008,
+    1232,
+    84,
+    88
+  ],
+  "portrait/Rusk": [
+    1092,
+    1232,
+    84,
+    88
+  ],
+  "portrait/Cal": [
+    1176,
+    1232,
+    84,
+    88
+  ],
+  "portrait/Tavi": [
+    1260,
+    1232,
+    84,
+    88
+  ],
+  "portrait/Nel": [
+    1344,
+    1232,
+    84,
+    88
+  ],
+  "portrait/Iri": [
+    1428,
+    1232,
+    84,
+    88
+  ],
+  "portrait/Venn": [
+    1512,
+    1232,
+    84,
+    88
+  ],
+  "portrait/Researcher": [
+    1596,
+    1232,
     84,
     88
   ],
   "species/Spriglet": [
-    0,
-    980,
+    1680,
+    1232,
     88,
     78
   ],
   "species/Brambleap": [
-    88,
-    980,
+    1768,
+    1232,
     88,
     78
   ],
   "species/Verdantler": [
-    176,
-    980,
+    1856,
+    1232,
     88,
     78
   ],
   "species/Cindillo": [
-    264,
-    980,
+    1944,
+    1232,
     88,
     78
   ],
   "species/Charback": [
-    352,
-    980,
+    0,
+    1320,
     88,
     78
   ],
   "species/Kilnwarden": [
-    440,
-    980,
+    88,
+    1320,
     88,
     78
   ],
   "species/Puddlepip": [
-    528,
-    980,
+    176,
+    1320,
     88,
     78
   ],
   "species/Rillcrest": [
-    616,
-    980,
+    264,
+    1320,
     88,
     78
   ],
   "species/Tempestern": [
-    704,
-    980,
+    352,
+    1320,
     88,
     78
   ],
   "species/Gravlet": [
-    792,
-    980,
+    440,
+    1320,
     88,
     78
   ],
   "species/Dewbit": [
-    880,
-    980,
+    528,
+    1320,
     88,
     78
   ],
   "species/Tapestria": [
-    0,
-    1058,
+    616,
+    1320,
     88,
     78
   ],
   "rear/Spriglet": [
-    88,
-    1058,
+    704,
+    1320,
     88,
     78
   ],
   "rear/Brambleap": [
-    176,
-    1058,
+    792,
+    1320,
     88,
     78
   ],
   "rear/Verdantler": [
-    264,
-    1058,
+    880,
+    1320,
     88,
     78
   ],
   "rear/Cindillo": [
-    352,
-    1058,
+    968,
+    1320,
     88,
     78
   ],
   "rear/Charback": [
-    440,
-    1058,
+    1056,
+    1320,
     88,
     78
   ],
   "rear/Kilnwarden": [
-    528,
-    1058,
+    1144,
+    1320,
     88,
     78
   ],
   "rear/Puddlepip": [
-    616,
-    1058,
+    1232,
+    1320,
     88,
     78
   ],
   "rear/Rillcrest": [
-    704,
-    1058,
+    1320,
+    1320,
     88,
     78
   ],
   "rear/Tempestern": [
-    792,
-    1058,
+    1408,
+    1320,
     88,
     78
   ],
   "rear/Gravlet": [
-    880,
-    1058,
+    1496,
+    1320,
     88,
     78
   ],
   "rear/Dewbit": [
-    0,
-    1136,
+    1584,
+    1320,
     88,
     78
   ],
   "rear/Tapestria": [
-    88,
-    1136,
+    1672,
+    1320,
     88,
     78
   ],
   "species/Frazil": [
-    176,
-    1136,
+    1760,
+    1320,
     88,
     78
   ],
   "species/Icewick": [
-    264,
-    1136,
+    1848,
+    1320,
     88,
     78
   ],
   "species/Glaciruff": [
-    352,
-    1136,
+    1936,
+    1320,
     88,
     78
   ],
   "species/Puffisk": [
-    440,
-    1136,
+    0,
+    1398,
     88,
     78
   ],
   "species/Mistfrill": [
-    528,
-    1136,
+    88,
+    1398,
     88,
     78
   ],
   "species/Nimbasil": [
-    616,
-    1136,
+    176,
+    1398,
     88,
     78
   ],
   "species/Cuppit": [
-    704,
-    1136,
+    264,
+    1398,
     88,
     78
   ],
   "species/Glazelle": [
-    792,
-    1136,
+    352,
+    1398,
     88,
     78
   ],
   "species/Urnelope": [
-    880,
-    1136,
+    440,
+    1398,
     88,
     78
   ],
   "species/Kelpip": [
-    0,
-    1214,
+    528,
+    1398,
     88,
     78
   ],
   "species/Wrackling": [
-    88,
-    1214,
+    616,
+    1398,
     88,
     78
   ],
   "species/Holdfastor": [
-    176,
-    1214,
+    704,
+    1398,
     88,
     78
   ],
   "species/Mosskit": [
-    264,
-    1214,
+    792,
+    1398,
     88,
     78
   ],
   "species/Thicketail": [
-    352,
-    1214,
+    880,
+    1398,
     88,
     78
   ],
   "species/Sylvixen": [
-    440,
-    1214,
+    968,
+    1398,
     88,
     78
   ],
   "species/Corkit": [
-    528,
-    1214,
+    1056,
+    1398,
     88,
     78
   ],
   "species/Bottlisk": [
-    616,
-    1214,
+    1144,
+    1398,
     88,
     78
   ],
   "species/Ampulisk": [
-    704,
-    1214,
+    1232,
+    1398,
     88,
     78
   ],
   "species/Fuzzlet": [
-    792,
-    1214,
+    1320,
+    1398,
     88,
     78
   ],
   "species/Loomoth": [
-    880,
-    1214,
+    1408,
+    1398,
     88,
     78
   ],
   "species/Wickit": [
-    0,
-    1292,
+    1496,
+    1398,
     88,
     78
   ],
   "species/Lanternet": [
-    88,
-    1292,
+    1584,
+    1398,
     88,
     78
   ],
   "species/Beacoon": [
-    176,
-    1292,
+    1672,
+    1398,
     88,
     78
   ],
   "species/Poolpalm": [
-    264,
-    1292,
+    1760,
+    1398,
     88,
     78
   ],
   "species/Miremitt": [
-    352,
-    1292,
+    1848,
+    1398,
     88,
     78
   ],
   "species/Ticlet": [
-    440,
-    1292,
+    1936,
+    1398,
     88,
     78
   ],
   "species/Pendulor": [
-    528,
-    1292,
+    0,
+    1476,
     88,
     78
   ],
   "species/Horolume": [
-    616,
-    1292,
+    88,
+    1476,
     88,
     78
   ],
   "species/Ferrip": [
-    704,
-    1292,
+    176,
+    1476,
     88,
     78
   ],
   "species/Cogtail": [
-    792,
-    1292,
+    264,
+    1476,
     88,
     78
   ],
   "species/Gearmink": [
-    880,
-    1292,
+    352,
+    1476,
     88,
     78
   ],
   "species/Needlit": [
-    0,
-    1370,
+    440,
+    1476,
     88,
     78
   ],
   "species/Thimblin": [
-    88,
-    1370,
+    528,
+    1476,
     88,
     78
   ],
   "species/Seamstrix": [
-    176,
-    1370,
+    616,
+    1476,
     88,
     78
   ],
   "species/Gloamlet": [
-    264,
-    1370,
+    704,
+    1476,
     88,
     78
   ],
   "species/Murmurr": [
-    352,
-    1370,
+    792,
+    1476,
     88,
     78
   ],
   "species/Shadechoir": [
-    440,
-    1370,
+    880,
+    1476,
     88,
     78
   ],
   "species/Lullip": [
-    528,
-    1370,
+    968,
+    1476,
     88,
     78
   ],
   "species/Dozeling": [
-    616,
-    1370,
+    1056,
+    1476,
     88,
     78
   ],
   "species/Somnursa": [
-    704,
-    1370,
+    1144,
+    1476,
     88,
     78
   ],
   "species/Brinlet": [
-    792,
-    1370,
+    1232,
+    1476,
     88,
     78
   ],
   "species/Saltrill": [
-    880,
-    1370,
+    1320,
+    1476,
     88,
     78
   ],
   "species/Halicrown": [
-    0,
-    1448,
+    1408,
+    1476,
     88,
     78
   ],
   "species/Clinkid": [
-    88,
-    1448,
+    1496,
+    1476,
     88,
     78
   ],
   "species/Bellop": [
-    176,
-    1448,
+    1584,
+    1476,
     88,
     78
   ],
   "species/Tocsiram": [
-    264,
-    1448,
+    1672,
+    1476,
     88,
     78
   ],
   "species/Terravale": [
-    352,
-    1448,
+    1760,
+    1476,
     88,
     78
   ],
   "species/Pelagoria": [
-    440,
-    1448,
+    1848,
+    1476,
     88,
     78
   ],
   "species/Altavane": [
-    528,
-    1448,
+    1936,
+    1476,
     88,
     78
   ],
   "species/Vernalith": [
-    616,
-    1448,
+    0,
+    1554,
     88,
     78
   ],
   "species/Solstitial": [
-    704,
-    1448,
+    88,
+    1554,
     88,
     78
   ],
   "species/Hibernox": [
-    792,
-    1448,
+    176,
+    1554,
     88,
     78
   ],
   "species/Somnaveil": [
-    880,
-    1448,
+    264,
+    1554,
     88,
     78
   ],
   "species/Mnemoshell": [
-    0,
-    1526,
+    352,
+    1554,
     88,
     78
   ],
   "species/Orreryon": [
-    88,
-    1526,
+    440,
+    1554,
     88,
     78
   ],
   "species/Asterquill": [
+    528,
+    1554,
+    88,
+    78
+  ],
+  "species/Pebblit": [
+    616,
+    1554,
+    88,
+    78
+  ],
+  "species/Cairnuck": [
+    704,
+    1554,
+    88,
+    78
+  ],
+  "species/Torhorn": [
+    792,
+    1554,
+    88,
+    78
+  ],
+  "species/Flittuft": [
+    880,
+    1554,
+    88,
+    78
+  ],
+  "species/Drafthare": [
+    968,
+    1554,
+    88,
+    78
+  ],
+  "species/Sirocket": [
+    1056,
+    1554,
+    88,
+    78
+  ],
+  "species/Inklingel": [
+    1144,
+    1554,
+    88,
+    78
+  ],
+  "species/Quillume": [
+    1232,
+    1554,
+    88,
+    78
+  ],
+  "species/Scripteray": [
+    1320,
+    1554,
+    88,
+    78
+  ],
+  "species/Waxip": [
+    1408,
+    1554,
+    88,
+    78
+  ],
+  "species/Candloom": [
+    1496,
+    1554,
+    88,
+    78
+  ],
+  "species/Votivowl": [
+    1584,
+    1554,
+    88,
+    78
+  ],
+  "species/Nubcap": [
+    1672,
+    1554,
+    88,
+    78
+  ],
+  "species/Gillimp": [
+    1760,
+    1554,
+    88,
+    78
+  ],
+  "species/Morelord": [
+    1848,
+    1554,
+    88,
+    78
+  ],
+  "species/Tinsong": [
+    1936,
+    1554,
+    88,
+    78
+  ],
+  "species/Chimefin": [
+    0,
+    1632,
+    88,
+    78
+  ],
+  "species/Carillune": [
+    88,
+    1632,
+    88,
+    78
+  ],
+  "species/Pipcoal": [
     176,
-    1526,
+    1632,
+    88,
+    78
+  ],
+  "species/Emberook": [
+    264,
+    1632,
+    88,
+    78
+  ],
+  "species/Chimneyr": [
+    352,
+    1632,
+    88,
+    78
+  ],
+  "species/Budnip": [
+    440,
+    1632,
+    88,
+    78
+  ],
+  "species/Knotjaw": [
+    528,
+    1632,
+    88,
+    78
+  ],
+  "species/Orchardon": [
+    616,
+    1632,
+    88,
+    78
+  ],
+  "species/Swirlet": [
+    704,
+    1632,
+    88,
+    78
+  ],
+  "species/Eddycoil": [
+    792,
+    1632,
+    88,
+    78
+  ],
+  "species/Maelspire": [
+    880,
+    1632,
+    88,
+    78
+  ],
+  "species/Chalkid": [
+    968,
+    1632,
+    88,
+    78
+  ],
+  "species/Glyphox": [
+    1056,
+    1632,
+    88,
+    78
+  ],
+  "species/Petrograze": [
+    1144,
+    1632,
+    88,
+    78
+  ],
+  "species/Duskit": [
+    1232,
+    1632,
+    88,
+    78
+  ],
+  "species/Hemwing": [
+    1320,
+    1632,
+    88,
+    78
+  ],
+  "species/Velvetern": [
+    1408,
+    1632,
+    88,
+    78
+  ],
+  "species/Pollenib": [
+    1496,
+    1632,
+    88,
+    78
+  ],
+  "species/Nectip": [
+    1584,
+    1632,
+    88,
+    78
+  ],
+  "species/Talonectar": [
+    1672,
+    1632,
+    88,
+    78
+  ],
+  "species/Shalepin": [
+    1760,
+    1632,
+    88,
+    78
+  ],
+  "species/Slateclaw": [
+    1848,
+    1632,
+    88,
+    78
+  ],
+  "species/Escarpion": [
+    1936,
+    1632,
+    88,
+    78
+  ],
+  "species/Tackit": [
+    0,
+    1710,
+    88,
+    78
+  ],
+  "species/Rivetick": [
+    88,
+    1710,
+    88,
+    78
+  ],
+  "species/Pistonid": [
+    176,
+    1710,
+    88,
+    78
+  ],
+  "species/Siltip": [
+    264,
+    1710,
+    88,
+    78
+  ],
+  "species/Loamback": [
+    352,
+    1710,
+    88,
+    78
+  ],
+  "species/Terrapinor": [
+    440,
+    1710,
+    88,
+    78
+  ],
+  "species/Snootle": [
+    528,
+    1710,
+    88,
+    78
+  ],
+  "species/Driftusk": [
+    616,
+    1710,
+    88,
+    78
+  ],
+  "species/Borealbrawn": [
+    704,
+    1710,
+    88,
+    78
+  ],
+  "species/Shypod": [
+    792,
+    1710,
+    88,
+    78
+  ],
+  "species/Maskleaf": [
+    880,
+    1710,
+    88,
+    78
+  ],
+  "species/Masqueroot": [
+    968,
+    1710,
+    88,
+    78
+  ],
+  "species/Lensip": [
+    1056,
+    1710,
+    88,
+    78
+  ],
+  "species/Prismeel": [
+    1144,
+    1710,
+    88,
+    78
+  ],
+  "species/Spectribbon": [
+    1232,
+    1710,
+    88,
+    78
+  ],
+  "species/Nimbit": [
+    1320,
+    1710,
+    88,
+    78
+  ],
+  "species/Tuftvolt": [
+    1408,
+    1710,
+    88,
+    78
+  ],
+  "species/Thundrouse": [
+    1496,
+    1710,
+    88,
+    78
+  ],
+  "species/Oozip": [
+    1584,
+    1710,
+    88,
+    78
+  ],
+  "species/Dripgill": [
+    1672,
+    1710,
+    88,
+    78
+  ],
+  "species/Cisternaut": [
+    1760,
+    1710,
+    88,
+    78
+  ],
+  "species/Splintert": [
+    1848,
+    1710,
+    88,
+    78
+  ],
+  "species/Twighelm": [
+    1936,
+    1710,
+    88,
+    78
+  ],
+  "species/Boughstag": [
+    0,
+    1788,
+    88,
+    78
+  ],
+  "species/Skimkit": [
+    88,
+    1788,
+    88,
+    78
+  ],
+  "species/Foilfin": [
+    176,
+    1788,
+    88,
+    78
+  ],
+  "species/Hydrofoil": [
+    264,
+    1788,
+    88,
+    78
+  ],
+  "species/Rookip": [
+    352,
+    1788,
+    88,
+    78
+  ],
+  "species/Turretop": [
+    440,
+    1788,
+    88,
+    78
+  ],
+  "species/Bastiorr": [
+    528,
+    1788,
+    88,
+    78
+  ],
+  "species/Snipseed": [
+    616,
+    1788,
+    88,
+    78
+  ],
+  "species/Scissprout": [
+    704,
+    1788,
+    88,
+    78
+  ],
+  "species/Shearose": [
+    792,
+    1788,
+    88,
+    78
+  ],
+  "species/Gustib": [
+    880,
+    1788,
+    88,
+    78
+  ],
+  "species/Parasol": [
+    968,
+    1788,
+    88,
+    78
+  ],
+  "species/Canopuff": [
+    1056,
+    1788,
+    88,
+    78
+  ],
+  "species/Pumip": [
+    1144,
+    1788,
+    88,
+    78
+  ],
+  "species/Basaltot": [
+    1232,
+    1788,
+    88,
+    78
+  ],
+  "species/Caldarook": [
+    1320,
+    1788,
+    88,
+    78
+  ],
+  "species/Lilpip": [
+    1408,
+    1788,
+    88,
+    78
+  ],
+  "species/Liltfin": [
+    1496,
+    1788,
+    88,
+    78
+  ],
+  "species/Balladace": [
+    1584,
+    1788,
+    88,
+    78
+  ],
+  "species/Sootail": [
+    1672,
+    1788,
+    88,
+    78
+  ],
+  "species/Cinderlynx": [
+    1760,
+    1788,
+    88,
+    78
+  ],
+  "species/Pyrepelt": [
+    1848,
+    1788,
+    88,
+    78
+  ],
+  "species/Rimebud": [
+    1936,
+    1788,
+    88,
+    78
+  ],
+  "species/Flakefern": [
+    0,
+    1866,
+    88,
+    78
+  ],
+  "species/Hoarorchid": [
+    88,
+    1866,
+    88,
+    78
+  ],
+  "species/Squeakil": [
+    176,
+    1866,
+    88,
+    78
+  ],
+  "species/Reedrat": [
+    264,
+    1866,
+    88,
+    78
+  ],
+  "species/Marshare": [
+    352,
+    1866,
+    88,
+    78
+  ],
+  "species/Motelet": [
+    440,
+    1866,
+    88,
+    78
+  ],
+  "species/Halofox": [
+    528,
+    1866,
+    88,
+    78
+  ],
+  "species/Auravulp": [
+    616,
+    1866,
+    88,
+    78
+  ],
+  "species/Dimplug": [
+    704,
+    1866,
+    88,
+    78
+  ],
+  "species/Socketoad": [
+    792,
+    1866,
+    88,
+    78
+  ],
+  "species/Relaywart": [
+    880,
+    1866,
+    88,
+    78
+  ],
+  "species/Glintick": [
+    968,
+    1866,
+    88,
+    78
+  ],
+  "species/Shardleg": [
+    1056,
+    1866,
+    88,
+    78
+  ],
+  "species/Facetrix": [
+    1144,
+    1866,
+    88,
+    78
+  ],
+  "species/Fumip": [
+    1232,
+    1866,
+    88,
+    78
+  ],
+  "species/Ventwing": [
+    1320,
+    1866,
+    88,
+    78
+  ],
+  "species/Fumaraven": [
+    1408,
+    1866,
+    88,
+    78
+  ],
+  "species/Purlit": [
+    1496,
+    1866,
+    88,
+    78
+  ],
+  "species/Rumple": [
+    1584,
+    1866,
+    88,
+    78
+  ],
+  "species/Ramblewool": [
+    1672,
+    1866,
+    88,
+    78
+  ],
+  "species/Tallowt": [
+    1760,
+    1866,
+    88,
+    78
+  ],
+  "species/Meltjaw": [
+    1848,
+    1866,
+    88,
+    78
+  ],
+  "species/Crucibear": [
+    1936,
+    1866,
+    88,
+    78
+  ],
+  "species/Scribit": [
+    0,
+    1944,
+    88,
+    78
+  ],
+  "species/Foliole": [
+    88,
+    1944,
+    88,
+    78
+  ],
+  "species/Libraven": [
+    176,
+    1944,
+    88,
+    78
+  ],
+  "species/Spoolit": [
+    264,
+    1944,
+    88,
+    78
+  ],
+  "species/Bobbina": [
+    352,
+    1944,
+    88,
+    78
+  ],
+  "species/Orbweaverne": [
+    440,
+    1944,
+    88,
+    78
+  ],
+  "species/Perlit": [
+    528,
+    1944,
+    88,
+    78
+  ],
+  "species/Nacrelle": [
+    616,
+    1944,
+    88,
+    78
+  ],
+  "species/Opalisk": [
+    704,
+    1944,
+    88,
+    78
+  ],
+  "species/Umbrip": [
+    792,
+    1944,
+    88,
+    78
+  ],
+  "species/Eclipseer": [
+    880,
+    1944,
+    88,
+    78
+  ],
+  "species/Noctirang": [
+    968,
+    1944,
+    88,
+    78
+  ],
+  "species/Micaul": [
+    1056,
+    1944,
+    88,
+    78
+  ],
+  "species/Geodimp": [
+    1144,
+    1944,
+    88,
+    78
+  ],
+  "species/Cathedralith": [
+    1232,
+    1944,
+    88,
+    78
+  ],
+  "species/Tasselot": [
+    1320,
+    1944,
+    88,
+    78
+  ],
+  "species/Pennacat": [
+    1408,
+    1944,
+    88,
+    78
+  ],
+  "species/Mugmite": [
+    1496,
+    1944,
+    88,
+    78
+  ],
+  "species/Tankardle": [
+    1584,
+    1944,
+    88,
+    78
+  ],
+  "species/Fennib": [
+    1672,
+    1944,
+    88,
+    78
+  ],
+  "species/Carrothrum": [
+    1760,
+    1944,
+    88,
+    78
+  ],
+  "species/Splashawl": [
+    1848,
+    1944,
+    88,
+    78
+  ],
+  "species/Oarclaw": [
+    1936,
+    1944,
+    88,
+    78
+  ],
+  "species/Gromble": [
+    0,
+    2022,
+    88,
+    78
+  ],
+  "species/Subwoof": [
+    88,
+    2022,
+    88,
+    78
+  ],
+  "species/Snufflit": [
+    176,
+    2022,
+    88,
+    78
+  ],
+  "species/Trufflemane": [
+    264,
+    2022,
+    88,
+    78
+  ],
+  "species/Breezle": [
+    352,
+    2022,
+    88,
+    78
+  ],
+  "species/Kitewyrm": [
+    440,
+    2022,
+    88,
+    78
+  ],
+  "species/Rinkit": [
+    528,
+    2022,
+    88,
+    78
+  ],
+  "species/Curlodon": [
+    616,
+    2022,
+    88,
+    78
+  ],
+  "species/Cressip": [
+    704,
+    2022,
+    88,
+    78
+  ],
+  "species/Bouquetta": [
+    792,
+    2022,
+    88,
+    78
+  ],
+  "species/Clavip": [
+    880,
+    2022,
+    88,
+    78
+  ],
+  "species/Harpsichirp": [
+    968,
+    2022,
+    88,
+    78
+  ],
+  "species/Minimill": [
+    1056,
+    2022,
+    88,
+    78
+  ],
+  "species/Windam": [
+    1144,
+    2022,
+    88,
+    78
+  ],
+  "species/Pewtip": [
+    1232,
+    2022,
+    88,
+    78
+  ],
+  "species/Argentoad": [
+    1320,
+    2022,
+    88,
+    78
+  ],
+  "species/Hushbit": [
+    1408,
+    2022,
+    88,
+    78
+  ],
+  "species/Silenshrew": [
+    1496,
+    2022,
+    88,
+    78
+  ],
+  "species/Fibril": [
+    1584,
+    2022,
+    88,
+    78
+  ],
+  "species/Filamentis": [
+    1672,
+    2022,
+    88,
+    78
+  ],
+  "species/Wobbul": [
+    1760,
+    2022,
+    88,
+    78
+  ],
+  "species/Meniscub": [
+    1848,
+    2022,
+    88,
+    78
+  ],
+  "species/Tarbit": [
+    1936,
+    2022,
+    88,
+    78
+  ],
+  "species/Pitchmire": [
+    0,
+    2100,
+    88,
+    78
+  ],
+  "species/Veepin": [
+    88,
+    2100,
+    88,
+    78
+  ],
+  "species/Compassel": [
+    176,
+    2100,
+    88,
+    78
+  ],
+  "species/Nettlew": [
+    264,
+    2100,
+    88,
+    78
+  ],
+  "species/Barbloom": [
+    352,
+    2100,
+    88,
+    78
+  ],
+  "species/Pipflare": [
+    440,
+    2100,
+    88,
+    78
+  ],
+  "species/Flambelle": [
+    528,
+    2100,
+    88,
+    78
+  ],
+  "species/Orbitalo": [
+    616,
+    2100,
+    88,
+    78
+  ],
+  "species/Cavernib": [
+    704,
+    2100,
+    88,
+    78
+  ],
+  "species/Stalacroft": [
+    792,
+    2100,
+    88,
+    78
+  ],
+  "species/Skippet": [
+    880,
+    2100,
+    88,
+    78
+  ],
+  "species/Springheel": [
+    968,
+    2100,
+    88,
+    78
+  ],
+  "species/Coralit": [
+    1056,
+    2100,
+    88,
+    78
+  ],
+  "species/Atollark": [
+    1144,
+    2100,
+    88,
+    78
+  ],
+  "species/Crimpit": [
+    1232,
+    2100,
+    88,
+    78
+  ],
+  "species/Pleatwing": [
+    1320,
+    2100,
+    88,
+    78
+  ],
+  "species/Mirrlet": [
+    1408,
+    2100,
+    88,
+    78
+  ],
+  "species/Glassmane": [
+    1496,
+    2100,
+    88,
+    78
+  ],
+  "species/Scuffit": [
+    1584,
+    2100,
+    88,
+    78
+  ],
+  "species/Bootusk": [
+    1672,
+    2100,
+    88,
+    78
+  ],
+  "species/Gumlet": [
+    1760,
+    2100,
+    88,
+    78
+  ],
+  "species/Resinosaur": [
+    1848,
+    2100,
+    88,
+    78
+  ],
+  "species/Brusnip": [
+    1936,
+    2100,
+    88,
+    78
+  ],
+  "species/Easelfox": [
+    0,
+    2178,
+    88,
+    78
+  ],
+  "species/Pumplet": [
+    88,
+    2178,
+    88,
+    78
+  ],
+  "species/Valveheart": [
+    176,
+    2178,
+    88,
+    78
+  ],
+  "species/Lacebit": [
+    264,
+    2178,
+    88,
+    78
+  ],
+  "species/Veilspindle": [
+    352,
+    2178,
+    88,
+    78
+  ],
+  "species/Piprune": [
+    440,
+    2178,
+    88,
+    78
+  ],
+  "species/Sigilisk": [
+    528,
+    2178,
+    88,
+    78
+  ],
+  "species/Musselip": [
+    616,
+    2178,
+    88,
+    78
+  ],
+  "species/Clamcastle": [
+    704,
+    2178,
+    88,
+    78
+  ],
+  "species/Fluffin": [
+    792,
+    2178,
+    88,
+    78
+  ],
+  "species/Flurrake": [
+    880,
+    2178,
+    88,
+    78
+  ],
+  "species/Volute": [
+    968,
+    2178,
+    88,
+    78
+  ],
+  "species/Spiralynx": [
+    1056,
+    2178,
+    88,
+    78
+  ],
+  "species/Redcap": [
+    1144,
+    2178,
+    88,
+    78
+  ],
+  "species/Garnetusk": [
+    1232,
+    2178,
+    88,
+    78
+  ],
+  "species/Dapplep": [
+    1320,
+    2178,
+    88,
+    78
+  ],
+  "species/Dappledawn": [
+    1408,
+    2178,
+    88,
+    78
+  ],
+  "species/Plankit": [
+    1496,
+    2178,
+    88,
+    78
+  ],
+  "species/Trestlax": [
+    1584,
+    2178,
+    88,
+    78
+  ],
+  "species/Marblit": [
+    1672,
+    2178,
+    88,
+    78
+  ],
+  "species/Agatide": [
+    1760,
+    2178,
+    88,
+    78
+  ],
+  "species/Pipglass": [
+    1848,
+    2178,
+    88,
+    78
+  ],
+  "species/Alembat": [
+    1936,
+    2178,
+    88,
+    78
+  ],
+  "species/Flitcoal": [
+    0,
+    2256,
+    88,
+    78
+  ],
+  "species/Emberloom": [
+    88,
+    2256,
+    88,
+    78
+  ],
+  "species/Sundialope": [
+    176,
+    2256,
+    88,
+    78
+  ],
+  "species/Mournquill": [
+    264,
+    2256,
+    88,
+    78
+  ],
+  "species/Tumblepot": [
+    352,
+    2256,
+    88,
+    78
+  ],
+  "species/Lochlass": [
+    440,
+    2256,
+    88,
+    78
+  ],
+  "species/Orrisage": [
+    528,
+    2256,
+    88,
+    78
+  ],
+  "species/Ironthimble": [
+    616,
+    2256,
+    88,
+    78
+  ],
+  "species/Cumuloom": [
+    704,
+    2256,
+    88,
+    78
+  ],
+  "species/Vesperknell": [
+    792,
+    2256,
+    88,
+    78
+  ],
+  "species/Moatkin": [
+    880,
+    2256,
+    88,
+    78
+  ],
+  "species/Lacqueruff": [
+    968,
+    2256,
+    88,
+    78
+  ],
+  "species/Spinchime": [
+    1056,
+    2256,
+    88,
+    78
+  ],
+  "species/Shiverbill": [
+    1144,
+    2256,
+    88,
+    78
+  ],
+  "species/Ravelmask": [
+    1232,
+    2256,
+    88,
+    78
+  ],
+  "species/Siltscribe": [
+    1320,
+    2256,
+    88,
+    78
+  ],
+  "species/Drumroot": [
+    1408,
+    2256,
+    88,
+    78
+  ],
+  "species/Crownglass": [
+    1496,
+    2256,
+    88,
+    78
+  ],
+  "species/Burrbarge": [
+    1584,
+    2256,
+    88,
+    78
+  ],
+  "species/Flintflock": [
+    1672,
+    2256,
+    88,
+    78
+  ],
+  "species/Murmurn": [
+    1760,
+    2256,
+    88,
+    78
+  ],
+  "species/Nightpress": [
+    1848,
+    2256,
+    88,
+    78
+  ],
+  "species/Galeskein": [
+    1936,
+    2256,
+    88,
+    78
+  ],
+  "species/Frostfiddle": [
+    0,
+    2334,
+    88,
+    78
+  ],
+  "species/Brassettle": [
+    88,
+    2334,
+    88,
+    78
+  ],
+  "species/Plumeprong": [
+    176,
+    2334,
+    88,
+    78
+  ],
+  "species/Dawnspool": [
+    264,
+    2334,
+    88,
+    78
+  ],
+  "species/Bowermaw": [
+    352,
+    2334,
+    88,
+    78
+  ],
+  "species/Keelcrest": [
+    440,
+    2334,
+    88,
+    78
+  ],
+  "species/Wispweir": [
+    528,
+    2334,
+    88,
+    78
+  ],
+  "species/Veloursa": [
+    616,
+    2334,
+    88,
+    78
+  ],
+  "species/Crucifern": [
+    704,
+    2334,
+    88,
+    78
+  ],
+  "rear/Mosskit": [
+    792,
+    2334,
+    88,
+    78
+  ],
+  "rear/Thicketail": [
+    880,
+    2334,
+    88,
+    78
+  ],
+  "rear/Sylvixen": [
+    968,
+    2334,
+    88,
+    78
+  ],
+  "rear/Pebblit": [
+    1056,
+    2334,
+    88,
+    78
+  ],
+  "rear/Cairnuck": [
+    1144,
+    2334,
+    88,
+    78
+  ],
+  "rear/Torhorn": [
+    1232,
+    2334,
+    88,
+    78
+  ],
+  "rear/Flittuft": [
+    1320,
+    2334,
+    88,
+    78
+  ],
+  "rear/Drafthare": [
+    1408,
+    2334,
+    88,
+    78
+  ],
+  "rear/Sirocket": [
+    1496,
+    2334,
+    88,
+    78
+  ],
+  "rear/Inklingel": [
+    1584,
+    2334,
+    88,
+    78
+  ],
+  "rear/Quillume": [
+    1672,
+    2334,
+    88,
+    78
+  ],
+  "rear/Scripteray": [
+    1760,
+    2334,
+    88,
+    78
+  ],
+  "rear/Waxip": [
+    1848,
+    2334,
+    88,
+    78
+  ],
+  "rear/Candloom": [
+    1936,
+    2334,
+    88,
+    78
+  ],
+  "rear/Votivowl": [
+    0,
+    2412,
+    88,
+    78
+  ],
+  "rear/Clinkid": [
+    88,
+    2412,
+    88,
+    78
+  ],
+  "rear/Bellop": [
+    176,
+    2412,
+    88,
+    78
+  ],
+  "rear/Tocsiram": [
+    264,
+    2412,
+    88,
+    78
+  ],
+  "rear/Poolpalm": [
+    352,
+    2412,
+    88,
+    78
+  ],
+  "rear/Miremitt": [
+    440,
+    2412,
+    88,
+    78
+  ],
+  "rear/Corkit": [
+    528,
+    2412,
+    88,
+    78
+  ],
+  "rear/Bottlisk": [
+    616,
+    2412,
+    88,
+    78
+  ],
+  "rear/Ampulisk": [
+    704,
+    2412,
+    88,
+    78
+  ],
+  "rear/Fuzzlet": [
+    792,
+    2412,
+    88,
+    78
+  ],
+  "rear/Loomoth": [
+    880,
+    2412,
+    88,
+    78
+  ],
+  "rear/Nubcap": [
+    968,
+    2412,
+    88,
+    78
+  ],
+  "rear/Gillimp": [
+    1056,
+    2412,
+    88,
+    78
+  ],
+  "rear/Morelord": [
+    1144,
+    2412,
+    88,
+    78
+  ],
+  "rear/Ferrip": [
+    1232,
+    2412,
+    88,
+    78
+  ],
+  "rear/Cogtail": [
+    1320,
+    2412,
+    88,
+    78
+  ],
+  "rear/Gearmink": [
+    1408,
+    2412,
+    88,
+    78
+  ],
+  "rear/Tinsong": [
+    1496,
+    2412,
+    88,
+    78
+  ],
+  "rear/Chimefin": [
+    1584,
+    2412,
+    88,
+    78
+  ],
+  "rear/Carillune": [
+    1672,
+    2412,
+    88,
+    78
+  ],
+  "rear/Pipcoal": [
+    1760,
+    2412,
+    88,
+    78
+  ],
+  "rear/Emberook": [
+    1848,
+    2412,
+    88,
+    78
+  ],
+  "rear/Chimneyr": [
+    1936,
+    2412,
+    88,
+    78
+  ],
+  "rear/Wickit": [
+    0,
+    2490,
+    88,
+    78
+  ],
+  "rear/Lanternet": [
+    88,
+    2490,
+    88,
+    78
+  ],
+  "rear/Beacoon": [
+    176,
+    2490,
+    88,
+    78
+  ],
+  "rear/Frazil": [
+    264,
+    2490,
+    88,
+    78
+  ],
+  "rear/Icewick": [
+    352,
+    2490,
+    88,
+    78
+  ],
+  "rear/Glaciruff": [
+    440,
+    2490,
+    88,
+    78
+  ],
+  "rear/Budnip": [
+    528,
+    2490,
+    88,
+    78
+  ],
+  "rear/Knotjaw": [
+    616,
+    2490,
+    88,
+    78
+  ],
+  "rear/Orchardon": [
+    704,
+    2490,
+    88,
+    78
+  ],
+  "rear/Swirlet": [
+    792,
+    2490,
+    88,
+    78
+  ],
+  "rear/Eddycoil": [
+    880,
+    2490,
+    88,
+    78
+  ],
+  "rear/Maelspire": [
+    968,
+    2490,
+    88,
+    78
+  ],
+  "rear/Chalkid": [
+    1056,
+    2490,
+    88,
+    78
+  ],
+  "rear/Glyphox": [
+    1144,
+    2490,
+    88,
+    78
+  ],
+  "rear/Petrograze": [
+    1232,
+    2490,
+    88,
+    78
+  ],
+  "rear/Duskit": [
+    1320,
+    2490,
+    88,
+    78
+  ],
+  "rear/Hemwing": [
+    1408,
+    2490,
+    88,
+    78
+  ],
+  "rear/Velvetern": [
+    1496,
+    2490,
+    88,
+    78
+  ],
+  "rear/Pollenib": [
+    1584,
+    2490,
+    88,
+    78
+  ],
+  "rear/Nectip": [
+    1672,
+    2490,
+    88,
+    78
+  ],
+  "rear/Talonectar": [
+    1760,
+    2490,
+    88,
+    78
+  ],
+  "rear/Shalepin": [
+    1848,
+    2490,
+    88,
+    78
+  ],
+  "rear/Slateclaw": [
+    1936,
+    2490,
+    88,
+    78
+  ],
+  "rear/Escarpion": [
+    0,
+    2568,
+    88,
+    78
+  ],
+  "rear/Puffisk": [
+    88,
+    2568,
+    88,
+    78
+  ],
+  "rear/Mistfrill": [
+    176,
+    2568,
+    88,
+    78
+  ],
+  "rear/Nimbasil": [
+    264,
+    2568,
+    88,
+    78
+  ],
+  "rear/Tackit": [
+    352,
+    2568,
+    88,
+    78
+  ],
+  "rear/Rivetick": [
+    440,
+    2568,
+    88,
+    78
+  ],
+  "rear/Pistonid": [
+    528,
+    2568,
+    88,
+    78
+  ],
+  "rear/Siltip": [
+    616,
+    2568,
+    88,
+    78
+  ],
+  "rear/Loamback": [
+    704,
+    2568,
+    88,
+    78
+  ],
+  "rear/Terrapinor": [
+    792,
+    2568,
+    88,
+    78
+  ],
+  "rear/Snootle": [
+    880,
+    2568,
+    88,
+    78
+  ],
+  "rear/Driftusk": [
+    968,
+    2568,
+    88,
+    78
+  ],
+  "rear/Borealbrawn": [
+    1056,
+    2568,
+    88,
+    78
+  ],
+  "rear/Shypod": [
+    1144,
+    2568,
+    88,
+    78
+  ],
+  "rear/Maskleaf": [
+    1232,
+    2568,
+    88,
+    78
+  ],
+  "rear/Masqueroot": [
+    1320,
+    2568,
+    88,
+    78
+  ],
+  "rear/Gloamlet": [
+    1408,
+    2568,
+    88,
+    78
+  ],
+  "rear/Murmurr": [
+    1496,
+    2568,
+    88,
+    78
+  ],
+  "rear/Shadechoir": [
+    1584,
+    2568,
+    88,
+    78
+  ],
+  "rear/Lensip": [
+    1672,
+    2568,
+    88,
+    78
+  ],
+  "rear/Prismeel": [
+    1760,
+    2568,
+    88,
+    78
+  ],
+  "rear/Spectribbon": [
+    1848,
+    2568,
+    88,
+    78
+  ],
+  "rear/Cuppit": [
+    1936,
+    2568,
+    88,
+    78
+  ],
+  "rear/Glazelle": [
+    0,
+    2646,
+    88,
+    78
+  ],
+  "rear/Urnelope": [
+    88,
+    2646,
+    88,
+    78
+  ],
+  "rear/Nimbit": [
+    176,
+    2646,
+    88,
+    78
+  ],
+  "rear/Tuftvolt": [
+    264,
+    2646,
+    88,
+    78
+  ],
+  "rear/Thundrouse": [
+    352,
+    2646,
+    88,
+    78
+  ],
+  "rear/Oozip": [
+    440,
+    2646,
+    88,
+    78
+  ],
+  "rear/Dripgill": [
+    528,
+    2646,
+    88,
+    78
+  ],
+  "rear/Cisternaut": [
+    616,
+    2646,
+    88,
+    78
+  ],
+  "rear/Needlit": [
+    704,
+    2646,
+    88,
+    78
+  ],
+  "rear/Thimblin": [
+    792,
+    2646,
+    88,
+    78
+  ],
+  "rear/Seamstrix": [
+    880,
+    2646,
+    88,
+    78
+  ],
+  "rear/Splintert": [
+    968,
+    2646,
+    88,
+    78
+  ],
+  "rear/Twighelm": [
+    1056,
+    2646,
+    88,
+    78
+  ],
+  "rear/Boughstag": [
+    1144,
+    2646,
+    88,
+    78
+  ],
+  "rear/Brinlet": [
+    1232,
+    2646,
+    88,
+    78
+  ],
+  "rear/Saltrill": [
+    1320,
+    2646,
+    88,
+    78
+  ],
+  "rear/Halicrown": [
+    1408,
+    2646,
+    88,
+    78
+  ],
+  "rear/Skimkit": [
+    1496,
+    2646,
+    88,
+    78
+  ],
+  "rear/Foilfin": [
+    1584,
+    2646,
+    88,
+    78
+  ],
+  "rear/Hydrofoil": [
+    1672,
+    2646,
+    88,
+    78
+  ],
+  "rear/Rookip": [
+    1760,
+    2646,
+    88,
+    78
+  ],
+  "rear/Turretop": [
+    1848,
+    2646,
+    88,
+    78
+  ],
+  "rear/Bastiorr": [
+    1936,
+    2646,
+    88,
+    78
+  ],
+  "rear/Snipseed": [
+    0,
+    2724,
+    88,
+    78
+  ],
+  "rear/Scissprout": [
+    88,
+    2724,
+    88,
+    78
+  ],
+  "rear/Shearose": [
+    176,
+    2724,
+    88,
+    78
+  ],
+  "rear/Gustib": [
+    264,
+    2724,
+    88,
+    78
+  ],
+  "rear/Parasol": [
+    352,
+    2724,
+    88,
+    78
+  ],
+  "rear/Canopuff": [
+    440,
+    2724,
+    88,
+    78
+  ],
+  "rear/Pumip": [
+    528,
+    2724,
+    88,
+    78
+  ],
+  "rear/Basaltot": [
+    616,
+    2724,
+    88,
+    78
+  ],
+  "rear/Caldarook": [
+    704,
+    2724,
+    88,
+    78
+  ],
+  "rear/Lilpip": [
+    792,
+    2724,
+    88,
+    78
+  ],
+  "rear/Liltfin": [
+    880,
+    2724,
+    88,
+    78
+  ],
+  "rear/Balladace": [
+    968,
+    2724,
+    88,
+    78
+  ],
+  "rear/Sootail": [
+    1056,
+    2724,
+    88,
+    78
+  ],
+  "rear/Cinderlynx": [
+    1144,
+    2724,
+    88,
+    78
+  ],
+  "rear/Pyrepelt": [
+    1232,
+    2724,
+    88,
+    78
+  ],
+  "rear/Rimebud": [
+    1320,
+    2724,
+    88,
+    78
+  ],
+  "rear/Flakefern": [
+    1408,
+    2724,
+    88,
+    78
+  ],
+  "rear/Hoarorchid": [
+    1496,
+    2724,
+    88,
+    78
+  ],
+  "rear/Ticlet": [
+    1584,
+    2724,
+    88,
+    78
+  ],
+  "rear/Pendulor": [
+    1672,
+    2724,
+    88,
+    78
+  ],
+  "rear/Horolume": [
+    1760,
+    2724,
+    88,
+    78
+  ],
+  "rear/Squeakil": [
+    1848,
+    2724,
+    88,
+    78
+  ],
+  "rear/Reedrat": [
+    1936,
+    2724,
+    88,
+    78
+  ],
+  "rear/Marshare": [
+    0,
+    2802,
+    88,
+    78
+  ],
+  "rear/Motelet": [
+    88,
+    2802,
+    88,
+    78
+  ],
+  "rear/Halofox": [
+    176,
+    2802,
+    88,
+    78
+  ],
+  "rear/Auravulp": [
+    264,
+    2802,
+    88,
+    78
+  ],
+  "rear/Kelpip": [
+    352,
+    2802,
+    88,
+    78
+  ],
+  "rear/Wrackling": [
+    440,
+    2802,
+    88,
+    78
+  ],
+  "rear/Holdfastor": [
+    528,
+    2802,
+    88,
+    78
+  ],
+  "rear/Dimplug": [
+    616,
+    2802,
+    88,
+    78
+  ],
+  "rear/Socketoad": [
+    704,
+    2802,
+    88,
+    78
+  ],
+  "rear/Relaywart": [
+    792,
+    2802,
+    88,
+    78
+  ],
+  "rear/Glintick": [
+    880,
+    2802,
+    88,
+    78
+  ],
+  "rear/Shardleg": [
+    968,
+    2802,
+    88,
+    78
+  ],
+  "rear/Facetrix": [
+    1056,
+    2802,
+    88,
+    78
+  ],
+  "rear/Fumip": [
+    1144,
+    2802,
+    88,
+    78
+  ],
+  "rear/Ventwing": [
+    1232,
+    2802,
+    88,
+    78
+  ],
+  "rear/Fumaraven": [
+    1320,
+    2802,
+    88,
+    78
+  ],
+  "rear/Purlit": [
+    1408,
+    2802,
+    88,
+    78
+  ],
+  "rear/Rumple": [
+    1496,
+    2802,
+    88,
+    78
+  ],
+  "rear/Ramblewool": [
+    1584,
+    2802,
+    88,
+    78
+  ],
+  "rear/Tallowt": [
+    1672,
+    2802,
+    88,
+    78
+  ],
+  "rear/Meltjaw": [
+    1760,
+    2802,
+    88,
+    78
+  ],
+  "rear/Crucibear": [
+    1848,
+    2802,
+    88,
+    78
+  ],
+  "rear/Scribit": [
+    1936,
+    2802,
+    88,
+    78
+  ],
+  "rear/Foliole": [
+    0,
+    2880,
+    88,
+    78
+  ],
+  "rear/Libraven": [
+    88,
+    2880,
+    88,
+    78
+  ],
+  "rear/Spoolit": [
+    176,
+    2880,
+    88,
+    78
+  ],
+  "rear/Bobbina": [
+    264,
+    2880,
+    88,
+    78
+  ],
+  "rear/Orbweaverne": [
+    352,
+    2880,
+    88,
+    78
+  ],
+  "rear/Lullip": [
+    440,
+    2880,
+    88,
+    78
+  ],
+  "rear/Dozeling": [
+    528,
+    2880,
+    88,
+    78
+  ],
+  "rear/Somnursa": [
+    616,
+    2880,
+    88,
+    78
+  ],
+  "rear/Perlit": [
+    704,
+    2880,
+    88,
+    78
+  ],
+  "rear/Nacrelle": [
+    792,
+    2880,
+    88,
+    78
+  ],
+  "rear/Opalisk": [
+    880,
+    2880,
+    88,
+    78
+  ],
+  "rear/Umbrip": [
+    968,
+    2880,
+    88,
+    78
+  ],
+  "rear/Eclipseer": [
+    1056,
+    2880,
+    88,
+    78
+  ],
+  "rear/Noctirang": [
+    1144,
+    2880,
+    88,
+    78
+  ],
+  "rear/Micaul": [
+    1232,
+    2880,
+    88,
+    78
+  ],
+  "rear/Geodimp": [
+    1320,
+    2880,
+    88,
+    78
+  ],
+  "rear/Cathedralith": [
+    1408,
+    2880,
+    88,
+    78
+  ],
+  "rear/Tasselot": [
+    1496,
+    2880,
+    88,
+    78
+  ],
+  "rear/Pennacat": [
+    1584,
+    2880,
+    88,
+    78
+  ],
+  "rear/Mugmite": [
+    1672,
+    2880,
+    88,
+    78
+  ],
+  "rear/Tankardle": [
+    1760,
+    2880,
+    88,
+    78
+  ],
+  "rear/Fennib": [
+    1848,
+    2880,
+    88,
+    78
+  ],
+  "rear/Carrothrum": [
+    1936,
+    2880,
+    88,
+    78
+  ],
+  "rear/Splashawl": [
+    0,
+    2958,
+    88,
+    78
+  ],
+  "rear/Oarclaw": [
+    88,
+    2958,
+    88,
+    78
+  ],
+  "rear/Gromble": [
+    176,
+    2958,
+    88,
+    78
+  ],
+  "rear/Subwoof": [
+    264,
+    2958,
+    88,
+    78
+  ],
+  "rear/Snufflit": [
+    352,
+    2958,
+    88,
+    78
+  ],
+  "rear/Trufflemane": [
+    440,
+    2958,
+    88,
+    78
+  ],
+  "rear/Breezle": [
+    528,
+    2958,
+    88,
+    78
+  ],
+  "rear/Kitewyrm": [
+    616,
+    2958,
+    88,
+    78
+  ],
+  "rear/Rinkit": [
+    704,
+    2958,
+    88,
+    78
+  ],
+  "rear/Curlodon": [
+    792,
+    2958,
+    88,
+    78
+  ],
+  "rear/Cressip": [
+    880,
+    2958,
+    88,
+    78
+  ],
+  "rear/Bouquetta": [
+    968,
+    2958,
+    88,
+    78
+  ],
+  "rear/Clavip": [
+    1056,
+    2958,
+    88,
+    78
+  ],
+  "rear/Harpsichirp": [
+    1144,
+    2958,
+    88,
+    78
+  ],
+  "rear/Minimill": [
+    1232,
+    2958,
+    88,
+    78
+  ],
+  "rear/Windam": [
+    1320,
+    2958,
+    88,
+    78
+  ],
+  "rear/Pewtip": [
+    1408,
+    2958,
+    88,
+    78
+  ],
+  "rear/Argentoad": [
+    1496,
+    2958,
+    88,
+    78
+  ],
+  "rear/Hushbit": [
+    1584,
+    2958,
+    88,
+    78
+  ],
+  "rear/Silenshrew": [
+    1672,
+    2958,
+    88,
+    78
+  ],
+  "rear/Fibril": [
+    1760,
+    2958,
+    88,
+    78
+  ],
+  "rear/Filamentis": [
+    1848,
+    2958,
+    88,
+    78
+  ],
+  "rear/Wobbul": [
+    1936,
+    2958,
+    88,
+    78
+  ],
+  "rear/Meniscub": [
+    0,
+    3036,
+    88,
+    78
+  ],
+  "rear/Tarbit": [
+    88,
+    3036,
+    88,
+    78
+  ],
+  "rear/Pitchmire": [
+    176,
+    3036,
+    88,
+    78
+  ],
+  "rear/Veepin": [
+    264,
+    3036,
+    88,
+    78
+  ],
+  "rear/Compassel": [
+    352,
+    3036,
+    88,
+    78
+  ],
+  "rear/Nettlew": [
+    440,
+    3036,
+    88,
+    78
+  ],
+  "rear/Barbloom": [
+    528,
+    3036,
+    88,
+    78
+  ],
+  "rear/Pipflare": [
+    616,
+    3036,
+    88,
+    78
+  ],
+  "rear/Flambelle": [
+    704,
+    3036,
+    88,
+    78
+  ],
+  "rear/Orbitalo": [
+    792,
+    3036,
+    88,
+    78
+  ],
+  "rear/Cavernib": [
+    880,
+    3036,
+    88,
+    78
+  ],
+  "rear/Stalacroft": [
+    968,
+    3036,
+    88,
+    78
+  ],
+  "rear/Skippet": [
+    1056,
+    3036,
+    88,
+    78
+  ],
+  "rear/Springheel": [
+    1144,
+    3036,
+    88,
+    78
+  ],
+  "rear/Coralit": [
+    1232,
+    3036,
+    88,
+    78
+  ],
+  "rear/Atollark": [
+    1320,
+    3036,
+    88,
+    78
+  ],
+  "rear/Crimpit": [
+    1408,
+    3036,
+    88,
+    78
+  ],
+  "rear/Pleatwing": [
+    1496,
+    3036,
+    88,
+    78
+  ],
+  "rear/Mirrlet": [
+    1584,
+    3036,
+    88,
+    78
+  ],
+  "rear/Glassmane": [
+    1672,
+    3036,
+    88,
+    78
+  ],
+  "rear/Scuffit": [
+    1760,
+    3036,
+    88,
+    78
+  ],
+  "rear/Bootusk": [
+    1848,
+    3036,
+    88,
+    78
+  ],
+  "rear/Gumlet": [
+    1936,
+    3036,
+    88,
+    78
+  ],
+  "rear/Resinosaur": [
+    0,
+    3114,
+    88,
+    78
+  ],
+  "rear/Brusnip": [
+    88,
+    3114,
+    88,
+    78
+  ],
+  "rear/Easelfox": [
+    176,
+    3114,
+    88,
+    78
+  ],
+  "rear/Pumplet": [
+    264,
+    3114,
+    88,
+    78
+  ],
+  "rear/Valveheart": [
+    352,
+    3114,
+    88,
+    78
+  ],
+  "rear/Lacebit": [
+    440,
+    3114,
+    88,
+    78
+  ],
+  "rear/Veilspindle": [
+    528,
+    3114,
+    88,
+    78
+  ],
+  "rear/Piprune": [
+    616,
+    3114,
+    88,
+    78
+  ],
+  "rear/Sigilisk": [
+    704,
+    3114,
+    88,
+    78
+  ],
+  "rear/Musselip": [
+    792,
+    3114,
+    88,
+    78
+  ],
+  "rear/Clamcastle": [
+    880,
+    3114,
+    88,
+    78
+  ],
+  "rear/Fluffin": [
+    968,
+    3114,
+    88,
+    78
+  ],
+  "rear/Flurrake": [
+    1056,
+    3114,
+    88,
+    78
+  ],
+  "rear/Volute": [
+    1144,
+    3114,
+    88,
+    78
+  ],
+  "rear/Spiralynx": [
+    1232,
+    3114,
+    88,
+    78
+  ],
+  "rear/Redcap": [
+    1320,
+    3114,
+    88,
+    78
+  ],
+  "rear/Garnetusk": [
+    1408,
+    3114,
+    88,
+    78
+  ],
+  "rear/Dapplep": [
+    1496,
+    3114,
+    88,
+    78
+  ],
+  "rear/Dappledawn": [
+    1584,
+    3114,
+    88,
+    78
+  ],
+  "rear/Plankit": [
+    1672,
+    3114,
+    88,
+    78
+  ],
+  "rear/Trestlax": [
+    1760,
+    3114,
+    88,
+    78
+  ],
+  "rear/Marblit": [
+    1848,
+    3114,
+    88,
+    78
+  ],
+  "rear/Agatide": [
+    1936,
+    3114,
+    88,
+    78
+  ],
+  "rear/Pipglass": [
+    0,
+    3192,
+    88,
+    78
+  ],
+  "rear/Alembat": [
+    88,
+    3192,
+    88,
+    78
+  ],
+  "rear/Flitcoal": [
+    176,
+    3192,
+    88,
+    78
+  ],
+  "rear/Emberloom": [
+    264,
+    3192,
+    88,
+    78
+  ],
+  "rear/Sundialope": [
+    352,
+    3192,
+    88,
+    78
+  ],
+  "rear/Mournquill": [
+    440,
+    3192,
+    88,
+    78
+  ],
+  "rear/Tumblepot": [
+    528,
+    3192,
+    88,
+    78
+  ],
+  "rear/Lochlass": [
+    616,
+    3192,
+    88,
+    78
+  ],
+  "rear/Orrisage": [
+    704,
+    3192,
+    88,
+    78
+  ],
+  "rear/Ironthimble": [
+    792,
+    3192,
+    88,
+    78
+  ],
+  "rear/Cumuloom": [
+    880,
+    3192,
+    88,
+    78
+  ],
+  "rear/Vesperknell": [
+    968,
+    3192,
+    88,
+    78
+  ],
+  "rear/Moatkin": [
+    1056,
+    3192,
+    88,
+    78
+  ],
+  "rear/Lacqueruff": [
+    1144,
+    3192,
+    88,
+    78
+  ],
+  "rear/Spinchime": [
+    1232,
+    3192,
+    88,
+    78
+  ],
+  "rear/Shiverbill": [
+    1320,
+    3192,
+    88,
+    78
+  ],
+  "rear/Ravelmask": [
+    1408,
+    3192,
+    88,
+    78
+  ],
+  "rear/Siltscribe": [
+    1496,
+    3192,
+    88,
+    78
+  ],
+  "rear/Drumroot": [
+    1584,
+    3192,
+    88,
+    78
+  ],
+  "rear/Crownglass": [
+    1672,
+    3192,
+    88,
+    78
+  ],
+  "rear/Burrbarge": [
+    1760,
+    3192,
+    88,
+    78
+  ],
+  "rear/Flintflock": [
+    1848,
+    3192,
+    88,
+    78
+  ],
+  "rear/Murmurn": [
+    1936,
+    3192,
+    88,
+    78
+  ],
+  "rear/Nightpress": [
+    0,
+    3270,
+    88,
+    78
+  ],
+  "rear/Galeskein": [
+    88,
+    3270,
+    88,
+    78
+  ],
+  "rear/Frostfiddle": [
+    176,
+    3270,
+    88,
+    78
+  ],
+  "rear/Brassettle": [
+    264,
+    3270,
+    88,
+    78
+  ],
+  "rear/Plumeprong": [
+    352,
+    3270,
+    88,
+    78
+  ],
+  "rear/Dawnspool": [
+    440,
+    3270,
+    88,
+    78
+  ],
+  "rear/Bowermaw": [
+    528,
+    3270,
+    88,
+    78
+  ],
+  "rear/Keelcrest": [
+    616,
+    3270,
+    88,
+    78
+  ],
+  "rear/Wispweir": [
+    704,
+    3270,
+    88,
+    78
+  ],
+  "rear/Veloursa": [
+    792,
+    3270,
+    88,
+    78
+  ],
+  "rear/Crucifern": [
+    880,
+    3270,
+    88,
+    78
+  ],
+  "rear/Terravale": [
+    968,
+    3270,
+    88,
+    78
+  ],
+  "rear/Pelagoria": [
+    1056,
+    3270,
+    88,
+    78
+  ],
+  "rear/Altavane": [
+    1144,
+    3270,
+    88,
+    78
+  ],
+  "rear/Vernalith": [
+    1232,
+    3270,
+    88,
+    78
+  ],
+  "rear/Solstitial": [
+    1320,
+    3270,
+    88,
+    78
+  ],
+  "rear/Hibernox": [
+    1408,
+    3270,
+    88,
+    78
+  ],
+  "rear/Somnaveil": [
+    1496,
+    3270,
+    88,
+    78
+  ],
+  "rear/Mnemoshell": [
+    1584,
+    3270,
+    88,
+    78
+  ],
+  "rear/Orreryon": [
+    1672,
+    3270,
+    88,
+    78
+  ],
+  "rear/Asterquill": [
+    1760,
+    3270,
     88,
     78
   ],
   "prop/8": [
-    264,
-    1526,
+    1848,
+    3270,
     88,
     72
   ],
   "prop/9": [
-    352,
-    1526,
+    1936,
+    3270,
     88,
     72
   ],
   "prop/10": [
-    440,
-    1526,
+    0,
+    3348,
     88,
     72
   ],
   "prop/11": [
-    528,
-    1526,
+    88,
+    3348,
     88,
     72
   ],
   "prop/12": [
-    616,
-    1526,
+    176,
+    3348,
     88,
     72
   ],
   "prop/13": [
-    704,
-    1526,
+    264,
+    3348,
     88,
     72
   ],
   "prop/14": [
-    792,
-    1526,
+    352,
+    3348,
     88,
     72
   ],
   "district/0": [
-    880,
-    1526,
+    440,
+    3348,
     88,
     72
   ],
   "district/1": [
-    0,
-    1604,
+    528,
+    3348,
     88,
     72
   ],
   "district/2": [
-    88,
-    1604,
+    616,
+    3348,
     88,
     72
   ],
   "district/3": [
-    176,
-    1604,
+    704,
+    3348,
     88,
     72
   ],
+  "field/0": [
+    792,
+    3348,
+    65,
+    62
+  ],
+  "field/1": [
+    857,
+    3348,
+    65,
+    62
+  ],
+  "field/2": [
+    922,
+    3348,
+    65,
+    62
+  ],
+  "field/3": [
+    987,
+    3348,
+    65,
+    62
+  ],
+  "field/4": [
+    1052,
+    3348,
+    65,
+    62
+  ],
+  "field/5": [
+    1117,
+    3348,
+    65,
+    62
+  ],
+  "field/6": [
+    1182,
+    3348,
+    65,
+    62
+  ],
+  "field/7": [
+    1247,
+    3348,
+    65,
+    62
+  ],
+  "field/8": [
+    1312,
+    3348,
+    65,
+    62
+  ],
+  "field/9": [
+    1377,
+    3348,
+    65,
+    62
+  ],
+  "field/10": [
+    1442,
+    3348,
+    65,
+    62
+  ],
+  "field/11": [
+    1507,
+    3348,
+    65,
+    62
+  ],
+  "field/12": [
+    1572,
+    3348,
+    65,
+    62
+  ],
+  "field/13": [
+    1637,
+    3348,
+    65,
+    62
+  ],
+  "field/14": [
+    1702,
+    3348,
+    65,
+    62
+  ],
+  "field/15": [
+    1767,
+    3348,
+    65,
+    62
+  ],
   "prop/15": [
-    264,
-    1604,
+    1832,
+    3348,
     32,
     54
   ],
   "prop/0": [
-    296,
-    1604,
+    1864,
+    3348,
     43,
     48
   ],
   "prop/1": [
-    339,
-    1604,
+    1907,
+    3348,
     43,
     48
   ],
   "prop/2": [
-    382,
-    1604,
+    1950,
+    3348,
     43,
     48
   ],
   "prop/3": [
-    425,
-    1604,
+    1993,
+    3348,
     43,
     48
   ],
   "prop/4": [
-    468,
-    1604,
+    0,
+    3420,
     43,
     48
   ],
   "prop/5": [
-    511,
-    1604,
+    43,
+    3420,
     43,
     48
   ],
   "prop/6": [
-    554,
-    1604,
+    86,
+    3420,
     43,
     48
   ],
   "prop/7": [
-    597,
-    1604,
+    129,
+    3420,
     43,
     48
   ],
   "tile/0": [
-    640,
-    1604,
+    172,
+    3420,
     48,
     48
   ],
   "tile/1": [
-    688,
-    1604,
+    220,
+    3420,
     48,
     48
   ],
   "tile/2": [
-    736,
-    1604,
+    268,
+    3420,
     48,
     48
   ],
   "tile/3": [
-    784,
-    1604,
+    316,
+    3420,
     48,
     48
   ],
   "tile/4": [
-    832,
-    1604,
+    364,
+    3420,
     48,
     48
   ],
   "tile/5": [
-    880,
-    1604,
+    412,
+    3420,
     48,
     48
   ],
   "tile/6": [
-    928,
-    1604,
+    460,
+    3420,
     48,
     48
   ],
   "tile/7": [
-    976,
-    1604,
+    508,
+    3420,
     48,
     48
   ],
   "tile/8": [
-    0,
-    1676,
+    556,
+    3420,
     48,
     48
   ],
   "walk/0/0": [
-    48,
-    1676,
+    604,
+    3420,
     22,
     31
   ],
   "walk/0/1": [
-    70,
-    1676,
+    626,
+    3420,
     22,
     31
   ],
   "walk/0/2": [
-    92,
-    1676,
+    648,
+    3420,
     22,
     31
   ],
   "walk/0/3": [
-    114,
-    1676,
+    670,
+    3420,
     22,
     31
   ],
   "walk/1/0": [
-    136,
-    1676,
+    692,
+    3420,
     22,
     31
   ],
   "walk/1/1": [
-    158,
-    1676,
+    714,
+    3420,
     22,
     31
   ],
   "walk/1/2": [
-    180,
-    1676,
+    736,
+    3420,
     22,
     31
   ],
   "walk/1/3": [
-    202,
-    1676,
+    758,
+    3420,
     22,
     31
   ],
   "walk/2/0": [
-    224,
-    1676,
+    780,
+    3420,
     22,
     31
   ],
   "walk/2/1": [
-    246,
-    1676,
+    802,
+    3420,
     22,
     31
   ],
   "walk/2/2": [
-    268,
-    1676,
+    824,
+    3420,
     22,
     31
   ],
   "walk/2/3": [
-    290,
-    1676,
+    846,
+    3420,
     22,
     31
   ],
   "person/Oriel": [
-    312,
-    1676,
+    868,
+    3420,
     22,
     30
   ],
   "person/Lio": [
-    334,
-    1676,
+    890,
+    3420,
     22,
     30
   ],
   "person/Fern": [
-    356,
-    1676,
+    912,
+    3420,
     22,
     30
   ],
   "person/Marina": [
-    378,
-    1676,
+    934,
+    3420,
     22,
     30
   ],
   "person/Calder": [
-    400,
-    1676,
+    956,
+    3420,
     22,
     30
   ],
   "person/Iona": [
-    422,
-    1676,
+    978,
+    3420,
     22,
     30
   ],
   "person/Petra": [
-    444,
-    1676,
+    1000,
+    3420,
     22,
     30
   ],
   "person/Soren": [
-    466,
-    1676,
+    1022,
+    3420,
     22,
     30
   ],
   "person/Nyra": [
-    488,
-    1676,
+    1044,
+    3420,
     22,
     30
   ],
   "person/Solenne": [
-    510,
-    1676,
+    1066,
+    3420,
     22,
     30
   ],
   "person/Avenel": [
-    532,
-    1676,
+    1088,
+    3420,
     22,
     30
   ],
   "person/Ise": [
-    554,
-    1676,
+    1110,
+    3420,
     22,
     30
   ],
   "person/Lysa": [
-    576,
-    1676,
+    1132,
+    3420,
     22,
     30
   ],
   "person/Vio": [
-    598,
-    1676,
+    1154,
+    3420,
     22,
     30
   ],
   "person/Aven": [
-    620,
-    1676,
+    1176,
+    3420,
     22,
     30
   ],
   "person/Senna": [
-    642,
-    1676,
+    1198,
+    3420,
     22,
     30
   ],
+  "person/Renn": [
+    1220,
+    3420,
+    22,
+    30
+  ],
+  "person/Mim": [
+    1242,
+    3420,
+    22,
+    30
+  ],
+  "person/Pern": [
+    1264,
+    3420,
+    22,
+    30
+  ],
+  "person/Rusk": [
+    1286,
+    3420,
+    22,
+    30
+  ],
+  "person/Cal": [
+    1308,
+    3420,
+    22,
+    30
+  ],
+  "person/Tavi": [
+    1330,
+    3420,
+    22,
+    30
+  ],
+  "person/Nel": [
+    1352,
+    3420,
+    22,
+    30
+  ],
+  "person/Iri": [
+    1374,
+    3420,
+    22,
+    30
+  ],
+  "person/Venn": [
+    1396,
+    3420,
+    22,
+    30
+  ],
+  "person/Researcher": [
+    1418,
+    3420,
+    22,
+    30
+  ],
+  "gear/Lumen Capsule": [
+    1440,
+    3420,
+    30,
+    30
+  ],
+  "gear/Tide Capsule": [
+    1470,
+    3420,
+    30,
+    30
+  ],
+  "gear/Dusk Capsule": [
+    1500,
+    3420,
+    30,
+    30
+  ],
+  "gear/Field Tonic": [
+    1530,
+    3420,
+    30,
+    30
+  ],
+  "gear/Growth Stone": [
+    1560,
+    3420,
+    30,
+    30
+  ],
+  "gear/Amber Pin": [
+    1590,
+    3420,
+    30,
+    30
+  ],
+  "gear/Moss Band": [
+    1620,
+    3420,
+    30,
+    30
+  ],
+  "gear/Calibration Lens": [
+    1650,
+    3420,
+    30,
+    30
+  ],
   "district/4": [
-    664,
-    1676,
+    1680,
+    3420,
     32,
     28
   ],
   "district/5": [
-    696,
-    1676,
+    1712,
+    3420,
     32,
     28
   ],
   "district/6": [
-    728,
-    1676,
+    1744,
+    3420,
     32,
     28
   ],
   "district/7": [
-    760,
-    1676,
+    1776,
+    3420,
     32,
     28
   ],
   "district/8": [
-    792,
-    1676,
+    1808,
+    3420,
     32,
     28
   ],
   "district/9": [
-    824,
-    1676,
+    1840,
+    3420,
     32,
     28
   ],
   "district/10": [
-    856,
-    1676,
+    1872,
+    3420,
     32,
     28
   ],
   "district/11": [
-    888,
-    1676,
+    1904,
+    3420,
     32,
     28
   ]

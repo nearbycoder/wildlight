@@ -1,10 +1,12 @@
 # Asterra art atlas
 
-[asterra-atlas.png](asterra-atlas.png) contains the selected artwork at the game’s native resolution. [asterra-atlas.json](asterra-atlas.json) identifies each cell by name and gives its left edge, top edge, width and height. The game embeds the PNG and the manifest. Run `node assets/art/embed.mjs` after changing either file. The browser game needs no art downloads.
+[asterra-atlas.webp](asterra-atlas.webp) contains the artwork at the game’s native resolution in lossless WebP. [asterra-atlas.json](asterra-atlas.json) identifies each cell by name and gives its left edge, top edge, width and height. Run `node assets/art/embed.mjs` after changing the atlas or the manifest. The browser game embeds both in a single HTML file.
 
-The built-in ImageGen tool produced the source sheets. This atlas includes front poses for 68 creatures, from the three starter families to all ten shrine guardians, plus twelve matching rear poses. The authored poses for the rest of the roster receive a texture and lighting pass using the new ground swatches. The sheet also holds the player's walking cycle, sixteen portraits and matching overworld figures, habitat tiles and props, twelve battle backgrounds and the title panorama. The [marketing cover](../site/aurora-coast.webp) and [mobile cover](../site/aurora-coast-mobile.webp) are web-sized exports. The gameplay screenshots and video on the homepage were captured from the game.
+The built-in ImageGen tool produced all source sheets. The atlas contains two illustrated battle views for each of the 300 species, 26 human portraits and matching overworld figures, the player’s walking cycle, equipment, regional terrain and props, and 30 battle backgrounds. It also contains the title panorama, Region Map, field lab, recovery lodge, evolution glade and Hall of Records. Canvas composes the sprite artwork with live movement, weather, effects and interactive puzzle states.
 
-## ImageGen prompts
+The [full roster and scene prompts](full-art-prompts.md) record the second illustration pass. The [marketing cover](../site/aurora-coast.webp) and [mobile cover](../site/aurora-coast-mobile.webp) are web-sized exports. The gameplay screenshots and video on the homepage were captured from the game.
+
+## First illustration pass prompts
 
 ### Cover
 
