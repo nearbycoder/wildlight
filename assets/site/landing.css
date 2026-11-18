@@ -24,7 +24,7 @@ body {
   background: var(--deep);
   color: var(--ink);
   font:
-    16px/1.5 "Trebuchet MS",
+    16px/1.5 "Instrument Sans",
     system-ui,
     sans-serif;
 }
@@ -65,14 +65,14 @@ summary:focus-visible {
 .skip:focus {
   top: 12px;
 }
+/* The panorama leaves its left side open for the title and controls. */
 .hero {
   position: relative;
   isolation: isolate;
   overflow: hidden;
-  height: clamp(385px, 39.5vw, 685px);
-  background: #93b4a9;
-  border-top: 5px solid #193c34;
-  border-bottom: 4px solid #102d27;
+  height: clamp(555px, 54vw, 875px);
+  background: #102f47;
+  border-bottom: 4px double #b7a06b;
 }
 .panorama,
 .panorama img {
@@ -84,98 +84,114 @@ summary:focus-visible {
 }
 .panorama img {
   object-fit: cover;
-  object-position: center bottom;
+  object-position: center;
+}
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    linear-gradient(90deg, #091d2b64 0%, #0c253e1c 51%, transparent 66%),
+    linear-gradient(0deg, #091e24ba, transparent 24%);
+  pointer-events: none;
 }
 .title-block {
   position: absolute;
-  inset: 9% 0 auto;
-  text-align: center;
+  z-index: 1;
+  top: clamp(100px, 13vw, 215px);
+  left: max(calc((100% - 1260px) / 2), 7%);
+  width: min(48%, 620px);
   display: flex;
-  align-items: center;
   flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  color: #f7e9bb;
 }
 .crest {
+  width: 110px;
+  height: 25px;
   position: relative;
-  width: 150px;
-  height: 39px;
   display: grid;
   place-items: center;
+  margin-bottom: 12px;
 }
-.crest:before,
-.crest:after {
+.crest::before {
   content: "";
   position: absolute;
-  top: 49%;
-  width: 50px;
-  height: 3px;
-  background: #486c57;
-  box-shadow: 0 2px #f4dc9b;
+  left: 16px;
+  right: 16px;
+  top: 12px;
+  height: 2px;
+  background: #d4bd86;
 }
-.crest:before {
-  left: 0;
-}
-.crest:after {
-  right: 0;
-}
-.crest i,
-.crest i:before {
+.crest i {
+  position: relative;
+  width: 23px;
+  height: 23px;
+  background: #fff1ab;
   clip-path: polygon(
     50% 0,
-    63% 35%,
-    85% 40%,
+    65% 34%,
     100% 50%,
-    64% 63%,
+    69% 65%,
     50% 100%,
-    37% 64%,
+    34% 65%,
     0 50%,
-    35% 36%
+    34% 34%
   );
-  background: #34594b;
-  position: absolute;
-  width: 42px;
-  height: 42px;
-  inset: 0;
-  margin: auto;
-}
-.crest i:before {
-  content: "";
-  width: 29px;
-  height: 29px;
-  background: #ffe5a1;
+  filter: drop-shadow(0 0 2px #ffe09d);
 }
 h1 {
+  margin: 0;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   flex-direction: column;
-  margin: 3px 0 0;
-  line-height: 1;
 }
 h1 img {
-  width: clamp(410px, 52vw, 825px);
+  width: min(100%, 550px);
   height: auto;
-  filter: drop-shadow(0 4px 0 #33534466);
+  filter: drop-shadow(0 5px #0b1c2cbd);
 }
 .ribbon {
-  display: inline-block;
-  position: relative;
-  margin-top: 5px;
-  padding: 7px 28px 6px;
-  background: #264a3c;
-  color: #ffdfa2;
-  border-block: 2px solid #e9c786;
-  box-shadow:
-    inset 0 3px #395e48,
-    inset 0 -3px #173c30;
-  font: clamp(15px, 1.6vw, 25px) / 1.3 var(--pixel);
+  color: #f6d799;
+  margin: 9px 0 0;
+  font: clamp(14px, 1.48vw, 23px) / 1.3 var(--pixel);
   text-transform: uppercase;
-  letter-spacing: 0.13em;
-  clip-path: polygon(0 0, 100% 0, 98% 50%, 100% 100%, 0 100%, 2% 50%);
+  letter-spacing: 0.18em;
+}
+.hero-intro {
+  max-width: 28ch;
+  margin: 20px 0 0;
+  color: #fff3d1;
+  font:
+    clamp(17px, 2vw, 24px) / 1.35 Georgia,
+    serif;
+  text-shadow: 0 1px 3px #071720;
 }
 .hero-actions {
-  margin-top: clamp(18px, 2.6vw, 46px);
+  margin-top: 26px;
   display: flex;
-  flex-direction: column;
   align-items: center;
+  flex-wrap: wrap;
+  gap: 17px 25px;
+}
+.explore-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 45px;
+  text-underline-offset: 5px;
+  font: 700 14px var(--mono);
+}
+.explore-link span {
+  color: #e2c078;
+}
+.hero-platform {
+  font: 600 12px/1.3 var(--mono);
+  color: #e4ead0;
+  text-shadow: 0 1px 3px #071720;
+  margin: 14px 0 0;
 }
 .play {
   position: relative;
@@ -218,13 +234,6 @@ h1 img {
 .play:hover {
   background: #345a40;
   color: #fff;
-}
-.hero-actions > span {
-  margin-top: 14px;
-  padding: 2px 9px;
-  background: #183a31e8;
-  color: #f3e9c7;
-  font: 600 11px/1.5 var(--mono);
 }
 .motes {
   position: absolute;
@@ -757,11 +766,6 @@ footer a {
 footer a:hover {
   text-decoration: underline;
 }
-@media (min-width: 1750px) {
-  .hero {
-    height: min(39.5vw, 800px);
-  }
-}
 @media (max-width: 870px) {
   .fieldbook {
     grid-template-columns: 130px minmax(0, 1fr);
@@ -780,33 +784,21 @@ footer a:hover {
   }
 }
 @media (max-width: 700px) {
-  .hero {
-    height: clamp(320px, 87.9vw, 530px);
-  }
-  .title-block {
-    inset: 10% 0 auto;
-  }
   .crest {
     transform: scale(0.77);
     height: 28px;
     margin-bottom: 5px;
-  }
-  h1 img {
-    width: min(90vw, 510px);
   }
   .ribbon {
     margin-top: 5px;
     padding: 4px 13px;
     font-size: clamp(12px, 3.1vw, 16px);
   }
-  .hero-actions {
-    margin-top: clamp(20px, 6vw, 34px);
-  }
   .play {
     font-size: 16px;
     padding: 13px 18px;
   }
-  .hero-actions > span {
+  .hero-platform {
     font-size: 10px;
     margin-top: 11px;
   }
@@ -1019,9 +1011,12 @@ footer a:hover {
   letter-spacing: 0;
 }
 .world {
-  background: #f6f0dc;
-  color: var(--ink);
-  border-bottom: 5px double #9b9b73;
+  background: linear-gradient(#112b36, #132d34 54%, #172f33);
+  color: #f6ebd0;
+  border-bottom: 4px double #a4946a;
+}
+.world .folio {
+  color: #d6bf8e;
 }
 .world-spread {
   display: grid;
@@ -1050,7 +1045,7 @@ footer a:hover {
   justify-content: flex-start;
   gap: clamp(18px, 3vw, 48px);
   padding-top: 16px;
-  border-top: 1px solid #c7c4a4;
+  border-top: 1px solid #54716a;
   margin: 22px 0 0;
 }
 .numbers div {
@@ -1060,7 +1055,7 @@ footer a:hover {
 }
 .numbers dd {
   margin: 0;
-  color: #3b6246;
+  color: #f0cd88;
   font: 26px/1 var(--pixel);
 }
 .numbers dt,
@@ -1133,7 +1128,43 @@ footer a:hover {
   font-size: 14px;
   line-height: 1.5;
   margin-top: 5px;
-  color: #415a48;
+  color: #c9d6c8;
+}
+.field-cast {
+  margin-top: clamp(26px, 4.5vw, 54px);
+}
+.field-cast h3 {
+  margin: 0 0 18px;
+  color: #efcd8e;
+}
+.cast-row {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+.cast-row figure {
+  display: grid;
+  grid-template-columns: 68px 1fr;
+  align-items: center;
+  gap: 12px;
+  padding: 8px;
+  margin: 0;
+  background: #1a3940;
+  border: 1px solid #667567;
+}
+.cast-row img {
+  display: block;
+  width: 68px;
+  height: auto;
+}
+.cast-row b {
+  color: #fff0c8;
+}
+.cast-row span {
+  display: block;
+  font-size: 13px;
+  line-height: 1.35;
+  color: #cbd9cb;
 }
 .design {
   color: var(--ink);
@@ -1197,8 +1228,8 @@ footer a:hover {
 }
 .battles {
   color: #f4eed7;
-  background: #16332d;
-  border-bottom: 1px solid #677251;
+  background: #142b34;
+  border-bottom: 1px solid #627661;
 }
 .battles .folio,
 .launch .folio {
@@ -1560,5 +1591,66 @@ kbd {
   }
   .legend-trio small {
     font-size: 9px;
+  }
+}
+
+@media (min-width: 701px) and (max-width: 960px) {
+  .hero {
+    height: 555px;
+  }
+  .title-block {
+    top: 88px;
+    left: 6%;
+  }
+  .hero-intro {
+    font-size: 18px;
+  }
+  .cast-row figure {
+    grid-template-columns: 55px 1fr;
+  }
+  .cast-row img {
+    width: 55px;
+  }
+}
+@media (max-width: 700px) {
+  .hero {
+    height: clamp(630px, 126vw, 790px);
+  }
+  .panorama img {
+    object-position: 62% center;
+  }
+  .hero::after {
+    background: linear-gradient(
+      #081e32ae,
+      #081e32bd 31%,
+      #102d3d0a 69%,
+      #071f29b0
+    );
+  }
+  .title-block {
+    inset: 9% 6% auto;
+    width: auto;
+    align-items: center;
+    text-align: center;
+  }
+  h1 {
+    align-items: center;
+  }
+  h1 img {
+    width: min(86vw, 430px);
+  }
+  .hero-intro {
+    font-size: 18px;
+    margin-top: 16px;
+  }
+  .hero-actions {
+    justify-content: center;
+    margin-top: 21px;
+  }
+  .hero-platform {
+    margin-top: 10px;
+  }
+  .cast-row {
+    grid-template-columns: 1fr;
   }
 }

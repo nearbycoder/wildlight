@@ -6,7 +6,7 @@ Follow the gold marker to Researcher Oriel in Brinewick Village. Choose a field 
 
 ## Play locally
 
-Open **[play/index.html](play/index.html)** in a modern browser to play. The HTML file contains the entire game, including the region, 300 species, 108 moves, pixel artwork and synthesised soundtrack. It runs offline without installation.
+Open **[play/index.html](play/index.html)** in a modern browser to play. The HTML file contains the region, 300 species, 108 moves, embedded pixel artwork and synthesised soundtrack. It runs offline without installation. The [art atlas and prompts](assets/art/README.md) document the new images and how to rebuild the embedded atlas.
 
 Use the arrow keys or WASD to walk, E or Enter to interact, Escape for the expedition menu, M for the map and Tab for your party. You can also click or tap a destination to walk there. Touch devices have a directional pad and an interaction button. In battle, press 1–4 to use a move or choose a command on screen. The arena stays visible while you open supplies, switch companions or read the log.
 

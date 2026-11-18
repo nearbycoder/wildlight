@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#112a26" />
+    <meta name="theme-color" content="#0c2636" />
     <title>Wildlight: The Asterra League · Play the browser RPG</title>
     <meta
       name="description"
@@ -22,22 +22,26 @@
     />
     <meta
       property="og:image"
-      content="https://nearbycoder.github.io/wildlight/assets/site/share.png"
+      content="https://nearbycoder.github.io/wildlight/assets/site/aurora-share.webp"
     />
     <meta
       property="og:image:alt"
-      content="The Wildlight title above Asterra’s sunlit coast and celestial observatory."
+      content="The Wildlight title beneath an aurora above Asterra’s coast and celestial observatory."
     />
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="icon" href="assets/site/star.svg" type="image/svg+xml" />
     <link
       rel="preload"
       as="image"
-      href="assets/site/title-coast.png"
+      href="assets/site/aurora-coast.webp"
       media="(min-width: 701px)"
     />
-    <link rel="stylesheet" href="assets/site/landing.css?v=field-tour" />
-    <script defer src="assets/site/field-guide.js?v=field-tour"></script>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&amp;display=swap"
+    />
+    <link rel="stylesheet" href="assets/site/landing.css?v=aurora" />
+    <script defer src="assets/site/field-guide.js?v=aurora"></script>
     <link
       rel="preload"
       as="font"
@@ -54,13 +58,13 @@
         <picture class="panorama"
           ><source
             media="(max-width:700px)"
-            srcset="assets/site/title-coast-mobile.png" />
+            srcset="assets/site/aurora-coast-mobile.webp" />
           <img
-            src="assets/site/title-coast.png"
-            width="656"
-            height="259"
+            src="assets/site/aurora-coast.webp"
+            width="1672"
+            height="941"
             fetchpriority="high"
-            alt="Verdantler and its fawn overlook Asterra’s coast. Across the water, the old observatory catches the morning sun."
+            alt="Spriglet and Verdantler watch over Brinewick’s harbour. Tempestern rides the aurora winds above the observatory."
         /></picture>
         <div class="motes" aria-hidden="true">
           <i></i><i></i><i></i><i></i><i></i><i></i>
@@ -75,11 +79,21 @@
               alt="Wildlight"
             /><span class="ribbon">The Asterra League</span>
           </h1>
+          <p class="hero-intro">
+            Choose a field partner. Explore a region where every creature
+            carries a little of the light.
+          </p>
           <div class="hero-actions">
             <a class="play" href="play/index.html"
-              ><b aria-hidden="true">▶</b> Begin expedition</a
-            ><span>Creature-collecting RPG · Play free</span>
+              ><b aria-hidden="true">▶</b> Play Wildlight</a
+            >
+            <a class="explore-link" href="#world"
+              >Explore Asterra <span aria-hidden="true">↓</span></a
+            >
           </div>
+          <p class="hero-platform">
+            Free creature-collecting RPG · Play in your browser
+          </p>
         </div>
       </section>
       <div id="journal" tabindex="-1">
@@ -195,6 +209,59 @@
                 </figcaption>
               </figure>
             </div>
+            <section class="field-cast" aria-labelledby="cast-title">
+              <h3 id="cast-title">People of Asterra</h3>
+              <div class="cast-row">
+                <figure>
+                  <img
+                    src="assets/site/oriel.png"
+                    width="84"
+                    height="88"
+                    alt=""
+                    loading="lazy"
+                  />
+                  <figcaption>
+                    <b>Researcher Oriel</b
+                    ><span
+                      >Meet your first field partner outside Oriel’s
+                      laboratory.</span
+                    >
+                  </figcaption>
+                </figure>
+                <figure>
+                  <img
+                    src="assets/site/lio.png"
+                    width="84"
+                    height="88"
+                    alt=""
+                    loading="lazy"
+                  />
+                  <figcaption>
+                    <b>Lio</b
+                    ><span
+                      >Your friendly rival scouts the next route and comes back
+                      for another battle.</span
+                    >
+                  </figcaption>
+                </figure>
+                <figure>
+                  <img
+                    src="assets/site/fern.png"
+                    width="84"
+                    height="88"
+                    alt=""
+                    loading="lazy"
+                  />
+                  <figcaption>
+                    <b>Leader Fern</b
+                    ><span
+                      >Align the greenhouse valves to earn your first League
+                      challenge.</span
+                    >
+                  </figcaption>
+                </figure>
+              </div>
+            </section>
           </section>
           <section class="page" id="partners" aria-labelledby="atlas-title">
             <div class="section-head">
@@ -645,9 +712,10 @@
               <div>
                 <h3>On the sprite sheet</h3>
                 <p>
-                  Family-specific drawings give each stage its own anatomy. The
-                  game caches front and rear views with three idle poses, then
-                  draws them on a low-resolution Canvas for crisp pixel edges.
+                  Each family keeps its own anatomy as it grows. Newly
+                  illustrated front and rear poses sit alongside the original
+                  catalogue designs, with shared lighting and texture across the
+                  roster.
                 </p>
               </div>
               <div>
@@ -676,7 +744,8 @@
                 alt="Tempestern and Puddlepip face off across the full-screen Glasswater Bay arena, with health, energy and the move deck in view."
               />
               <figcaption>
-                Tempestern encounters a wild Puddlepip at Glasswater Bay.
+                Tempestern faces Puddlepip at Glasswater Bay. The battle console
+                shows move costs, elemental matchups and catch odds.
               </figcaption>
             </figure>
             <div class="tactics">

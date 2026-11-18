@@ -333,6 +333,25 @@ async function campaign() {
     "Walk to the marked Gravlet and start a guided battle",
   );
   assert(await ev(fullBattleScreen), "Desktop encounter fills the screen");
+  await waitFor(
+    `atlasReady && $("commandDeckArt").getContext("2d")
+    .getImageData(40,2,1,1).data[3] > 0`,
+    "Embedded art and battle instrument are painted",
+  );
+  assert(
+    await ev(`[...$("battleControls").querySelectorAll(".command-glyph")].every((glyph) =>
+      glyph.getContext("2d").getImageData(0,0,16,16).data.some((alpha,i)=>i%4===3&&alpha))`),
+    "Move and utility glyphs render in the game",
+  );
+  await press("ArrowRight");
+  assert(
+    await ev(
+      "Number(document.activeElement.dataset.move) === active().moves[1]",
+    ),
+    "Directional navigation selects the next engraved move",
+  );
+  await press("ArrowLeft");
+
   await snap("03-wild-battle");
   await clickElement('.battle-tools [onclick="battleBag()"]');
   assert(
